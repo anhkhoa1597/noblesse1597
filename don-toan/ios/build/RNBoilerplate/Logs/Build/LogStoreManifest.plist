@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>logFormatVersion</key>
+	<integer>10</integer>
+	<key>logs</key>
+	<dict>
+		<key>68140C79-F3B6-4CD9-8168-AA5EC1F495FE</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>68140C79-F3B6-4CD9-8168-AA5EC1F495FE.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>RNBoilerplate project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>RNBoilerplate</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Building project RNBoilerplate with scheme RNBoilerplate and configuration Debug</string>
+			<key>timeStartedRecording</key>
+			<real>577859973.62199199</real>
+			<key>timeStoppedRecording</key>
+			<real>577859974.778247</real>
+			<key>title</key>
+			<string>Building project RNBoilerplate with scheme RNBoilerplate and configuration Debug</string>
+			<key>uniqueIdentifier</key>
+			<string>68140C79-F3B6-4CD9-8168-AA5EC1F495FE</string>
+		</dict>
+		<key>FA5EB993-7E29-4F77-B794-9BC736DE56EF</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>FA5EB993-7E29-4F77-B794-9BC736DE56EF.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>RNBoilerplate project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>RNBoilerplate</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Building project RNBoilerplate with scheme RNBoilerplate and configuration Debug</string>
+			<key>timeStartedRecording</key>
+			<real>577859447.788481</real>
+			<key>timeStoppedRecording</key>
+			<real>577859449.41669703</real>
+			<key>title</key>
+			<string>Building project RNBoilerplate with scheme RNBoilerplate and configuration Debug</string>
+			<key>uniqueIdentifier</key>
+			<string>FA5EB993-7E29-4F77-B794-9BC736DE56EF</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
