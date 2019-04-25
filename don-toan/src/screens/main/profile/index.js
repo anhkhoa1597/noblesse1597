@@ -1,7 +1,17 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import { ScrollView, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindHeaderBarActions } from '../../../redux/actions/headerbar';
+import Calendar from '../../../components/Calendar'
+import SelectDay from '../../../components/SelectDay'
+import Courtesy from '../../../components/Courtesy'
+import Time from '../../../components/Time'
+import Hint from '../../../components/Hint'
+const styles = StyleSheet.create({
+    margin5: {
+        margin: 5,
+    }
+})
 
 class ProfileScreen extends React.Component {
     componentDidMount() {
@@ -10,9 +20,13 @@ class ProfileScreen extends React.Component {
 
     render() {
         return (
-            <View style={{ flex: 1 }}>
-                <Text>Profile Screen</Text>
-            </View>
+            <ScrollView>
+                <View style={styles.margin5}><Calendar></Calendar></View>
+                <View style={styles.margin5}><SelectDay></SelectDay></View>
+                <View style={styles.margin5}><Courtesy></Courtesy></View>
+                <View style={styles.margin5}><Time></Time></View>
+                <View style={styles.margin5}><Hint></Hint></View>
+            </ScrollView>
         );
     }
 };
