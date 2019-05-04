@@ -55,6 +55,8 @@ public:
 	void setCurrentSprite(cocos2d::Sprite *i_newSprite,cocos2d::Vec2 i_pos);
 
 	void calculateCompassTypeBasedOnAge();
+	
+	void testCalculateCompassTypeBasedOnAge(int i_year,bool i_isMale);
 
 	void updateInforLabel();
 

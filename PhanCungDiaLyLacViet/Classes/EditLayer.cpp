@@ -217,7 +217,11 @@ bool EditLayer::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
 
 void EditLayer::onTouchMoved(cocos2d::Touch * touch, cocos2d::Event * event)
 {
-	if (m_sprite->getBoundingBox().containsPoint(touch->getLocation()))
+	const float k_distance = touch->getLocation().distance(touch->getPreviousLocation());
+	
+	cocos2d::log("k_distance %f", k_distance);
+	
+	if (m_sprite->getBoundingBox().containsPoint(touch->getLocation()) && k_distance >= 5.0f )
 	{
 		m_sprite->setPosition(m_sprite->getPosition() + touch->getDelta());
 		m_isTouchMoveActive = true;

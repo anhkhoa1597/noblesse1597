@@ -192,6 +192,8 @@ bool MainScene::init()
 			m_compass->setScale(k_scaleFactor);
 			m_compass->setRotation(0);
 			m_compass->setOpacity(255);
+			m_compass->getChildByName("compassBorder")->setOpacity(255);
+			m_compass->getChildByName("yingAndYang")->setOpacity(255);
 		}
 
 		((Slider*)this->getChildByName("slider"))->setPercent(100);
@@ -287,8 +289,8 @@ bool MainScene::init()
 			const float k_opacityFactor = ((m_compass->getOpacity() - 12.75f) <= 0.0f ? 0.0f : m_compass->getOpacity() - 12.75f);
 			m_compass->setOpacity(k_opacityFactor);
 
-			auto compassBorder = m_compass->getChildByName("compassBorder");
-			compassBorder->setOpacity(k_opacityFactor);
+			m_compass->getChildByName("compassBorder")->setOpacity(k_opacityFactor);
+			m_compass->getChildByName("yingAndYang")->setOpacity(k_opacityFactor);
 		}
 	});
 	m_bottomBar->addChild(zoomOutButton, BUTTON_ZORDER);
@@ -311,8 +313,8 @@ bool MainScene::init()
 			const float k_opacityFactor = ((m_compass->getOpacity() + 12.75f) >= 255.0f ? 255.0f : m_compass->getOpacity() + 12.75f);
 			m_compass->setOpacity(k_opacityFactor);
 
-			auto compassBorder = m_compass->getChildByName("compassBorder");
-			compassBorder->setOpacity(k_opacityFactor);
+			m_compass->getChildByName("compassBorder")->setOpacity(k_opacityFactor);
+			m_compass->getChildByName("yingAndYang")->setOpacity(k_opacityFactor);
 		}
 	});
 	m_bottomBar->addChild(zoomInButton, BUTTON_ZORDER);
@@ -499,13 +501,13 @@ bool MainScene::init()
 		}
 
 		lucSat->setRotation(0);
-		thienY->setRotation(45); //m_compass->getChildByName("yellowItem01")->setRotation(thienY->getRotation());
+		thienY->setRotation(45); 
 		nguQui->setRotation(90);
-		hoaHai->setRotation(135);
+		hoaHai->setRotation(225);
 		tuyetMenh->setRotation(180);
-		phuocDuc->setRotation(225);// m_compass->getChildByName("yellowItem02")->setRotation(phuocDuc->getRotation());
-		sanhKhi->setRotation(270);// m_compass->getChildByName("yellowItem03")->setRotation(sanhKhi->getRotation());
-		phucVi->setRotation(315);// m_compass->getChildByName("yellowItem04")->setRotation(phucVi->getRotation());
+		phuocDuc->setRotation(135);
+		sanhKhi->setRotation(270);
+		phucVi->setRotation(315);
 		redItem->setRotation(315);
 		compassBorder->setRotation(0);
 
@@ -540,6 +542,19 @@ bool MainScene::init()
 		line->setRotation(90.0f);
 		centerPoint->addChild(line);
 	}
+
+	auto yingAndYang = Sprite::createWithSpriteFrameName("ying_and_yang.png");
+	yingAndYang->setName("yingAndYang");
+	yingAndYang->setPosition(m_compass->getContentSize()/2);
+	m_compass->addChild(yingAndYang,500);
+
+
+	/*for (size_t i = 1864; i <= 2043; i++)
+	{
+		MainScene::testCalculateCompassTypeBasedOnAge(i, true);
+		MainScene::testCalculateCompassTypeBasedOnAge(i, false);
+		cocos2d::log("\n");
+	}*/
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -649,12 +664,255 @@ void MainScene::calculateCompassTypeBasedOnAge()
 		return;
 	}
 
+	std::string  yearStr = std::to_string(k_yearOfBirth);
+
+	int sum = 0;
+
+	for (int i = 0; i < yearStr.size(); i++)
+	{
+		sum += (yearStr[i] - '0');
+	}
+
+	while (sum >= 10)
+	{
+		std::string sumStr = std::to_string(sum);
+
+		int newSum = 0;
+		for (int i = 0; i < sumStr.size(); i++)
+		{
+			newSum += (sumStr[i] - '0');
+		}
+
+		sum = newSum;
+	}
+
+	int result = -1;
+
+	if (k_isMale)
+	{
+		result = 11 - sum;
+	}
+	else
+	{
+		result = sum + 4;
+	}
+
+	while (result >= 10)
+	{
+		std::string sumStr = std::to_string(result);
+
+		int newSum = 0;
+		for (int i = 0; i < sumStr.size(); i++)
+		{
+			newSum += (sumStr[i] - '0');
+		}
+		result = newSum;
+	}
+
+	//////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////
+	auto redItem = m_compass->getChildByName("redItem");
+
+	if (result == 9)
+	{
+		compassType = COMPASS_TYPE::DOAI;
+		m_cung = "\xc4\x90\x6f\xc3\xa0\x69";
+	}
+	else if (result == 8)
+	{
+		compassType = COMPASS_TYPE::CAAN;
+		m_cung = "\x43\xe1\xba\xa5\x6e";
+	}
+	else if (result == 7)
+	{
+		compassType = COMPASS_TYPE::LY;
+		m_cung = "Ly";
+
+	}
+	else if (result == 6)
+	{
+		compassType = COMPASS_TYPE::CAN;
+		m_cung = "\x43\xc3\xa0\x6e";
+	}
+	else if (result == 5)
+	{
+		compassType = k_isMale ? COMPASS_TYPE::KHON : COMPASS_TYPE::CAAN;
+		m_cung = k_isMale ? "\x4b\x68\xc3\xb4\x6e" : "\x43\xe1\xba\xa5\x6e";
+		
+	}
+	else if (result == 4)
+	{
+		compassType = COMPASS_TYPE::TON; 
+		m_cung = "\x54\xe1\xbb\x91\x6e";
+	}
+	else if (result == 3)
+	{
+		compassType = COMPASS_TYPE::CHAN;
+		m_cung = "\x43\x68\xe1\xba\xa5\x6e";
+	}
+	else if (result == 2)
+	{
+		compassType = COMPASS_TYPE::KHON;
+		m_cung = "\x4b\x68\xc3\xb4\x6e";
+	}
+	else
+	{
+		compassType = COMPASS_TYPE::KHAM;
+		m_cung = "\x4b\x68\xe1\xba\xa3\x6d";
+	}
+
+	auto lucSat		= m_compass->getChildByName("lucSat");
+	auto thienY		= m_compass->getChildByName("thienY");
+	auto nguQui		= m_compass->getChildByName("nguQui");
+	auto hoaHai		= m_compass->getChildByName("hoaHai");
+	auto tuyetMenh	= m_compass->getChildByName("tuyetMenh");
+	auto phuocDuc	= m_compass->getChildByName("phuocDuc");
+	auto sanhKhi	= m_compass->getChildByName("sanhKhi");
+	auto phucVi		= m_compass->getChildByName("phucVi");
+
+	auto compassBorder = m_compass->getChildByName("compassBorder");
+
+	switch (compassType)
+	{
+	case MainScene::CAN:
+		lucSat->setRotation(0);
+		thienY->setRotation(45); 
+		nguQui->setRotation(90);
+		hoaHai->setRotation(225);//
+		tuyetMenh->setRotation(180);
+		phuocDuc->setRotation(135);//
+		sanhKhi->setRotation(270);// 
+		phucVi->setRotation(315);//
+		redItem->setRotation(315);
+		compassBorder->setRotation(0);
+		break;
+	case MainScene::KHAM:
+		lucSat->setRotation(315);//7
+		thienY->setRotation(90);//2 
+		nguQui->setRotation(45);//1
+		hoaHai->setRotation(270);//6
+		tuyetMenh->setRotation(135);//5 ->225
+		phuocDuc->setRotation(180);//4
+		sanhKhi->setRotation(225);//3 ->135
+		phucVi->setRotation(0);//0 
+		redItem->setRotation(0);
+		compassBorder->setRotation(180);
+		break;
+	case MainScene::CAAN:
+		lucSat->setRotation(90);//2
+		thienY->setRotation(315);//7
+		nguQui->setRotation(0);//0
+		hoaHai->setRotation(180);//4
+		tuyetMenh->setRotation(225);//3->135
+		phuocDuc->setRotation(270);//6
+		sanhKhi->setRotation(135);//5->225
+		phucVi->setRotation(45);//1 
+		redItem->setRotation(45);
+		compassBorder->setRotation(-90);
+		break;
+	case MainScene::CHAN:
+		lucSat->setRotation(45);//1
+		thienY->setRotation(0);//0
+		nguQui->setRotation(315);//7
+		hoaHai->setRotation(135);//5 ->225
+		tuyetMenh->setRotation(270);//6
+		phuocDuc->setRotation(225);//3 ->135
+		sanhKhi->setRotation(180);//4
+		phucVi->setRotation(90);//2
+		redItem->setRotation(90);
+		compassBorder->setRotation(90);
+		break;
+	case MainScene::TON:
+		lucSat->setRotation(270);
+		thienY->setRotation(180);
+		nguQui->setRotation(135);
+		hoaHai->setRotation(315);
+		tuyetMenh->setRotation(45);
+		phuocDuc->setRotation(90);
+		sanhKhi->setRotation(0);
+		phucVi->setRotation(225);
+		redItem->setRotation(135);
+		compassBorder->setRotation(-90);
+		break;
+	case MainScene::LY:
+		lucSat->setRotation(135);
+		thienY->setRotation(225);
+		nguQui->setRotation(270);
+		hoaHai->setRotation(45);
+		tuyetMenh->setRotation(315);
+		phuocDuc->setRotation(0);
+		sanhKhi->setRotation(90);
+		phucVi->setRotation(180);
+		redItem->setRotation(180);
+		compassBorder->setRotation(180);
+		break;
+	case MainScene::KHON:
+		lucSat->setRotation(180);
+		thienY->setRotation(270);
+		nguQui->setRotation(225);
+		hoaHai->setRotation(90);
+		tuyetMenh->setRotation(0);
+		phuocDuc->setRotation(315);
+		sanhKhi->setRotation(45);
+		phucVi->setRotation(135);
+		redItem->setRotation(225);
+		compassBorder->setRotation(-90);
+		break;
+	case MainScene::DOAI:
+		lucSat->setRotation(225);
+		thienY->setRotation(135);
+		nguQui->setRotation(180);
+		hoaHai->setRotation(0);
+		tuyetMenh->setRotation(90);
+		phuocDuc->setRotation(45);
+		sanhKhi->setRotation(315);
+		phucVi->setRotation(270);
+		redItem->setRotation(270);
+		compassBorder->setRotation(180);
+		break;
+	default:
+		break;
+	}
+	
+	redItem->runAction(Repeat::create(Sequence::createWithTwoActions(FadeTo::create(0.08f, 0.2f*255.0f), FadeTo::create(0.08f, 0.5f*255.0f)), 3));
+	
+	thienY->runAction(Repeat::create(Sequence::createWithTwoActions(FadeTo::create(0.08f, 0.2f*255.0f), FadeTo::create(0.08f, 1.0f*255.0f)), 3));
+	phuocDuc->runAction(Repeat::create(Sequence::createWithTwoActions(FadeTo::create(0.08f, 0.2f*255.0f), FadeTo::create(0.08f, 1.0f*255.0f)), 3));
+	sanhKhi->runAction(Repeat::create(Sequence::createWithTwoActions(FadeTo::create(0.08f, 0.2f*255.0f), FadeTo::create(0.08f, 1.0f*255.0f)), 3));
+	phucVi->runAction(Repeat::create(Sequence::createWithTwoActions(FadeTo::create(0.08f, 0.2f*255.0f), FadeTo::create(0.08f, 1.0f*255.0f)), 3));
+
+	m_compass->getChildByName("yellowItem01")->setRotation(thienY->getRotation());
+	m_compass->getChildByName("yellowItem02")->setRotation(phuocDuc->getRotation());
+	m_compass->getChildByName("yellowItem03")->setRotation(sanhKhi->getRotation());
+	m_compass->getChildByName("yellowItem04")->setRotation(phucVi->getRotation());
+
+	MainScene::updateInforLabel();
+}
+
+void MainScene::testCalculateCompassTypeBasedOnAge(int i_year, bool i_isMale)
+{
+	COMPASS_TYPE		compassType = COMPASS_TYPE::CAN;
+
+	int		k_yearOfBirth = i_year;
+	bool	k_isMale = i_isMale;
+
+	if (k_yearOfBirth < 1000 || k_yearOfBirth > 5000)
+	{
+		auto label = Label::createWithTTF("\x4e\xc4\x83\x6d \x73\x69\x6e\x68 \x6b\x68\xc3\xb4\x6e\x67 \x68\xe1\xbb\xa3\x70 \x6c\xe1\xbb\x87 \x21", "fonts/tahomabd.ttf", 14.0f);
+		label->setTextColor(Color4B::WHITE);
+		label->setPosition(m_origin + Vec2(m_visibleSize.width / 2, m_visibleSize.height - 5.0f*label->getContentSize().height));
+		label->runAction(Sequence::createWithTwoActions(Spawn::createWithTwoActions(FadeOut::create(0.5f), MoveBy::create(0.5f, Vec2(0, 2.0f*label->getContentSize().height))), RemoveSelf::create(true)));
+		this->addChild(label, NOTIFICATION_ZORDER);
+		return;
+	}
+
 	int result = -1;
 
 	///////////////////////////////////////////////////////////////////////////////
 	//cach tinh doi voi nam sinh <= 1999
 	///////////////////////////////////////////////////////////////////////////////
-	
+
 	if (k_yearOfBirth <= 1999)
 	{
 		std::string strYearOfBirth = std::to_string(k_yearOfBirth);
@@ -667,13 +925,32 @@ void MainScene::calculateCompassTypeBasedOnAge()
 			std::string newStr = std::to_string(number1 + number2);
 			number1 = newStr[newStr.size() - 1] - '0';
 			number2 = newStr[newStr.size() - 2] - '0';
+
 		}
 
-		result = k_isMale ? (10 - (number1 + number2)) : (15 -(10 - (number1 + number2)));
+		if (!k_isMale) //female
+		{
+			if ((15 - (10 - (number1 + number2))) >= 10)
+			{
+				std::string newStr = std::to_string(15 - (10 - (number1 + number2)));
+				number1 = newStr[newStr.size() - 1] - '0';
+				number2 = newStr[newStr.size() - 2] - '0';
+
+				result = number1 + number2;
+			}
+			else
+			{
+				result = (15 - (10 - (number1 + number2)));
+			}
+		}
+		else //male
+		{
+			result = (10 - (number1 + number2));
+		}
 	}
 	else
 	{
-		result = k_isMale ? (9 -  ((k_yearOfBirth - 2000)%9) ) :((k_yearOfBirth - 1995 + 1) % 9);
+		result = k_isMale ? (9 - ((k_yearOfBirth - 2000) % 9)) : ((k_yearOfBirth - 1995 + 1) % 9);
 	}
 
 	/////////////////////////////////////////////////////////////
@@ -702,12 +979,12 @@ void MainScene::calculateCompassTypeBasedOnAge()
 	}
 	else if (result == 5)
 	{
-		compassType = COMPASS_TYPE::KHON; 
+		compassType = COMPASS_TYPE::KHON;
 		m_cung = "\x4b\x68\xc3\xb4\x6e";
 	}
 	else if (result == 4)
 	{
-		compassType = COMPASS_TYPE::TON; 
+		compassType = COMPASS_TYPE::TON;
 		m_cung = "\x54\xe1\xbb\x91\x6e";
 	}
 	else if (result == 3)
@@ -717,8 +994,8 @@ void MainScene::calculateCompassTypeBasedOnAge()
 	}
 	else if (result == 2)
 	{
-		compassType = k_isMale? COMPASS_TYPE::KHON: COMPASS_TYPE::CAAN;
-		m_cung = k_isMale ? "\x4b\x68\xc3\xb4\x6e":"\x43\xe1\xba\xa5\x6e";
+		compassType = k_isMale ? COMPASS_TYPE::KHON : COMPASS_TYPE::CAAN;
+		m_cung = k_isMale ? "\x4b\x68\xc3\xb4\x6e" : "\x43\xe1\xba\xa5\x6e";
 	}
 	else
 	{
@@ -726,132 +1003,7 @@ void MainScene::calculateCompassTypeBasedOnAge()
 		m_cung = "\x4b\x68\xe1\xba\xa3\x6d";
 	}
 
-	auto lucSat		= m_compass->getChildByName("lucSat");
-	auto thienY		= m_compass->getChildByName("thienY");
-	auto nguQui		= m_compass->getChildByName("nguQui");
-	auto hoaHai		= m_compass->getChildByName("hoaHai");
-	auto tuyetMenh	= m_compass->getChildByName("tuyetMenh");
-	auto phuocDuc	= m_compass->getChildByName("phuocDuc");
-	auto sanhKhi	= m_compass->getChildByName("sanhKhi");
-	auto phucVi		= m_compass->getChildByName("phucVi");
-
-	auto compassBorder = m_compass->getChildByName("compassBorder");
-
-	switch (compassType)
-	{
-	case MainScene::CAN:
-		lucSat->setRotation(0);
-		thienY->setRotation(45); //m_compass->getChildByName("yellowItem01")->setRotation(thienY->getRotation());
-		nguQui->setRotation(90);
-		hoaHai->setRotation(135);
-		tuyetMenh->setRotation(180);
-		phuocDuc->setRotation(225);// m_compass->getChildByName("yellowItem02")->setRotation(phuocDuc->getRotation());
-		sanhKhi->setRotation(270);// m_compass->getChildByName("yellowItem03")->setRotation(sanhKhi->getRotation());
-		phucVi->setRotation(315);// m_compass->getChildByName("yellowItem04")->setRotation(phucVi->getRotation());
-		redItem->setRotation(315);
-		compassBorder->setRotation(0);
-		break;
-	case MainScene::KHAM:
-		lucSat->setRotation(315);
-		thienY->setRotation(90); //m_compass->getChildByName("yellowItem01")->setRotation(thienY->getRotation());
-		nguQui->setRotation(45);
-		hoaHai->setRotation(270);
-		tuyetMenh->setRotation(225);
-		phuocDuc->setRotation(180); //m_compass->getChildByName("yellowItem02")->setRotation(phuocDuc->getRotation());
-		sanhKhi->setRotation(135);// m_compass->getChildByName("yellowItem03")->setRotation(sanhKhi->getRotation());
-		phucVi->setRotation(0); //m_compass->getChildByName("yellowItem04")->setRotation(phucVi->getRotation());
-		redItem->setRotation(0);
-		compassBorder->setRotation(180);
-		break;
-	case MainScene::CAAN:
-		lucSat->setRotation(90);
-		thienY->setRotation(315);
-		nguQui->setRotation(0);
-		hoaHai->setRotation(180);
-		tuyetMenh->setRotation(135);
-		phuocDuc->setRotation(270);
-		sanhKhi->setRotation(225);
-		phucVi->setRotation(45); 
-		redItem->setRotation(45);
-		compassBorder->setRotation(-90);
-		break;
-	case MainScene::CHAN:
-		lucSat->setRotation(45);
-		thienY->setRotation(0);
-		nguQui->setRotation(315);
-		hoaHai->setRotation(225);
-		tuyetMenh->setRotation(270);
-		phuocDuc->setRotation(135);
-		sanhKhi->setRotation(180);
-		phucVi->setRotation(90);
-		redItem->setRotation(90);
-		compassBorder->setRotation(90);
-		break;
-	case MainScene::TON:
-		lucSat->setRotation(270);
-		thienY->setRotation(180);
-		nguQui->setRotation(225);
-		hoaHai->setRotation(315);
-		tuyetMenh->setRotation(45);
-		phuocDuc->setRotation(90);
-		sanhKhi->setRotation(0);
-		phucVi->setRotation(135);
-		redItem->setRotation(135);
-		compassBorder->setRotation(-90);
-		break;
-	case MainScene::LY:
-		lucSat->setRotation(225);
-		thienY->setRotation(135);
-		nguQui->setRotation(270);
-		hoaHai->setRotation(45);
-		tuyetMenh->setRotation(315);
-		phuocDuc->setRotation(0);
-		sanhKhi->setRotation(90);
-		phucVi->setRotation(180);
-		redItem->setRotation(180);
-		compassBorder->setRotation(180);
-		break;
-	case MainScene::KHON:
-		lucSat->setRotation(180);
-		thienY->setRotation(270);
-		nguQui->setRotation(135);
-		hoaHai->setRotation(90);
-		tuyetMenh->setRotation(0);
-		phuocDuc->setRotation(315);
-		sanhKhi->setRotation(45);
-		phucVi->setRotation(225);
-		redItem->setRotation(225);
-		compassBorder->setRotation(-90);
-		break;
-	case MainScene::DOAI:
-		lucSat->setRotation(135);
-		thienY->setRotation(225);
-		nguQui->setRotation(180);
-		hoaHai->setRotation(0);
-		tuyetMenh->setRotation(90);
-		phuocDuc->setRotation(45);
-		sanhKhi->setRotation(315);
-		phucVi->setRotation(270);
-		redItem->setRotation(270);
-		compassBorder->setRotation(180);
-		break;
-	default:
-		break;
-	}
-	
-	redItem->runAction(Repeat::create(Sequence::createWithTwoActions(FadeTo::create(0.08f, 0.2f*255.0f), FadeTo::create(0.08f, 0.5f*255.0f)), 3));
-	
-	thienY->runAction(Repeat::create(Sequence::createWithTwoActions(FadeTo::create(0.08f, 0.2f*255.0f), FadeTo::create(0.08f, 1.0f*255.0f)), 3));
-	phuocDuc->runAction(Repeat::create(Sequence::createWithTwoActions(FadeTo::create(0.08f, 0.2f*255.0f), FadeTo::create(0.08f, 1.0f*255.0f)), 3));
-	sanhKhi->runAction(Repeat::create(Sequence::createWithTwoActions(FadeTo::create(0.08f, 0.2f*255.0f), FadeTo::create(0.08f, 1.0f*255.0f)), 3));
-	phucVi->runAction(Repeat::create(Sequence::createWithTwoActions(FadeTo::create(0.08f, 0.2f*255.0f), FadeTo::create(0.08f, 1.0f*255.0f)), 3));
-
-	m_compass->getChildByName("yellowItem01")->setRotation(thienY->getRotation());
-	m_compass->getChildByName("yellowItem02")->setRotation(phuocDuc->getRotation());
-	m_compass->getChildByName("yellowItem03")->setRotation(sanhKhi->getRotation());
-	m_compass->getChildByName("yellowItem04")->setRotation(phucVi->getRotation());
-
-	MainScene::updateInforLabel();
+	cocos2d::log("%d|%s => %s \n", k_yearOfBirth, k_isMale ? "Nam" : "Nu",m_cung.c_str());
 }
 
 void MainScene::updateInforLabel()
