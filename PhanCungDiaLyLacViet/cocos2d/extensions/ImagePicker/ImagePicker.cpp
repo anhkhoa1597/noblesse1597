@@ -28,6 +28,11 @@ void ImagePicker::pickImage(ImagePickerDelegate *delegate) {
     ImagePickerImpl::openImage();
 }
 
+void ImagePicker::saveImage( const char *path)
+{
+    ImagePickerImpl::save(path);
+}
+
 void ImagePicker::finishImage(cocos2d::Texture2D *image){
     if(_delegate != nullptr){
         _delegate->didFinishPickingWithResult(image);

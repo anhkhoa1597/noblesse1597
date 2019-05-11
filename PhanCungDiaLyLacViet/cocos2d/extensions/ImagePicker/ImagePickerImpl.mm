@@ -45,3 +45,8 @@ void ImagePickerImpl::openImage()
 #endif
 }
 
+
+void ImagePickerImpl::save( __String path )
+{
+    [sharedPicker saveImage:[NSString stringWithCString:path.getCString( ) encoding:NSUTF8StringEncoding]];
+}

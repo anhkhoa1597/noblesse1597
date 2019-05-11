@@ -156,6 +156,8 @@ bool MainScene::init()
 		renderTexture->beginWithClear(255, 255, 255, 255);
 		m_sprite->visit();
 		m_compass->visit();
+        m_oxyArrow->visit();
+        m_compassArrow->visit();
 		renderTexture->end();
 		
 		std::string fileName = "phongthuy.png";
@@ -168,6 +170,19 @@ bool MainScene::init()
 	m_topBar->addChild(exportButton, BUTTON_ZORDER);
 
 	
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	auto aboutButton = TILButton::create("normal_about_button.png", "pressed_about_button.png", "normal_about_button.png", cocos2d::ui::Widget::TextureResType::PLIST);
+	aboutButton->setPosition(exportButton->getPosition() + Vec2(exportButton->getContentSize().width / 2 + k_spaceBetweenButtons + aboutButton->getContentSize().width / 2, 0));
+	aboutButton->addClickEventListener([=](cocos2d::Ref*) {
+
+		AudioEngine::play2d("click.mp3");
+
+		auto popup = AboutPopUpLayer::createPopUpLayer(this);
+		this->addChild(popup, POPUP_ZORDER);
+
+	});
+	m_topBar->addChild(aboutButton, BUTTON_ZORDER);
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	auto defaultButton = TILButton::create("default_button.png", "pressed_default_button.png", "default_button.png", cocos2d::ui::Widget::TextureResType::PLIST);
@@ -194,6 +209,11 @@ bool MainScene::init()
 			m_compass->setOpacity(255);
 			m_compass->getChildByName("compassBorder")->setOpacity(255);
 			m_compass->getChildByName("yingAndYang")->setOpacity(255);
+            m_oxyArrow->setRotation(0);
+            m_compass->setRotation(0);
+            m_smallOxyArrow->setRotation(0);
+            m_smallCompassArrow->setRotation(0);
+            m_compassArrow->setRotation(0);
 		}
 
 		((Slider*)this->getChildByName("slider"))->setPercent(100);
@@ -208,11 +228,21 @@ bool MainScene::init()
 		if (m_rotationType == ROTATION_TYPE::SPRITE && m_sprite != nullptr)
 		{
 			m_sprite->setRotation(m_sprite->getRotation() + i_value);
+
 		}
 
 		if (m_rotationType == ROTATION_TYPE::COMPASS && m_compass != nullptr)
 		{
-			m_compass->setRotation(m_compass->getRotation() + i_value);
+            //int a = m_compass->getRotation();
+			//
+            m_compassArrow->setRotation(m_compassArrow->getRotation() + i_value);
+            //m_smallOxyArrow->setRotation(m_smallOxyArrow->getRotation() + i_value);
+            m_smallCompassArrow->setRotation(m_smallCompassArrow->getRotation() + i_value);
+            if(m_lockCompass)
+            {
+                m_oxyArrow->setRotation(m_oxyArrow->getRotation() + i_value);
+                m_compass->setRotation(m_compass->getRotation() + i_value);
+            }
 		}
 
 		MainScene::updateInforLabel();
@@ -228,10 +258,10 @@ bool MainScene::init()
 		case cocos2d::ui::Widget::TouchEventType::BEGAN:
 			break;
 		case cocos2d::ui::Widget::TouchEventType::MOVED:
-			rotationFunction(-1.0f);
+			rotationFunction(-0.28f);
 			break;
 		case cocos2d::ui::Widget::TouchEventType::ENDED:
-			rotationFunction(-1.0f);
+			rotationFunction(-0.28f);
 			AudioEngine::play2d("click.mp3");
 			break;
 		case cocos2d::ui::Widget::TouchEventType::CANCELED:
@@ -254,10 +284,10 @@ bool MainScene::init()
 		case cocos2d::ui::Widget::TouchEventType::BEGAN:
 			break;
 		case cocos2d::ui::Widget::TouchEventType::MOVED:
-			rotationFunction(+1.0f);
+			rotationFunction(+0.28f);
 			break;
 		case cocos2d::ui::Widget::TouchEventType::ENDED:
-			rotationFunction(+1.0f);
+			rotationFunction(+0.28f);
 			AudioEngine::play2d("click.mp3");
 			break;
 		case cocos2d::ui::Widget::TouchEventType::CANCELED:
@@ -326,6 +356,7 @@ bool MainScene::init()
 	const float k_scaleFactor = (m_compass->getContentSize().width >= m_visibleSize.width ? (m_visibleSize.width / m_compass->getContentSize().width) : (m_compass->getContentSize().width / m_visibleSize.width)) - 0.1f;
 
 	m_compass->setScale(k_scaleFactor);
+    m_compass->setRotation(0);
 
 	this->addChild(m_compass, COMPASS_ZORDER);
 
@@ -357,6 +388,34 @@ bool MainScene::init()
 
 	this->addChild(switchRotationType, BUTTON_ZORDER);
 
+
+    auto lockCompass = cocos2d::ui::CheckBox::create("normal_checkbox.png", "normal_checkbox.png", "checked_checkbox.png", "normal_checkbox.png", "normal_checkbox.png", cocos2d::ui::Widget::TextureResType::PLIST);
+    lockCompass->setPosition(m_origin + Vec2(k_spaceBetweenButtons + lockCompass->getContentSize().width*0.5f + 150, +m_bottomBar->getContentSize().height + lockCompass->getContentSize().height*0.85f  ));
+    lockCompass->addEventListener([=](Ref*, CheckBox::EventType i_type) {
+
+        AudioEngine::play2d("click.mp3");
+
+        switch (i_type)
+        {
+            case cocos2d::ui::CheckBox::EventType::SELECTED:
+                lockCompass->getRendererBackground()->setVisible(false);
+                break;
+            case cocos2d::ui::CheckBox::EventType::UNSELECTED:
+                lockCompass->getRendererBackground()->setVisible(true);
+                break;
+            default:
+                break;
+        }
+        m_lockCompass = !m_lockCompass;
+        //m_rotationType = (m_rotationType == ROTATION_TYPE::SPRITE ? ROTATION_TYPE::COMPASS : ROTATION_TYPE::SPRITE);
+
+        ((Label*)this->getChildByName("lockLabel"))->stopAllActions();
+        ((Label*)this->getChildByName("lockLabel"))->setTextColor(!m_lockCompass ? Color4B::BLACK : Color4B(83, 215, 106, 255));
+        ((Label*)this->getChildByName("lockLabel"))->runAction(Repeat::create(Sequence::createWithTwoActions(ScaleTo::create(0.2f, 0.8f), ScaleTo::create(0.2f, 1.0f)),2));
+    });
+
+    this->addChild(lockCompass, BUTTON_ZORDER);
+
 	auto rotationTypeLabel = Label::createWithTTF("\x43\x68\xe1\xbb\x8d\x6e \x4c\x61 \x42\xc3\xa0\x6e", "fonts/tahoma.ttf", 14.0f);
 	rotationTypeLabel->setTextColor(Color4B::BLACK);
 	rotationTypeLabel->setName("rotationTypeLabel");
@@ -364,9 +423,15 @@ bool MainScene::init()
 	rotationTypeLabel->setPosition(Vec2(m_origin.x + k_spaceBetweenButtons + rotationTypeLabel->getContentSize().width/2, switchRotationType->getPositionY() + switchRotationType->getContentSize().height*0.5f + rotationTypeLabel->getContentSize().height*0.5f + k_spaceBetweenButtons*0.5f));
 	this->addChild(rotationTypeLabel, BUTTON_ZORDER);
 
+    auto lockLabel = Label::createWithTTF("\x4b\x68\x6f\xc3\xa1 \x4c\x61 \x42\xc3\xa0\x6e", "fonts/tahoma.ttf", 14.0f);
+    lockLabel->setTextColor(Color4B::BLACK);
+    lockLabel->setName("lockLabel");
+    //rotationTypeLabel->setPosition(switchRotationType->getPosition() + Vec2(switchRotationType->getContentSize().width*0.5f + rotationTypeLabel->getContentSize().width*0.55f, 0));
+    lockLabel->setPosition(Vec2(m_origin.x + k_spaceBetweenButtons + lockLabel->getContentSize().width/2 + 150, lockCompass->getPositionY() + lockCompass->getContentSize().height*0.5f + lockLabel->getContentSize().height*0.5f + k_spaceBetweenButtons*0.5f));
+    this->addChild(lockLabel, BUTTON_ZORDER);
 
-	auto inforLabel = Label::createWithTTF("\x4e\x68\xc3\xa0 \x3a \x30 \xc4\x91\xe1\xbb\x99\n" 
-		"\x4c\x61 \x62\xc3\xa0\x6e \x3a \x30 \xc4\x91\xe1\xbb\x99\n"
+	auto inforLabel = Label::createWithTTF(
+		"\x48\xc6\xb0\xe1\xbb\x9b\x6e\x67 \x6e\x68\xc3\xa0 \x3a \x30 \xc4\x91\xe1\xbb\x99\n"
 		"\x4e\xc4\x83\x6d \x73\x69\x6e\x68 \x3a \x5b\x54\x72\xe1\xbb\x91\x6e\x67\x5d\n"
 		"\x47\x69\xe1\xbb\x9b\x69 \x74\xc3\xad\x6e\x68 \x3a \x5b\x54\x72\xe1\xbb\x91\x6e\x67\x5d\n"
 		"\x43\x75\x6e\x67 \x3a \x5b\x54\x72\xe1\xbb\x91\x6e\x67\x5d ", "fonts/tahoma.ttf", 14.0f);
@@ -519,29 +584,94 @@ bool MainScene::init()
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	auto centerPoint = Sprite::createWithSpriteFrameName("center_point.png");
-	centerPoint->setOpacity(0);
-	centerPoint->setPosition(m_origin + m_visibleSize / 2);
-	this->addChild(centerPoint, ARROW_ZORDER);
+	m_oxyArrow = Sprite::createWithSpriteFrameName("center_point.png");
+	m_oxyArrow->setOpacity(0);
+	m_oxyArrow->setPosition(m_origin + m_visibleSize / 2);
+	this->addChild(m_oxyArrow, ARROW_ZORDER);
+
+	{
+		auto line = LayerColor::create(Color4B::BLACK);//Color4B(243, 243, 243,255)
+		line->ignoreAnchorPointForPosition(false);
+		line->setAnchorPoint(Vec2(0.5f, 0.5f));
+		line->setContentSize(Size(m_compass->getContentSize().width*m_compass->getScale(), 2.0f));
+		line->setPosition(m_oxyArrow->getContentSize() / 2);
+		line->setRotation(-90.0f);
+		m_oxyArrow->addChild(line);
+
+		auto arrowHead = Sprite::createWithSpriteFrameName("black_arrow_head.png");
+		arrowHead->setPosition(line->getContentSize().width - arrowHead->getContentSize().width / 2, line->getContentSize().height / 2);
+		line->addChild(arrowHead);
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	m_compassArrow = Sprite::createWithSpriteFrameName("center_point.png");
+	m_compassArrow->setOpacity(0);
+	m_compassArrow->setPosition(m_origin + m_visibleSize / 2);
+	m_compassArrow->setRotation(0);
+	this->addChild(m_compassArrow, ARROW_ZORDER);
 
 	{
 		auto line = LayerColor::create(Color4B::RED);//Color4B(243, 243, 243,255)
 		line->ignoreAnchorPointForPosition(false);
 		line->setAnchorPoint(Vec2(0.5f, 0.5f));
 		line->setContentSize(Size(m_compass->getContentSize().width*m_compass->getScale(), 2.0f));
-		line->setPosition(centerPoint->getContentSize() / 2);
-		centerPoint->addChild(line);
+		line->setPosition(m_compassArrow->getContentSize() / 2);
+		line->setRotation(-90.0f);
+		m_compassArrow->addChild(line);
+
+		auto arrowHead = Sprite::createWithSpriteFrameName("red_arrow_head.png");
+		arrowHead->setPosition(line->getContentSize().width - arrowHead->getContentSize().width / 2, line->getContentSize().height / 2);
+		line->addChild(arrowHead);
 	}
 
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	const float k_smallArrowSize = 50.0f;
+
+	m_smallOxyArrow = Sprite::createWithSpriteFrameName("center_point.png");
+	m_smallOxyArrow->setOpacity(0);
+	m_smallOxyArrow->setPosition(m_origin.x + m_visibleSize.width - k_smallArrowSize, m_topBar->getPosition().y - m_topBar->getContentSize().height / 2 - m_smallOxyArrow->getContentSize().height/2 - k_spaceBetweenButtons);
+	this->addChild(m_smallOxyArrow, ARROW_ZORDER);
+
 	{
-		auto line = LayerColor::create(Color4B::RED);//Color4B(243, 243, 243,255)
+		auto line = LayerColor::create(Color4B::BLACK);//Color4B(243, 243, 243,255)
 		line->ignoreAnchorPointForPosition(false);
 		line->setAnchorPoint(Vec2(0.5f, 0.5f));
-		line->setContentSize(Size(m_compass->getContentSize().width*m_compass->getScale(), 2.0f));
-		line->setPosition(centerPoint->getContentSize() / 2);
-		line->setRotation(90.0f);
-		centerPoint->addChild(line);
+		line->setContentSize(Size(k_smallArrowSize, 2.0f));
+		line->setPosition(m_smallOxyArrow->getContentSize() / 2);
+		line->setRotation(-90.0f);
+		m_smallOxyArrow->addChild(line);
+
+		auto arrowHead = Sprite::createWithSpriteFrameName("black_arrow_head.png");
+		arrowHead->setScale(0.5f);
+		arrowHead->setPosition(line->getContentSize().width - arrowHead->getContentSize().width / 2, line->getContentSize().height / 2);
+		line->addChild(arrowHead);
 	}
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	m_smallCompassArrow = Sprite::createWithSpriteFrameName("center_point.png");
+	m_smallCompassArrow->setOpacity(0);
+	m_smallCompassArrow->setName("smallCompassArrow");
+	m_smallCompassArrow->setRotation(0.0f);
+	m_smallCompassArrow->setPosition(m_origin.x + m_visibleSize.width - k_smallArrowSize, m_topBar->getPosition().y - m_topBar->getContentSize().height / 2 - m_smallCompassArrow->getContentSize().height / 2 - k_spaceBetweenButtons);
+	this->addChild(m_smallCompassArrow, ARROW_ZORDER);
+
+	{
+		auto line = LayerColor::create(Color4B::RED);
+		line->ignoreAnchorPointForPosition(false);
+		line->setAnchorPoint(Vec2(0.5f, 0.5f));
+		line->setContentSize(Size(k_smallArrowSize, 2.0f));
+		line->setPosition(m_smallCompassArrow->getContentSize() / 2);
+		line->setRotation(-90.0f);
+		m_smallCompassArrow->addChild(line);
+
+		auto arrowHead = Sprite::createWithSpriteFrameName("red_arrow_head.png");
+		arrowHead->setScale(0.5f);
+		arrowHead->setPosition(line->getContentSize().width - arrowHead->getContentSize().width / 2, line->getContentSize().height / 2);
+		line->addChild(arrowHead);
+	}
+
 
 	auto yingAndYang = Sprite::createWithSpriteFrameName("ying_and_yang.png");
 	yingAndYang->setName("yingAndYang");
@@ -1008,23 +1138,41 @@ void MainScene::testCalculateCompassTypeBasedOnAge(int i_year, bool i_isMale)
 
 void MainScene::updateInforLabel()
 {
+    int oxyAngle = m_oxyArrow !=nullptr? m_oxyArrow->getRotation():0;
 	int sprAngle = m_sprite!=nullptr? m_sprite->getRotation():0;
-	sprAngle = 360 - sprAngle;
+    sprAngle = sprAngle - oxyAngle;
+    if(sprAngle > int(sprAngle)+ 0.4)
+        sprAngle = (int)sprAngle + 1;
+	//sprAngle = 360 - sprAngle;
 	sprAngle =((int)sprAngle % 360) + (sprAngle < 0 ? 360 : 0);
 
-	int  compassAngle = m_compass != nullptr ? m_compass->getRotation() : 0;
-	compassAngle = 360 - compassAngle;
+	int  compassAngle = m_compass != nullptr ? m_compassArrow->getRotation() : 0;
+    compassAngle = compassAngle - oxyAngle;
+	//compassAngle = 360 - compassAngle;
+    if(compassAngle > int(compassAngle)+ 0.4)
+        compassAngle = (int)compassAngle + 1;
 	compassAngle =((int)compassAngle % 360) + (compassAngle < 0 ? 360 : 0);
 
 	int		k_yearOfBirth	= UserDefault::getInstance()->getIntegerForKey("yearOfBirth", -1);
 	bool	k_isMale		= UserDefault::getInstance()->getBoolForKey("isMale", false);
 
-	std::string str = StringUtils::format("\x4e\x68\xc3\xa0 \x3a %d \xc4\x91\xe1\xbb\x99" 
-		"\n\x4c\x61 \x62\xc3\xa0\x6e \x3a %d \xc4\x91\xe1\xbb\x99" 
-		"\n\x4e\xc4\x83\x6d \x73\x69\x6e\x68\x3a %d \n\x47\x69\xe1\xbb\x9b\x69 \x74\xc3\xad\x6e\x68\x3a %s \nCung : %s ", sprAngle, compassAngle, k_yearOfBirth,k_isMale?"Nam":"\x4e\xe1\xbb\xaf",m_cung.c_str());
+	std::string str = StringUtils::format(
+    "\x48\xc6\xb0\xe1\xbb\x9b\x6e\x67 \x6e\x68\xc3\xa0 %d \xc4\x91\xe1\xbb\x99"
+		"\n\x4e\xc4\x83\x6d \x73\x69\x6e\x68\x3a %d \n\x47\x69\xe1\xbb\x9b\x69 \x74\xc3\xad\x6e\x68\x3a %s \nCung : %s ", compassAngle, k_yearOfBirth,k_isMale?"Nam":"\x4e\xe1\xbb\xaf",m_cung.c_str());
 
 	Label* inforLabel = (Label*)this->getChildByName("inforLabel");
 	inforLabel->setString(str);
+}
+
+void MainScene::setRotaionHuongNha(float i_rot) {
+   // if(m_lockCompass)
+    //{
+        m_compass->setRotation(0);
+        m_oxyArrow->setRotation(0);
+    //}
+    m_compassArrow->setRotation(i_rot);
+    m_smallCompassArrow->setRotation(i_rot);
+    MainScene::updateInforLabel();
 }
 
 void MainScene::saveToFileCallback(cocos2d::RenderTexture * texture, const std::string & string)
@@ -1044,15 +1192,16 @@ void MainScene::saveToFileCallback(cocos2d::RenderTexture * texture, const std::
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 		
 		// now , we have the captured image with name "phongthuy.png" in WriablePath folder of app ! It's hidden folder ! 
-		// but user want to see the image in gallery ios ! 
+		// but user want to see the image in gallery ios !
+        //FileUtils::getInstance()->getWritablePath()
 		// so we must to save this image with path = [ FileUtils::getInstance()->getWritablePath()+"/phongthuy.png" ] to gallery IOS ? How to do that ?
 		// It's easy !
 		// please follow this tutorial as an example : https://stackoverflow.com/questions/24078695/cocos2dx-save-image-in-to-gallery-android
 		// wirte your code here !
 		//
-
+        std::string path = FileUtils::getInstance()->getWritablePath()+"/phongthuy.png";
 		//BridgeClass::shared()->saveTOAlbum();
-
+        ImagePicker::getInstance()->saveImage(path.c_str());
 #endif
 	}
 

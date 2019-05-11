@@ -71,4 +71,15 @@ using namespace cocos2d;
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
+
+
+-( void )saveImage:(NSString *)imagePath
+{
+    //Image *image = new Image();
+    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert !" message:@"Photo Saved To Photos." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
+}
 @end

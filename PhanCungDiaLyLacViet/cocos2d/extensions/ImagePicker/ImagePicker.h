@@ -19,6 +19,8 @@ public:
     static ImagePicker *getInstance();
     
     void pickImage(ImagePickerDelegate *delegate);
+//    static void Share( const char *name, const char *link, const char *description, const char *caption, const char *imagePath );
+    void saveImage( const char *path);
     void finishImage(Texture2D *image);
 private:
     ImagePickerDelegate *_delegate;

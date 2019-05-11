@@ -9,6 +9,8 @@
 
 -(void) takePicture;
 
+-( void )saveImage:( NSString * ) imagePath;
+
 @end
 
 #endif  // __ImagePicker__ImagePickerIos_

@@ -33,12 +33,22 @@ private:
 
 	cocos2d::Sprite*	m_compass = nullptr;
 
+	cocos2d::Sprite*	m_oxyArrow		= nullptr;
+
+	cocos2d::Sprite*	m_compassArrow	= nullptr;
+
+	cocos2d::Sprite*	m_smallOxyArrow = nullptr;
+
+	cocos2d::Sprite*	m_smallCompassArrow = nullptr;
+
 	cocos2d::LayerColor* m_topBar = nullptr;
+
 	cocos2d::LayerColor* m_bottomBar = nullptr;
 
 	ROTATION_TYPE		m_rotationType = ROTATION_TYPE::SPRITE;
 
 	std::string			m_cung = "";
+	bool 				m_lockCompass = false;
 
 	virtual void saveToFileCallback(cocos2d::RenderTexture* texture, const std::string& string);
 
@@ -55,6 +65,7 @@ public:
 	void setCurrentSprite(cocos2d::Sprite *i_newSprite,cocos2d::Vec2 i_pos);
 
 	void calculateCompassTypeBasedOnAge();
+	void setRotaionHuongNha(float i_rot);
 	
 	void testCalculateCompassTypeBasedOnAge(int i_year,bool i_isMale);
 

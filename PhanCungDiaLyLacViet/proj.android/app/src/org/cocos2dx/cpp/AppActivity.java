@@ -29,11 +29,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.BuildConfig;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
@@ -42,6 +45,7 @@ import org.cocos2dx.lib.Cocos2dxHelper;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -93,8 +97,13 @@ public class AppActivity extends Cocos2dxActivity {
         {
             return;
         }
-
-        String  outputFilePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath();//+"/" +"PhongThuy/";//Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+//        try {
+//            MediaStore.Images.Media.insertImage(getContext().getContentResolver(), imageBitmap, "phongthuy" , "");
+//        } catch (Exception e) {
+//            showToast(e.getMessage());
+//        }
+      //  MediaStore.Images.Media.insertImage(getContext().getContentResolver(), imageBitmap, "phongthuy" , "");
+        String  outputFilePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getPath();//+"/" +"PhongThuy/";//Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
 
         File dir = new File (outputFilePath);
 
@@ -126,6 +135,14 @@ public class AppActivity extends Cocos2dxActivity {
         {
             e.printStackTrace();
         }
+        MediaScannerConnection.scanFile(getContext(), new String[]{file.toString()}, null,
+                new MediaScannerConnection.OnScanCompletedListener() {
+                    public void onScanCompleted(String path, Uri uri) {
+                        Log.i("ExternalStorage", "Scanned " + path + ":");
+                        Log.i("ExternalStorage", "-> uri=" + uri);
+                    }
+                });
+
 
         Uri phototUri = FileProvider.getUriForFile( app,  app.getApplicationContext().getPackageName() + ".fileprovider",file);//Uri.fromFile(file);
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -133,8 +150,8 @@ public class AppActivity extends Cocos2dxActivity {
         shareIntent.setType("image/png");
         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-        showToast("Ảnh lưu ở thư mục Downloads ! ");
-        //Toast.makeText(app.getApplicationContext(), "Ảnh lưu ở thư mục Downloads/PhongThuy ! ", Toast.LENGTH_LONG).show();
-        app.startActivity(Intent.createChooser(shareIntent, "Share Image"));
+        showToast("Ảnh lưu ở thư mục Picture! ");
+//        //Toast.makeText(app.getApplicationContext(), "Ảnh lưu ở thư mục Downloads/PhongThuy ! ", Toast.LENGTH_LONG).show();
+//        app.startActivity(Intent.createChooser(shareIntent, "Share Image"));
     }
 }
