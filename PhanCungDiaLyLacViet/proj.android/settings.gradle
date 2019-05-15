@@ -1,4 +1,4 @@
 include ':libcocos2dx'
 project(':libcocos2dx').projectDir = new File(settingsDir, '../cocos2d/cocos/platform/android/libcocos2dx')
-include ':PhanCungDiaLyLacViet'
-project(':PhanCungDiaLyLacViet').projectDir = new File(settingsDir, 'app')
+include ':lacviet'
+project(':lacviet').projectDir = new File(settingsDir, 'app')

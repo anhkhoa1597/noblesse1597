@@ -124,7 +124,7 @@ bool AgeGatheringPopUpLayer::init(MainScene* i_mainScene)
 	});
 	background->addChild(femaleCheckBox);
 
-	auto maleLabel = Label::createWithTTF("Name", "fonts/tahomabd.ttf", 14.0f);
+	auto maleLabel = Label::createWithTTF("Nam", "fonts/tahomabd.ttf", 14.0f);
 	maleLabel->setTextColor(Color4B(255, 180, 0, 255));
 	maleLabel->setName("maleLabel");
 	maleLabel->setPosition(maleCheckBox->getPosition() + Vec2(maleCheckBox->getContentSize().width*0.5f + maleLabel->getContentSize().width*0.52f, 0));

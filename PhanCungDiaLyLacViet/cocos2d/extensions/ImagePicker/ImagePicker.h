@@ -20,7 +20,9 @@ public:
     
     void pickImage(ImagePickerDelegate *delegate);
 //    static void Share( const char *name, const char *link, const char *description, const char *caption, const char *imagePath );
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     void saveImage( const char *path);
+#endif
     void finishImage(Texture2D *image);
 private:
     ImagePickerDelegate *_delegate;

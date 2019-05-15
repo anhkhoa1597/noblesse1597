@@ -27,11 +27,12 @@ void ImagePicker::pickImage(ImagePickerDelegate *delegate) {
     
     ImagePickerImpl::openImage();
 }
-
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 void ImagePicker::saveImage( const char *path)
 {
     ImagePickerImpl::save(path);
 }
+#endif
 
 void ImagePicker::finishImage(cocos2d::Texture2D *image){
     if(_delegate != nullptr){
