@@ -49,7 +49,11 @@ bool MainScene::init()
 	m_topBar->ignoreAnchorPointForPosition(false);
 	m_topBar->setAnchorPoint(Vec2(0.5f, 0.5f));
 	m_topBar->setContentSize(Size(m_visibleSize.width, 96.0f));
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    m_topBar->setPosition(m_origin + Vec2(m_visibleSize.width/2, m_visibleSize.height - m_topBar->getContentSize().height/2 - 50));
+#else
 	m_topBar->setPosition(m_origin + Vec2(m_visibleSize.width/2, m_visibleSize.height - m_topBar->getContentSize().height/2));
+#endif
 	this->addChild(m_topBar, BAR_ZORDER);
 	
 	{
