@@ -24,6 +24,10 @@ export class StdioDate {
         this.year = this.year.toString();
     }
 
+    formatDate(format) {
+        return moment(this.day+'/'+this.month+'/'+this.year,'Do/M/YYYY').clone().format(format);
+    }
+
     setToday() {
         this.day = parseInt(moment().format('Do'));
         this.month = parseInt(moment().format('M'));

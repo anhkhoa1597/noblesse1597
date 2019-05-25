@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
-import { Col, Row, Grid } from "react-native-easy-grid";
 import { bindHeaderBarActions } from '../../../redux/actions/headerbar';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import SelectDay from '../../../components/SelectDay';
+import DatePicker from 'react-native-datepicker';
 
 import {StdioDate} from '../../../helper/StdioDate';
 import {StdioMonthYear} from '../../../helper/StdioMonthYear';
@@ -19,7 +18,8 @@ class ProfileScreen extends React.Component {
             selectedMonthYear: null,
             selectedDate : null,
             calendarSolar : [],
-            calendarLunar: []
+            calendarLunar: [],
+            datePicker: null,
         }
     }
 
@@ -163,6 +163,7 @@ class ProfileScreen extends React.Component {
         const { selectedDate } = this.state;
         if (selectedDate == null)
             return null;
+        let datePicker = selectedDate.formatDate('DD-MM-YYYY');
         return (
             <View style={styles.contain}>
                 <View style={styles.head}>
@@ -214,7 +215,26 @@ class ProfileScreen extends React.Component {
                 <View style={styles.gridDay}>
                 {
                     this.state.calendarSolar.map(element => this.renderCalendar(element))
-                }
+                } 
+                <DatePicker
+                    style={{width: 200}}
+                    date={datePicker}
+                    mode="date"
+                    placeholder="Select date"
+                    format="DD-MM-YYYY"
+                    minDate="01-01-1900"
+                    maxDate="01-01-2100"
+                    confirmBtnText="Confirm"
+                    cancelBtnText="Cancel"
+                    customStyles={{
+                        dateInput: {
+                        },
+                        dateText: {
+                            color: 'white',
+                        }
+                    }}
+                    onDateChange={(date) => {this.setState({date: date})}}
+                />
                 </View>
             </View>
         );
