@@ -1,60 +1,61 @@
 import moment from 'moment';
-import StdioDate from './StdioDate'
-import StdioMonthYear from './StdioMonthYear'
-import StdioLunarDate from './StdioLunarDate'
+import {StdioMonthYear} from './StdioMonthYear'
+import {StdioLunarDate} from './StdioLunarDate'
+import { StdioDate } from './StdioDate';
 
-class StdioDateHelper {
-    initMoment() {
+export class StdioDateHelper {
+
+    static initMoment() {
         require('moment/locale/vi');
         moment.locale();
     }
 
-    getCurrentMoment() {
+    static getCurrentMoment() {
         return moment().clone();
     }
 
-    getNextMonthMoment() {
-        let today = StdioDate;
+    static getNextMonthMoment() {
+        let today = new StdioDate;
         return today.getCurrentMoment().clone().add('1', 'M')
     }
 
-    getCurrentDate() {
-        let today = StdioDate;
+    static getCurrentDate() {
+        let today = new StdioDate;
         today.setToday();
         return today;
     }
 
-    getCurrentMonth() {
+    static getCurrentMonth() {
         return getCurrentDate().month;
     }
 
-    getCurrentMonthYear() {
+    static getCurrentMonthYear() {
         let today = this.getCurrentDate();
-        let monthYear = StdioMonthYear;
+        let monthYear = new StdioMonthYear;
         monthYear.setMonthYear(today.month, today.year);
         return monthYear;
     }
 
-    getMomentFromMonthYear(monthYear) {
+    static getMomentFromMonthYear(monthYear) {
         return moment(monthYear.month+'/'+monthYear.year,'M/YYYY');
     }
     
-    getNextMonthYear(monthYear) {
+    static getNextMonthYear(monthYear) {
         let nextMonthYearMoment = this.getMomentFromMonthYear(monthYear).clone().add('1', 'M');
-        let nextMonthYear = StdioMonthYear;
+        let nextMonthYear = new StdioMonthYear;
         nextMonthYear.setMonthYear(nextMonthYearMoment.format('M'), nextMonthYearMoment.format('YYYY'));
         return nextMonthYear;
     }
 
-    getPreviousMonthYear(monthYear) {
+    static getPreviousMonthYear(monthYear) {
         let previousMonthYearMoment = this.getMomentFromMonthYear(monthYear).clone().subtract('1', 'M');
-        let previousMonthYear = StdioMonthYear;
+        let previousMonthYear = new StdioMonthYear;
         previousMonthYear.setMonthYear(previousMonthYearMoment.format('M'), previousMonthYearMoment.format('YYYY'));
         return previousMonthYear;
     }
 
-    getFirstDateOfMonthYear(monthYear) {
-        let date = StdioDate;
+    static getFirstDateOfMonthYear(monthYear) {
+        let date = new StdioDate;
         date.setDate(
             1,
             monthYear.month,
@@ -63,8 +64,8 @@ class StdioDateHelper {
         return date;
     }
 
-    getLastDateOfMonthYear(monthYear) {
-        let date = StdioDate;
+    static getLastDateOfMonthYear(monthYear) {
+        let date = new StdioDate;
         date.setDate(
             this.getMomentFromMonthYear(monthYear).endOf('month').format('Do'),
             monthYear.month,
@@ -73,16 +74,16 @@ class StdioDateHelper {
         return date;
     }
 
-    isLastDateOfMonth(date) {
-        let monthYear = StdioMonthYear;
+    static isLastDateOfMonth(date) {
+        let monthYear = new StdioMonthYear;
         monthYear.setMonthYear(date.month, date.year);
         lastDateOfMonthYear = this.getLastDateOfMonthYear(monthYear);
         return date.day == lastDateOfMonthYear.day;
     }
 
-    isLastLunarDateOfMonth (lunarDate) {
+    static isLastLunarDateOfMonth (lunarDate) {
         let date = this.convertLunarToSolar(lunarDate, 7.0);
-        let nextDate = StdioDate;
+        let nextDate = new StdioDate;
         nextDate.setDate(
             moment(date.day+'/'+date.month+'/'+date.year, 'Do/M/YYYY').clone().add(1, 'days').format('Do'),
             moment(date.day+'/'+date.month+'/'+date.year, 'Do/M/YYYY').clone().add(1, 'days').format('M'),
@@ -92,11 +93,11 @@ class StdioDateHelper {
         return lunarDate.lunarDay - nextLunarDate.lunarDay > 1
     }
 
-    getFirstDayOfWeekOfMonthYear(monthYear) {
+    static getFirstDayOfWeekOfMonthYear(monthYear) {
         return this.getFirstDateOfMonthYear(monthYear).format('e');
     }
 
-    jdFromDate(date) {
+    static jdFromDate(date) {
         let a, y, m, jd;
         a = Math.floor((14 - date.month) / 12);
         y = date.year + 4800 - a;
@@ -108,7 +109,7 @@ class StdioDateHelper {
         return jd;
     }
 
-    jdToDate(jd){
+    static jdToDate(jd){
         let a, b, c, d, e, m, day, month, year;
 
         if (jd > 2299160) { // After 5/10/1582, Gregorian calendar
@@ -126,12 +127,12 @@ class StdioDateHelper {
         month = m + 3 - 12 * Math.floor(m / 10);
         year = b * 100 + d - 4800 + Math.floor(m / 10);
 
-        let date = StdioDate;
+        let date = new StdioDate;
         date.setDate(day, month, year);
         return date
     }
 
-    getNewMoonDay(k, timeZone){
+    static getNewMoonDay(k, timeZone){
         let T, T2, T3, dr, Jd1, M, Mpr, F, C1, deltat, JdNew;
         const PI = 3.14159265359;
         T = k / 1236.85; // Time in Julian centuries from 1900 January 0.5
@@ -159,7 +160,7 @@ class StdioDateHelper {
         return Math.floor(JdNew + 0.5 + timeZone / 24)
     }
 
-    getSunLongitude(jdn, timeZone) {
+    static getSunLongitude(jdn, timeZone) {
         let T, T2, dr, M, L0, DL, L;
         const PI = 3.14159265359;
 
@@ -176,9 +177,9 @@ class StdioDateHelper {
         return Math.floor(L / PI * 6)
     }
 
-    getLunarMonth11(yy, timeZone) {
+    static getLunarMonth11(yy, timeZone) {
         let k, off, nm, sunLong;
-        let date = StdioDate;
+        let date = new StdioDate;
         date.setDate(31, 12, yy);
         off = this.jdFromDate(date) - 2415021;
         k = Math.floor(off / 29.530588853);
@@ -190,12 +191,12 @@ class StdioDateHelper {
         return nm;
     }
 
-    getLeapMonthOffset(a11, timeZone) {
+    static getLeapMonthOffset(a11, timeZone) {
         let k, last, arc, i;
         k = Math.floor((a11 - 2415021.076998695) / 29.530588853 + 0.5);
         last = 0;
         i = 1; // We start with the month following lunar month 11
-        arc = this.getSunLongitude(getNewMoonDay(k + i, timeZone), timeZone);
+        arc = this.getSunLongitude(this.getNewMoonDay(k + i, timeZone), timeZone);
         do {
             last = arc;
             i++;
@@ -204,7 +205,7 @@ class StdioDateHelper {
         return i - 1;
     }
 
-    convertSolarToLunar(date, timeZone){
+    static convertSolarToLunar(date, timeZone){
         let k, dayNumber, monthStart, a11, b11, lunarDay, lunarMonth, lunarYear, lunarLeap;
         dayNumber = this.jdFromDate(date);
         k = Math.floor((dayNumber - 2415021.076998695) / 29.530588853);
@@ -240,12 +241,12 @@ class StdioDateHelper {
         if (lunarMonth >= 11 && diff < 4) {
             lunarYear -= 1;
         }
-        let lunarDate = StdioLunarDate;
+        let lunarDate = new StdioLunarDate;
         lunarDate.setLunarDate(lunarDay, lunarMonth, lunarYear, lunarLeap);
         return lunarDate
     }
 
-    convertLunarToSolar(lunarDate, timeZone) {
+    static convertLunarToSolar(lunarDate, timeZone) {
         let k, a11, b11, off, leapOff, leapMonth, monthStart;
         if (lunarDate.lunarMonth < 11) {
             a11 = this.getLunarMonth11(lunarDate.lunarYear - 1, timeZone);
@@ -275,5 +276,3 @@ class StdioDateHelper {
         return this.jdToDate(monthStart + lunarDate.lunarDay - 1);
     }
 }
-
-export default (StdioDateHelper = new StdioDateHelper())

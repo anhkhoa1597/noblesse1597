@@ -1,4 +1,5 @@
-class StdioLunarDate {
+export class StdioLunarDate {
+
     constructor() {
         this.lunarDay = 0;
         this.lunarMonth = 0;
@@ -13,5 +14,3 @@ class StdioLunarDate {
         this.leapYear = leapYear;
     }
 }
-
-export default (StdioLunarDate = new StdioLunarDate())

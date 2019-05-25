@@ -1,7 +1,7 @@
 import moment from 'moment';
 
-class StdioDate {
-
+export class StdioDate {
+    
     constructor() {
         this.day = 0;
         this.month = 0;
@@ -38,5 +38,3 @@ class StdioDate {
         return moment(this.day+'/'+this.month+'/'+this.year,'Do/M/YYYY').clone().format('e');
     }
 }
-
-export default (StdioDate = new StdioDate())

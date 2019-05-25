@@ -1,4 +1,4 @@
-class StdioMonthYear {
+export class StdioMonthYear {
     constructor() {
         this.month = 0;
         this.year = 0;
@@ -20,5 +20,3 @@ class StdioMonthYear {
         return 'Tháng ' + monthYear.month + ' / ' + monthYear.year
     }
 }
-
-export default (StdioMonthYear = new StdioMonthYear())

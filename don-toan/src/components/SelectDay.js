@@ -4,6 +4,7 @@ import  FormModal from '../components/FormModal'
 import Courtesy from '../components/Courtesy'
 import Time from '../components/Time'
 
+
 const styles = StyleSheet.create({
     selectDay: {
         padding: 15,
@@ -55,34 +56,31 @@ class SelectDay extends React.Component {
         super(props);
         this.state = {
             modalVisible2: false,
-            // day: '',
-            // month: '',
-            // year: '',
+            date: null
         }
     }
     
     componentDidMount() {
-        // this.setState({
-        //     day: this.props.day,
-        //     month: this.props.month,
-        //     year: this.props.year
-        // })
+        this.setState({
+            date: this.props.date
+        })
     }
     toogleModal2 = () => {
         const { modalVisible2 } = this.state;
-        console.log('modalevisible2', modalVisible2)
+        // const {day, month, year} = this.props;
         this.setState({ modalVisible2: !modalVisible2 });
-        console.log('modalevisible2 ~~', modalVisible2)
     };
     render() {
         const { modalVisible2 } = this.state;
-        const {day, month, year} = this.props;
+        const { date } = this.props;
+        // const {day, month, year} = this.props;
+        console.log('date', date)
         return (
             <View style={styles.selectDay}>
                 <Text style={styles.text}>Dương lịch: Ngày</Text>
                 <TextInput
                     style={styles.input}
-                    value={day}
+                    value={date.day.toString()}
                     onChangeText={(day) => this.setState({day})}
                     selectionColor ='white'
                     color='white'
@@ -90,7 +88,7 @@ class SelectDay extends React.Component {
                 <Text style={styles.text}>Tháng</Text>
                 <TextInput
                     style={styles.input}
-                    value={month}
+                    value={date.month.toString()}
                     onChangeText={(month) => this.setState({month})}
                     selectionColor ='white'
                     color='white'
@@ -98,7 +96,7 @@ class SelectDay extends React.Component {
                 <Text style={styles.text}>Năm</Text>
                 <TextInput
                     style={styles.year}
-                    value={year}
+                    value={date.year.toString()}
                     onChangeText={(year) => this.setState({year})}
                     selectionColor ='white'
                     color='white'
@@ -112,7 +110,6 @@ class SelectDay extends React.Component {
                     visible={modalVisible2}
                     toogleModal={this.toogleModal2}
                     height={"100%"}
-                    // value={}
                 >
                     <Courtesy/>
                     <Time/>

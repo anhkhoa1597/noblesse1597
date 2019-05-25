@@ -6,10 +6,10 @@ import { bindHeaderBarActions } from '../../../redux/actions/headerbar';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SelectDay from '../../../components/SelectDay';
-import StdioDateHelper from '../../../helper/StdioDateHelper'
-import StdioDate from '../../../helper/StdioDate'
-import StdioMonthYear from '../../../helper/StdioMonthYear'
-import '../../../helper/StdioDateHelper'
+
+import {StdioDate} from '../../../helper/StdioDate';
+import {StdioMonthYear} from '../../../helper/StdioMonthYear';
+import { StdioDateHelper } from '../../../helper/StdioDateHelper';
 
 class ProfileScreen extends React.Component {
 
@@ -25,17 +25,18 @@ class ProfileScreen extends React.Component {
 
     componentDidMount() {
         StdioDateHelper.initMoment();
-        
+
         this.props.headerBarActions.setTitle("Lịch");
 
         const currentDate = StdioDateHelper.getCurrentDate();
         const selectedMonthYear = StdioDateHelper.getCurrentMonthYear();
-
         this.setState({
             selectedMonthYear: selectedMonthYear,
             selectedDate : currentDate,
             calendarSolar : this.createCalendar(selectedMonthYear)
         });
+
+
     }
 
     createCalendar = (currentMonthYear) => {
@@ -54,7 +55,7 @@ class ProfileScreen extends React.Component {
         let lastDateOfCurrentMonthYear = StdioDateHelper.getLastDateOfMonthYear(currentMonthYear);
                 
         for (let i = firstDateOfCurrentMonthYear.getDayOfWeek() - 1; i >= 0; i--) {
-            let date = StdioDate;
+            let date = new StdioDate;
             date.setDate(
                 lastDateOfPreviousMonthYear.day - i,
                 lastDateOfPreviousMonthYear.month,
@@ -64,7 +65,7 @@ class ProfileScreen extends React.Component {
         }
 
         for (let i = 0; i < 6 - lastDateOfCurrentMonthYear.getDayOfWeek(); i++) {
-            let date = StdioDate;
+            let date = new StdioDate;
             date.setDate(
                 firstDateOfNextMonthYear.day + i,
                 firstDateOfNextMonthYear.month,
@@ -74,7 +75,7 @@ class ProfileScreen extends React.Component {
         }
 
         for (let day = 1; day <= lastDateOfCurrentMonthYear.day; day++) {
-            let date = StdioDate;
+            let date = new StdioDate;
             date.setDate(
                 day, 
                 currentMonthYear.month, 
@@ -82,7 +83,6 @@ class ProfileScreen extends React.Component {
             );
             currentMonthDates.push(date);
         }
-        console.log(currentMonthDates)
 
         let calendarSolar = [];
         calendarSolar = calendarSolar.concat(previousMonthDates);
@@ -212,15 +212,9 @@ class ProfileScreen extends React.Component {
                     </View>
                 </View>
                 <View style={styles.gridDay}>
-                    {
-                        this.state.calendarSolar.map(element => this.renderCalendar(element))
-                    }
-                    {/* {this.renderCalendar()} */}
-                    <SelectDay
-                        day={selectedDate.day.toString()}
-                        month={selectedDate.month.toString()}
-                        year={selectedDate.year.toString()}                        
-                    />
+                {
+                    this.state.calendarSolar.map(element => this.renderCalendar(element))
+                }
                 </View>
             </View>
         );
