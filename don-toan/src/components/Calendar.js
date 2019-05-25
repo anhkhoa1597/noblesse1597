@@ -1,12 +1,11 @@
 import React from 'react';
-import {TouchableOpacity, View, StyleSheet, Text } from 'react-native';
+import {TouchableOpacity, View, StyleSheet, Text, Image } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 const styles = StyleSheet.create({
     calendar: {
         width: '100%',
-        aspectRatio: 5/3,
+        height: '70%'
     },
     head:{
         width: '100%',
@@ -29,8 +28,10 @@ const styles = StyleSheet.create({
     },
     day: {
         borderWidth: 1,
-        borderColor: '#ccc',
-        backgroundColor: '#FDFDF0'
+        borderBottomColor: '#ccc',
+        borderRightColor: '#000',
+        borderLeftColor: '#000',
+        backgroundColor: 'rgba(11,19,36,1)',
     },
     dayPicked: {
         borderWidth: 1,
@@ -96,12 +97,13 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     days: {
-        flex: 1
+        flexDirection: 'column',
+        flex: 1,
     },
     btnDay: {
-        position: 'absolute',
-        top: 1,
-        left: 1,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'flex-start',
     },
     LDay: {
         position: 'absolute',
@@ -109,13 +111,21 @@ const styles = StyleSheet.create({
         right: 1,
     },
     textD: {
-        fontSize: 17,
-        // textDecorationLine: 'underline',
-        color: 'blue'
+        fontSize: 12,
+        color: "#ccc"
     },
     textLD: {
         fontSize: 13,
         color: 'blue'
+    },
+    Moon: {
+        flex: 3,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    imageMoon: {
+        width: 40,
+        height: 40,
     }
 });
 
@@ -126,13 +136,11 @@ class Calendar extends React.Component {
     renderDay() {
         return (
             <View style={styles.days}>
-                <TouchableOpacity>
-                    <View style={styles.btnDay}>
-                        <Text style={styles.textD}>1</Text>
-                    </View>
+                <TouchableOpacity style={styles.btnDay}>
+                    <Text style={styles.textD}>1</Text>
                 </TouchableOpacity>
-                <View  style={styles.LDay}> 
-                    <Text style={styles.textLD}>27/2</Text>
+                <View style={styles.Moon}>
+                    <Image source={require("../assets/moon.jpg")} style={styles.imageMoon}/>
                 </View>
             </View>
         )
@@ -142,60 +150,27 @@ class Calendar extends React.Component {
         return (
             <View style={styles.calendar}>
                 <Grid>
-                    <Row style={styles.head}>
-                        <Col style={styles.headLeft}>
-                            <TouchableOpacity>
-                                <Icon
-                                    name='angle-double-left'
-                                    style={styles.iconDL}
-                                />
-                            </TouchableOpacity>
-                            <TouchableOpacity>
-                                <Icon
-                                    name='angle-left'
-                                    style={styles.iconL}
-                                />
-                            </TouchableOpacity>
-                        </Col>
-                        <Col style={styles.headMonth}>
-                            <Text style={styles.textMonth}>4/2019</Text>
-                        </Col>
-                        <Col style={styles.headRight}>
-                            <TouchableOpacity>
-                                <Icon
-                                    name='angle-right'
-                                    style={styles.iconR}
-                                />
-                            </TouchableOpacity>
-                            <TouchableOpacity>
-                                <Icon
-                                    name='angle-double-right'
-                                    style={styles.iconDR}
-                                />
-                            </TouchableOpacity>
-                        </Col>
-                    </Row>
                     <Row style={styles.week}>
                         <Col style={styles.weekDays}>
-                            <Text style={styles.textWeekDays}>CN</Text>
+                            <Text style={styles.textWeekDays}>Mon</Text>
                         </Col>
                         <Col style={styles.weekDays}>
-                            <Text style={styles.textWeekDays}>T2</Text>
+                            <Text style={styles.textWeekDays}>Tue</Text>
                         </Col>
                         <Col style={styles.weekDays}>
-                            <Text style={styles.textWeekDays}>T3</Text>
+                            <Text style={styles.textWeekDays}>Wed</Text>
                         </Col>
                         <Col style={styles.weekDays}>
-                            <Text style={styles.textWeekDays}>T4</Text>
+                            <Text style={styles.textWeekDays}>Thu</Text>
                         </Col>
                         <Col style={styles.weekDays}>
-                            <Text style={styles.textWeekDays}>T5</Text>
+                            <Text style={styles.textWeekDays}>Fri</Text>
                         </Col>
                         <Col style={styles.weekDays}>
-                            <Text style={styles.textWeekDays}>T6</Text>
+                            <Text style={styles.textWeekDays}>Sat</Text>
                         </Col>
                         <Col style={styles.weekDays}>
-                            <Text style={styles.textWeekDays}>T7</Text>
+                            <Text style={styles.textWeekDays}>Sun</Text>
                         </Col>
                     </Row>
                     <Row style={styles.dayOfMonth}>
@@ -250,7 +225,7 @@ class Calendar extends React.Component {
                         <Col style={styles.day}>{ this.renderDay() }</Col>
                         <Col style={styles.day}>{ this.renderDay() }</Col>
                         <Col style={styles.day}>{ this.renderDay() }</Col>
-                        <Col style={styles.dayPicked}>{ this.renderDay() }</Col>
+                        <Col style={styles.day}>{ this.renderDay() }</Col>
                     </Row>
                 </Grid>
             </View>

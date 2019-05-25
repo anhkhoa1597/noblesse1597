@@ -1,12 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Modal, TouchableOpacity, View, StyleSheet, Text, TextInput } from 'react-native';
-import { bindDialogActions } from '../redux/actions/dialog';
+import { TouchableOpacity, View, StyleSheet, Text } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
     courtesy: {
+        marginTop: 30,
         width: '100%',
         aspectRatio: 10/9,
     },
@@ -118,7 +116,7 @@ class Courtesy extends React.Component {
                     <Row style={styles.dataContainer}>
                         <Col style={styles.data}>
                             <TouchableOpacity>
-                                <Text style={styles.textData1}>Lịch dịch lý học</Text>
+                              <Text style={styles.textData1}>Lịch dịch lý học</Text>
                             </TouchableOpacity>
                         </Col>
                         <Col style={styles.data}>
@@ -153,9 +151,7 @@ class Courtesy extends React.Component {
                             <Text style={styles.textData}>Đại lâm mộc</Text>
                         </Col>
                         <Col style={styles.data}>
-                            <TouchableOpacity>
-                                <Text style={styles.textData1}>Tuyền trung thuỷ</Text>
-                            </TouchableOpacity>
+                            <Text style={styles.textData}>Tuyền trung thuỷ</Text>
                         </Col>
                         <Col style={styles.data}>
                             <Text style={styles.textData}>Bình địa mộc</Text>

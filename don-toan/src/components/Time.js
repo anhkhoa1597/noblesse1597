@@ -1,12 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Modal, TouchableOpacity, View, StyleSheet, Text, TextInput } from 'react-native';
-import { bindDialogActions } from '../redux/actions/dialog';
+import { View, StyleSheet, Text } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
     time: {
+        marginTop: 30,
         width: '100%',
         aspectRatio: 3/2,
     },
