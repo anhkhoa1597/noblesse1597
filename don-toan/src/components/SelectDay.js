@@ -67,7 +67,6 @@ class SelectDay extends React.Component {
     }
     toogleModal2 = () => {
         const { modalVisible2 } = this.state;
-        // const {day, month, year} = this.props;
         this.setState({ modalVisible2: !modalVisible2 });
     };
     render() {
@@ -106,14 +105,6 @@ class SelectDay extends React.Component {
                         <Text style={styles.text}>Xem Ngày</Text>
                     </View>
                 </TouchableOpacity>
-                <FormModal
-                    visible={modalVisible2}
-                    toogleModal={this.toogleModal2}
-                    height={"100%"}
-                >
-                    <Courtesy/>
-                    <Time/>
-                </FormModal>
             </View>
         );
     }

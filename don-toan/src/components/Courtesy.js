@@ -2,15 +2,19 @@ import React from 'react';
 import { TouchableOpacity, View, StyleSheet, Text } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
+import {StdioDate} from '../helper/StdioDate';
+import {StdioMonthYear} from '../helper/StdioMonthYear';
+import { StdioDateHelper } from '../helper/StdioDateHelper';
+
 const styles = StyleSheet.create({
     courtesy: {
-        marginTop: 30,
+        marginTop: 40,
         width: '100%',
         aspectRatio: 10/9,
     },
     headContainer: {
         width: '100%',
-        flex: 4,
+        flex: 3,
     },
     titleContainer: {
         width: '100%',
@@ -30,7 +34,7 @@ const styles = StyleSheet.create({
     },
     head: {
         borderWidth: 1,
-        borderColor: 'black',
+        borderColor: 'rgba(255,255,255,0.3)',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -41,21 +45,23 @@ const styles = StyleSheet.create({
     },
     title: {
         borderWidth: 1,
-        borderColor: 'black',
+        borderColor: 'rgba(255,255,255,0.3)',
         alignItems: 'center',
         justifyContent: 'center',
     },
     textTitle: {
+        color: 'rgba(164,172,193,1)',
         fontSize: 18,
         fontWeight: 'bold',
     },
     data: {
         borderWidth: 1,
-        borderColor: 'black',
+        borderColor: 'rgba(255,255,255,0.3)',
         alignItems: 'center',
         justifyContent: 'center',
     },
     textData: {
+        color: 'white',
         fontSize: 12,
     },
     textData1: {
@@ -69,8 +75,19 @@ class Courtesy extends React.Component {
     constructor(props) {
         super(props);
     }
+    
+    componentDidMount() {
+        
+    }
 
     render() {
+        const { date } = this.props;
+        let lunarDate = StdioDateHelper.convertSolarToLunar(date, 7.0);
+        console.log('date', lunarDate);
+
+
+
+
         return (
             <View style={styles.courtesy}>
                 <Grid>
@@ -101,32 +118,30 @@ class Courtesy extends React.Component {
                     </Row>
                     <Row style={styles.dataContainer}>
                         <Col style={styles.data}>
-                            <Text style={styles.textData}>Thứ Hai</Text>
+                            <Text style={styles.textData}>{StdioDateHelper.getDayOfWeekFromDate(date)}</Text>
                         </Col>
                         <Col style={styles.data}>
-                            <Text style={styles.textData}>1</Text>
+                            <Text style={styles.textData}>{date.day}</Text>
                         </Col>
                         <Col style={styles.data}>
-                            <Text style={styles.textData}>4</Text>
+                            <Text style={styles.textData}>{date.month}</Text>
                         </Col>
                         <Col style={styles.data}>
-                            <Text style={styles.textData}>2019</Text>
+                            <Text style={styles.textData}>{date.year}</Text>
                         </Col>
                     </Row>
                     <Row style={styles.dataContainer}>
                         <Col style={styles.data}>
-                            <TouchableOpacity>
-                              <Text style={styles.textData1}>Lịch dịch lý học</Text>
-                            </TouchableOpacity>
+                            <Text style={styles.textData}>Lịch dịch lý học</Text>
                         </Col>
                         <Col style={styles.data}>
-                            <Text style={styles.textData}>26</Text>
+                            <Text style={styles.textData}>{lunarDate.lunarDay}</Text>
                         </Col>
                         <Col style={styles.data}>
-                            <Text style={styles.textData}>Hai</Text>
+                            <Text style={styles.textData}>{StdioDateHelper.convertNumberToString(lunarDate.lunarMonth)}</Text>
                         </Col>
                         <Col style={styles.data}>
-                            <Text style={styles.textData}>Kỷ Hợi</Text>
+                            <Text style={styles.textData}>xxxxxxxxx</Text>
                         </Col>
                     </Row>
                     <Row style={styles.dataContainer}>

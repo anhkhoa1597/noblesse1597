@@ -29,6 +29,12 @@ export class StdioDateHelper {
         return getCurrentDate().month;
     }
 
+    static getDayOfWeekFromDate(date) {
+        dayOfWeek = moment(date.day+'/'+date.month+'/'+date.year,'Do/M/YYYY').clone().format('dddd');
+        dayOfWeek = dayOfWeek.charAt(0).toUpperCase() + dayOfWeek.slice(1);
+        return dayOfWeek
+    }
+
     static getCurrentMonthYear() {
         let today = this.getCurrentDate();
         let monthYear = new StdioMonthYear;
@@ -95,6 +101,35 @@ export class StdioDateHelper {
 
     static getFirstDayOfWeekOfMonthYear(monthYear) {
         return this.getFirstDateOfMonthYear(monthYear).format('e');
+    }
+
+    static convertNumberToString(number){
+        switch (number) {
+            case 1:
+                return 'Giêng';
+            case 2:
+                return 'Hai';
+            case 3:
+                return 'Ba';
+            case 4:
+                return 'Bốn';
+            case 5:
+                return 'Năm';
+            case 6:
+                return 'Sáu';
+            case 7:
+                return 'Bảy';
+            case 8:
+                return 'Tám';
+            case 9:
+                return 'Chín';
+            case 10:
+                return 'Mưới';
+            case 11:
+                return 'Một';
+            case 12:
+                return 'Chạp';
+        }
     }
 
     static jdFromDate(date) {

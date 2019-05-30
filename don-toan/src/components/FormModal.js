@@ -8,10 +8,13 @@ import {
   SafeAreaView
 } from "react-native";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 class FormModal extends Component {
   static defaultProps = {
     height: 300, // 100% is a full
+    backgroundColor: 'rgba(11,19,36,1)',
     closeIcon: true,
     visible: false,
     justifyContent: "flex-end", //
@@ -44,7 +47,8 @@ class FormModal extends Component {
       closeIcon,
       children,
       justifyContent,
-      width
+      width,
+      backgroundColor
     } = this.props;
     const heightOutside = this.caculateHeightOutside();
     // console.log("heightOutside>>", heightOutside);
@@ -79,7 +83,7 @@ class FormModal extends Component {
             <SafeAreaView
               style={{
                 height,
-                backgroundColor: 'white',
+                backgroundColor: 'rgba(11,19,36,1)',
                 width
               }}
             >
@@ -89,13 +93,15 @@ class FormModal extends Component {
                 }}
               >
                 {closeIcon && (
-                  <EvilIcons
-                    name="close"
-                    size={18}
-                    color={"rgba(11,19,36,1)"}
-                    style={styles.closeIcon}
-                    onPress={this.handleModal}
-                  />
+                  <TouchableOpacity onPress={this.handleModal}>
+                    <Icon
+                      name="angle-left"
+                      size={35}
+                      color={"rgba(164,172,193,1)"}
+                      style={styles.closeIcon}
+                      
+                    />
+                  </TouchableOpacity>
                 )}
                 {children}
               </View>
@@ -119,9 +125,10 @@ class FormModal extends Component {
 
 const styles = StyleSheet.create({
   closeIcon: {
+    padding: 0,
+    lineHeight: 50,
     position: "absolute",
-    right: 15,
-    top: 15,
+    left: 15,
     zIndex: 3
   }
 });

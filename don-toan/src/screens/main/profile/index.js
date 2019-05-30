@@ -5,10 +5,14 @@ import { bindHeaderBarActions } from '../../../redux/actions/headerbar';
 import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DatePicker from 'react-native-datepicker';
+import  FormModal from '../../../components/FormModal'
+import Courtesy from '../../../components/Courtesy'
+import Time from '../../../components/Time'
 
 import {StdioDate} from '../../../helper/StdioDate';
 import {StdioMonthYear} from '../../../helper/StdioMonthYear';
 import { StdioDateHelper } from '../../../helper/StdioDateHelper';
+
 
 class ProfileScreen extends React.Component {
 
@@ -19,7 +23,7 @@ class ProfileScreen extends React.Component {
             selectedDate : null,
             calendarSolar : [],
             calendarLunar: [],
-            datePicker: null,
+            modalVisible2: false,
         }
     }
 
@@ -35,8 +39,6 @@ class ProfileScreen extends React.Component {
             selectedDate : currentDate,
             calendarSolar : this.createCalendar(selectedMonthYear)
         });
-
-
     }
 
     createCalendar = (currentMonthYear) => {
@@ -112,9 +114,15 @@ class ProfileScreen extends React.Component {
         });
     }
 
+    toogleModal2 = () => {
+        const { modalVisible2 } = this.state;
+        this.setState({ modalVisible2: !modalVisible2 });
+    };
+
     selectDate(date){
+        this.toogleModal2();
         this.setState({
-            selectedDate: date
+            selectedDate: date,
         })
     }
 
@@ -160,7 +168,8 @@ class ProfileScreen extends React.Component {
     }
 
     render() {
-        const { selectedDate } = this.state;
+        const { selectedDate, modalVisible2 } = this.state;
+        console.log('modalVisible2', modalVisible2)
         if (selectedDate == null)
             return null;
         let datePicker = selectedDate.formatDate('DD-MM-YYYY');
@@ -185,7 +194,6 @@ class ProfileScreen extends React.Component {
                             name="angle-right"
                             color="rgba(164,172,193,1)"
                             size={35}
-                            // onPress={}
                         />
                     </TouchableOpacity>
                 </View>
@@ -235,6 +243,14 @@ class ProfileScreen extends React.Component {
                     }}
                     onDateChange={(date) => {this.setState({date: date})}}
                 />
+                <FormModal
+                    visible={modalVisible2}
+                    toogleModal={this.toogleModal2}
+                    height={"100%"}
+                >
+                    <Courtesy date={selectedDate}/>
+                    <Time/>
+                </FormModal>
                 </View>
             </View>
         );
