@@ -60,6 +60,20 @@ export class StdioDateHelper {
         return previousMonthYear;
     }
 
+    static getPreviousYear(monthYear) {
+        let previousYearMoment = this.getMomentFromMonthYear(monthYear).clone().subtract('1', 'y');
+        let previousYear = new StdioMonthYear;
+        previousYear.setMonthYear(previousYearMoment.format('M'), previousYearMoment.format('YYYY'));
+        return previousYear
+    }
+
+    static getNextYear(monthYear) {
+        let nextYearMoment = this.getMomentFromMonthYear(monthYear).clone().add('1', 'y');
+        let nextYear = new StdioMonthYear;
+        nextYear.setMonthYear(nextYearMoment.format('M'), nextYearMoment.format('YYYY'));
+        return nextYear
+    }
+
     static getFirstDateOfMonthYear(monthYear) {
         let date = new StdioDate;
         date.setDate(
@@ -103,33 +117,47 @@ export class StdioDateHelper {
         return this.getFirstDateOfMonthYear(monthYear).format('e');
     }
 
-    static convertNumberToString(number){
-        switch (number) {
+    static convertLunarMonthToString(lunarMonth, lunarLeap){
+        let name;
+        switch (lunarMonth) {
             case 1:
-                return 'Giêng';
+                name = 'Giêng';
+                break;
             case 2:
-                return 'Hai';
+                name = 'Hai';
+                break;
             case 3:
-                return 'Ba';
+                name = 'Ba';
+                break;
             case 4:
-                return 'Bốn';
+                name = 'Bốn';
+                break;
             case 5:
-                return 'Năm';
+                name = 'Năm';
+                break;
             case 6:
-                return 'Sáu';
+                name = 'Sáu';
+                break;
             case 7:
-                return 'Bảy';
+                name = 'Bảy';
+                break;
             case 8:
-                return 'Tám';
+                name = 'Tám';
+                break;
             case 9:
-                return 'Chín';
+                name = 'Chín';
+                break;
             case 10:
-                return 'Mưới';
+                name = 'Mưới';
+                break;
             case 11:
-                return 'Một';
+                name = 'Một';
+                break;
             case 12:
-                return 'Chạp';
+                name = 'Chạp';
+                break;
         }
+        return lunarLeap ? name + ' (nhuận)' : name;
     }
 
     static jdFromDate(date) {
@@ -241,7 +269,7 @@ export class StdioDateHelper {
     }
 
     static convertSolarToLunar(date, timeZone){
-        let k, dayNumber, monthStart, a11, b11, lunarDay, lunarMonth, lunarYear, lunarLeap;
+        let k, dayNumber, monthStart, a11, b11, lunarDay, lunarMonth, lunarYear, lunarLeap, leapMonthDiff;
         dayNumber = this.jdFromDate(date);
         k = Math.floor((dayNumber - 2415021.076998695) / 29.530588853);
         monthStart = this.getNewMoonDay(k + 1, timeZone);
@@ -309,5 +337,930 @@ export class StdioDateHelper {
         k = Math.floor(0.5 + (a11 - 2415021.076998695) / 29.530588853);
         monthStart = this.getNewMoonDay(k + off, timeZone);
         return this.jdToDate(monthStart + lunarDate.lunarDay - 1);
+    }
+
+    static convertLunarYearToCanChi(lunarYear){
+        let can, chi;
+        switch ((lunarYear + 6) % 10) {
+            case 0:
+                can = 'Giáp';
+                break;
+            case 1:
+                can = 'Ất';
+                break;
+            case 2:
+                can = 'Bính';
+                break;
+            case 3:
+                can = 'Đinh';
+                break;
+            case 4:
+                can = 'Mậu';
+                break;  
+            case 5:
+                can = 'Kỷ';
+                break;  
+            case 6:
+                can = 'Canh';
+                break;  
+            case 7:
+                can = 'Tân';
+                break;  
+            case 8:
+                can = 'Nhâm';
+                break;  
+            case 9:
+                can = 'Quý';
+                break;  
+        }
+        switch ((lunarYear + 8) % 12) {
+            case 0:
+                chi = 'Tý';
+                break;
+            case 1:
+                chi = 'Sửu';
+                break;
+            case 2:
+                chi = 'Dần';
+                break;
+            case 3:
+                chi = 'Mão';
+                break;
+            case 4:
+                chi = 'Thìn';
+                break;
+            case 5:
+                chi = 'Tỵ';
+                break;
+            case 6:
+                chi = 'Ngọ';
+                break;
+            case 7:
+                chi = 'Mùi';
+                break;
+            case 8:
+                chi = 'Thân';
+                break;
+            case 9:
+                chi = 'Dậu';
+                break;
+            case 10:
+                chi = 'Tuất';
+                break;
+            case 11:
+                chi = 'Hợi';
+                break;
+        }
+        return can + ' ' + chi;
+    }
+
+    static convertLunarDayToCanChi(solarDate) {
+        let can, chi;
+        let jd = this.jdFromDate(solarDate);
+        switch ((jd + 9) % 10) {
+            case 0:
+                can = 'Giáp';
+                break;
+            case 1:
+                can = 'Ất';
+                break;
+            case 2:
+                can = 'Bính';
+                break;
+            case 3:
+                can = 'Đinh';
+                break;
+            case 4:
+                can = 'Mậu';
+                break;  
+            case 5:
+                can = 'Kỷ';
+                break;  
+            case 6:
+                can = 'Canh';
+                break;  
+            case 7:
+                can = 'Tân';
+                break;  
+            case 8:
+                can = 'Nhâm';
+                break;  
+            case 9:
+                can = 'Quý';
+                break; 
+        }
+        switch ((jd + 1) % 12) {
+            case 0:
+                chi = 'Tý';
+                break;
+            case 1:
+                chi = 'Sửu';
+                break;
+            case 2:
+                chi = 'Dần';
+                break;
+            case 3:
+                chi = 'Mão';
+                break;
+            case 4:
+                chi = 'Thìn';
+                break;
+            case 5:
+                chi = 'Tỵ';
+                break;
+            case 6:
+                chi = 'Ngọ';
+                break;
+            case 7:
+                chi = 'Mùi';
+                break;
+            case 8:
+                chi = 'Thân';
+                break;
+            case 9:
+                chi = 'Dậu';
+                break;
+            case 10:
+                chi = 'Tuất';
+                break;
+            case 11:
+                chi = 'Hợi';
+                break;
+        }
+
+        return can + ' ' + chi;
+    }
+
+    static convertLunarMonthToCanChi(lunarDate){
+        let can, chi;
+        switch (lunarDate.lunarMonth) {
+            case 11:
+                chi = 'Tý';
+                break;
+            case 12:
+                chi = 'Sửu';
+                break;
+            case 1:
+                chi = 'Dần';
+                break;
+            case 2:
+                chi = 'Mão';
+                break;
+            case 3:
+                chi = 'Thìn';
+                break;
+            case 4:
+                chi = 'Tỵ';
+                break;
+            case 5:
+                chi = 'Ngọ';
+                break;
+            case 6:
+                chi = 'Mùi';
+                break;
+            case 7:
+                chi = 'Thân';
+                break;
+            case 8:
+                chi = 'Dậu';
+                break;
+            case 9:
+                chi = 'Tuất';
+                break;
+            case 10:
+                chi = 'Hợi';
+                break;
+        }
+
+        switch ((lunarDate.lunarYear * 12 + lunarDate.lunarMonth + 3) % 10) {
+            case 0:
+                can = 'Giáp';
+                break;
+            case 1:
+                can = 'Ất';
+                break;
+            case 2:
+                can = 'Bính';
+                break;
+            case 3:
+                can = 'Đinh';
+                break;
+            case 4:
+                can = 'Mậu';
+                break;  
+            case 5:
+                can = 'Kỷ';
+                break;  
+            case 6:
+                can = 'Canh';
+                break;  
+            case 7:
+                can = 'Tân';
+                break;  
+            case 8:
+                can = 'Nhâm';
+                break;  
+            case 9:
+                can = 'Quý';
+                break;
+        }
+
+        return lunarDate.lunarLeap ? can + ' ' + chi + ' nhuận' : can + ' ' + chi;
+    }
+    
+    static getLacThuHoaGiapFromDay(solarDate) {
+        let can, chi;
+        let jd = this.jdFromDate(solarDate);
+        can = (jd + 9) % 10;
+        chi = (jd + 1) % 12;
+        switch (can+'|'+chi) {
+            case '0|0': case '1|1':
+                return '0 Hải Trung Kim';
+            case '2|2': case '3|3':
+                return '1 Giáng Hạ Thuỷ';
+            case '4|4': case '5|5':
+                return '0 Đại Lâm Mộc';
+            case '6|6': case '7|7':
+                return '0 Lộ Bàng Thổ';
+            case '8|8': case '9|9':
+                return '0 Kiếm Phong Kim';
+            case '0|10': case '1|11':
+                return '1 Tuyền trung Thuỷ';
+            case '2|0': case '3|1':
+                return '2 Lư Trung Hoả';
+            case '4|2': case '5|3':
+                return '0 Thành Đầu Thổ';
+            case '6|4': case '7|5':
+                return '0 Bạch Lạp Kim';
+            case '8|6': case '9|7':
+                return '0 Dương Liễu Mộc';
+            case '0|8': case '1|9':
+                return '2 Sơn Đầu Hoả';
+            case '2|10': case '3|11':
+                return '0 Ốc Thượng Thổ';
+            case '4|0': case '5|1':
+                return '1 Trường Lưu thuỷ';
+            case '6|2': case '7|3':
+                return '0 Tùng Bách Mộc';
+            case '8|4': case '9|5':
+                return '2 Tích Lịch Hoả';
+            case '0|6': case '1|7':
+                return '0 Sa Trung Kim';
+            case '2|8': case '3|9':
+                return '1 Thiên Hà Thuỷ';
+            case '4|10': case '5|11':
+                return '0 Bình Địa Mộc';
+            case '6|0': case '7|1':
+                return '0 Bích Thượng Thổ';
+            case '8|2': case '9|3':
+                return '0 Kim Bạch Kim';
+            case '0|4': case '1|5':
+                return '1 Đại Khê Thuỷ';
+            case '2|6': case '3|7':
+                return '2 Sơn Hạ Hoả';
+            case '4|8': case '5|9':
+                return '0 Đại Dịch Thổ';
+            case '6|10': case '7|11':
+                return '0 Thoa Xuyến Kim';
+            case '8|0': case '9|1':
+                return '0 Tang Đố Mộc';
+            case '0|2': case '1|3':
+                return '2 Phúc Đăng Hoả';
+            case '2|4': case '3|5':
+                return '0 Sa Trung Thổ';
+            case '4|6': case '5|7':
+                return '1 Đại Hải Thuỷ';
+            case '6|8': case '7|9':
+                return '0 Thạch Lựu Mộc';
+            case '8|10': case '9|11':
+                return '2 Thiên Thượng Hoả';
+        }
+    }
+
+    static getLacThuHoaGiapFromMonth(lunarDate) {
+        let can, chi;
+        can = (lunarDate.lunarYear * 12 + lunarDate.lunarMonth + 3) % 10;
+        chi = lunarDate.lunarMonth + 1;
+        if (chi > 11){
+            chi = chi - 12;
+        }
+        switch (can+'|'+chi) {
+            case '0|0': case '1|1':
+                return '0 Hải Trung Kim';
+            case '2|2': case '3|3':
+                return '1 Giáng Hạ Thuỷ';
+            case '4|4': case '5|5':
+                return '0 Đại Lâm Mộc';
+            case '6|6': case '7|7':
+                return '0 Lộ Bàng Thổ';
+            case '8|8': case '9|9':
+                return '0 Kiếm Phong Kim';
+            case '0|10': case '1|11':
+                return '1 Tuyền trung Thuỷ';
+            case '2|0': case '3|1':
+                return '2 Lư Trung Hoả';
+            case '4|2': case '5|3':
+                return '0 Thành Đầu Thổ';
+            case '6|4': case '7|5':
+                return '0 Bạch Lạp Kim';
+            case '8|6': case '9|7':
+                return '0 Dương Liễu Mộc';
+            case '0|8': case '1|9':
+                return '2 Sơn Đầu Hoả';
+            case '2|10': case '3|11':
+                return '0 Ốc Thượng Thổ';
+            case '4|0': case '5|1':
+                return '1 Trường Lưu thuỷ';
+            case '6|2': case '7|3':
+                return '0 Tùng Bách Mộc';
+            case '8|4': case '9|5':
+                return '2 Tích Lịch Hoả';
+            case '0|6': case '1|7':
+                return '0 Sa Trung Kim';
+            case '2|8': case '3|9':
+                return '1 Thiên Hà Thuỷ';
+            case '4|10': case '5|11':
+                return '0 Bình Địa Mộc';
+            case '6|0': case '7|1':
+                return '0 Bích Thượng Thổ';
+            case '8|2': case '9|3':
+                return '0 Kim Bạch Kim';
+            case '0|4': case '1|5':
+                return '1 Đại Khê Thuỷ';
+            case '2|6': case '3|7':
+                return '2 Sơn Hạ Hoả';
+            case '4|8': case '5|9':
+                return '0 Đại Dịch Thổ';
+            case '6|10': case '7|11':
+                return '0 Thoa Xuyến Kim';
+            case '8|0': case '9|1':
+                return '0 Tang Đố Mộc';
+            case '0|2': case '1|3':
+                return '2 Phúc Đăng Hoả';
+            case '2|4': case '3|5':
+                return '0 Sa Trung Thổ';
+            case '4|6': case '5|7':
+                return '1 Đại Hải Thuỷ';
+            case '6|8': case '7|9':
+                return '0 Thạch Lựu Mộc';
+            case '8|10': case '9|11':
+                return '2 Thiên Thượng Hoả';
+        }
+    }
+
+    static getLacThuHoaGiapFromYear(lunarYear) {
+        let can, chi;
+        can = (lunarYear + 6) % 10;
+        chi = (lunarYear + 8) % 12;
+        switch (can+'|'+chi) {
+            case '0|0': case '1|1':
+                return '0 Hải Trung Kim';
+            case '2|2': case '3|3':
+                return '1 Giáng Hạ Thuỷ';
+            case '4|4': case '5|5':
+                return '0 Đại Lâm Mộc';
+            case '6|6': case '7|7':
+                return '0 Lộ Bàng Thổ';
+            case '8|8': case '9|9':
+                return '0 Kiếm Phong Kim';
+            case '0|10': case '1|11':
+                return '1 Tuyền trung Thuỷ';
+            case '2|0': case '3|1':
+                return '2 Lư Trung Hoả';
+            case '4|2': case '5|3':
+                return '0 Thành Đầu Thổ';
+            case '6|4': case '7|5':
+                return '0 Bạch Lạp Kim';
+            case '8|6': case '9|7':
+                return '0 Dương Liễu Mộc';
+            case '0|8': case '1|9':
+                return '2 Sơn Đầu Hoả';
+            case '2|10': case '3|11':
+                return '0 Ốc Thượng Thổ';
+            case '4|0': case '5|1':
+                return '1 Trường Lưu thuỷ';
+            case '6|2': case '7|3':
+                return '0 Tùng Bách Mộc';
+            case '8|4': case '9|5':
+                return '2 Tích Lịch Hoả';
+            case '0|6': case '1|7':
+                return '0 Sa Trung Kim';
+            case '2|8': case '3|9':
+                return '1 Thiên Hà Thuỷ';
+            case '4|10': case '5|11':
+                return '0 Bình Địa Mộc';
+            case '6|0': case '7|1':
+                return '0 Bích Thượng Thổ';
+            case '8|2': case '9|3':
+                return '0 Kim Bạch Kim';
+            case '0|4': case '1|5':
+                return '1 Đại Khê Thuỷ';
+            case '2|6': case '3|7':
+                return '2 Sơn Hạ Hoả';
+            case '4|8': case '5|9':
+                return '0 Đại Dịch Thổ';
+            case '6|10': case '7|11':
+                return '0 Thoa Xuyến Kim';
+            case '8|0': case '9|1':
+                return '0 Tang Đố Mộc';
+            case '0|2': case '1|3':
+                return '2 Phúc Đăng Hoả';
+            case '2|4': case '3|5':
+                return '0 Sa Trung Thổ';
+            case '4|6': case '5|7':
+                return '1 Đại Hải Thuỷ';
+            case '6|8': case '7|9':
+                return '0 Thạch Lựu Mộc';
+            case '8|10': case '9|11':
+                return '2 Thiên Thượng Hoả';
+        }
+    }
+
+    static getTuoiHopFromDay(solarDate) {
+        let can, chi;
+        let jd = this.jdFromDate(solarDate);
+        switch ((jd + 9) % 10) {
+            case 0:
+                can = 'Kỷ';
+                break;
+            case 1:
+                can = 'Canh';
+                break;
+            case 2:
+                can = 'Tân';
+                break;
+            case 3:
+                can = 'Nhâm';
+                break;
+            case 4:
+                can = 'Quý';
+                break;  
+            case 5:
+                can = 'Giáp';
+                break;  
+            case 6:
+                can = 'Ất';
+                break;  
+            case 7:
+                can = 'Bính';
+                break;  
+            case 8:
+                can = 'Đinh';
+                break;  
+            case 9:
+                can = 'Mâu';
+                break; 
+        }
+        switch ((jd + 1) % 12) {
+            case 0:
+                chi = 'Sửu';
+                break;
+            case 1:
+                chi = 'Tý';
+                break;
+            case 2:
+                chi = 'Hợi';
+                break;
+            case 3:
+                chi = 'Tuất';
+                break;
+            case 4:
+                chi = 'Dậu';
+                break;
+            case 5:
+                chi = 'Thân';
+                break;
+            case 6:
+                chi = 'Mùi';
+                break;
+            case 7:
+                chi = 'Ngọ';
+                break;
+            case 8:
+                chi = 'Tỵ';
+                break;
+            case 9:
+                chi = 'Thìn';
+                break;
+            case 10:
+                chi = 'Mão';
+                break;
+            case 11:
+                chi = 'Dần';
+                break;
+        }
+        return can + ' ' + chi;
+    }
+
+    static getTuoiHopFromMonth(lunarDate) {
+        let can, chi;
+        switch (lunarDate.lunarMonth) {
+            case 11:
+                chi = 'Sửu';
+                break;
+            case 12:
+                chi = 'Tý';
+                break;
+            case 1:
+                chi = 'Hợi';
+                break;
+            case 2:
+                chi = 'Tuất';
+                break;
+            case 3:
+                chi = 'Dậu';
+                break;
+            case 4:
+                chi = 'Thân';
+                break;
+            case 5:
+                chi = 'Mùi';
+                break;
+            case 6:
+                chi = 'Ngọ';
+                break;
+            case 7:
+                chi = 'Tỵ';
+                break;
+            case 8:
+                chi = 'Thìn';
+                break;
+            case 9:
+                chi = 'Mão';
+                break;
+            case 10:
+                chi = 'Dần';
+                break;
+        }
+        switch ((lunarDate.lunarYear * 12 + lunarDate.lunarMonth + 3) % 10) {
+            case 0:
+                can = 'Kỷ';
+                break;
+            case 1:
+                can = 'Canh';
+                break;
+            case 2:
+                can = 'Tân';
+                break;
+            case 3:
+                can = 'Nhâm';
+                break;
+            case 4:
+                can = 'Quý';
+                break;  
+            case 5:
+                can = 'Giáp';
+                break;  
+            case 6:
+                can = 'Ất';
+                break;  
+            case 7:
+                can = 'Bính';
+                break;  
+            case 8:
+                can = 'Đinh';
+                break;  
+            case 9:
+                can = 'Mâu';
+                break;
+        }
+
+        return can + ' ' + chi;
+    }
+
+    static getTuoiHopFromYear(lunarYear) {
+        let can, chi;
+        switch ((lunarYear + 6) % 10) {
+            case 0:
+                can = 'Kỷ';
+                break;
+            case 1:
+                can = 'Canh';
+                break;
+            case 2:
+                can = 'Tân';
+                break;
+            case 3:
+                can = 'Nhâm';
+                break;
+            case 4:
+                can = 'Quý';
+                break;  
+            case 5:
+                can = 'Giáp';
+                break;  
+            case 6:
+                can = 'Ất';
+                break;  
+            case 7:
+                can = 'Bính';
+                break;  
+            case 8:
+                can = 'Đinh';
+                break;  
+            case 9:
+                can = 'Mâu';
+                break;
+        }
+        switch ((lunarYear + 8) % 12) {
+            case 0:
+                chi = 'Sửu';
+                break;
+            case 1:
+                chi = 'Tý';
+                break;
+            case 2:
+                chi = 'Hợi';
+                break;
+            case 3:
+                chi = 'Tuất';
+                break;
+            case 4:
+                chi = 'Dậu';
+                break;
+            case 5:
+                chi = 'Thân';
+                break;
+            case 6:
+                chi = 'Mùi';
+                break;
+            case 7:
+                chi = 'Ngọ';
+                break;
+            case 8:
+                chi = 'Tỵ';
+                break;
+            case 9:
+                chi = 'Thìn';
+                break;
+            case 10:
+                chi = 'Mão';
+                break;
+            case 11:
+                chi = 'Dần';
+                break;
+        }
+        return can + ' ' + chi;
+    }
+
+    static getTuoiKyFromDay(solarDate) {
+        let can, chi, can1;
+        let jd = this.jdFromDate(solarDate);
+        switch ((jd + 9) % 10) {
+            case 0:
+                can1 = 'Giáp';
+                can = 'Canh';
+                break;
+            case 1:
+                can1 = 'Ất';
+                can = 'Tân';
+                break;
+            case 2:
+                can1 = 'Bính';
+                can = 'Nhâm';
+                break;
+            case 3:
+                can1 = 'Đinh';
+                can = 'Quý';
+                break;
+            case 4:
+                can1 = 'Mậu';
+                can = 'Giáp';
+                break;  
+            case 5:
+                can1 = 'Kỷ';
+                can = 'Ất';
+                break;  
+            case 6:
+                can1 = 'Canh';
+                can = 'Bính';
+                break;  
+            case 7:
+                can1 = 'Tân';
+                can = 'Đinh';
+                break;  
+            case 8:
+                can1 = 'Nhâm'
+                can = 'Mậu';
+                break;  
+            case 9:
+                can1 = 'Quý';
+                can = 'Kỷ';
+                break; 
+        }
+
+        switch ((jd + 1) % 12) {
+            case 0:
+                chi = 'Ngọ';
+                break;
+            case 1:
+                chi = 'Mùi';
+                break;
+            case 2:
+                chi = 'Thân';
+                break;
+            case 3:
+                chi = 'Dậu';
+                break;
+            case 4:
+                chi = 'Tuất';
+                break;
+            case 5:
+                chi = 'Hợi';
+                break;
+            case 6:
+                chi = 'Tý';
+                break;
+            case 7:
+                chi = 'Sửu';
+                break;
+            case 8:
+                chi = 'Dần';
+                break;
+            case 9:
+                chi = 'Mão';
+                break;
+            case 10:
+                chi = 'Thìn';
+                break;
+            case 11:
+                chi = 'Tỵ';
+                break;
+        }
+        let tuoiKy = [can1 + ' ' + chi, can + ' ' + chi];
+        return tuoiKy
+    }
+
+    static getTuoiKyFromMonth(lunarDate){
+        let can, chi, can1;
+        switch (lunarDate.lunarMonth) {
+            case 11:
+                chi = 'Ngọ';
+                break;
+            case 12:
+                chi = 'Mùi';
+                break;
+            case 1:
+                chi = 'Thân';
+                break;
+            case 2:
+                chi = 'Dậu';
+                break;
+            case 3:
+                chi = 'Tuất';
+                break;
+            case 4:
+                chi = 'Hợi';
+                break;
+            case 5:
+                chi = 'Tý';
+                break;
+            case 6:
+                chi = 'Sửu';
+                break;
+            case 7:
+                chi = 'Dần';
+                break;
+            case 8:
+                chi = 'Mão';
+                break;
+            case 9:
+                chi = 'Thìn';
+                break;
+            case 10:
+                chi = 'Tỵ';
+                break;
+        }
+
+        switch ((lunarDate.lunarYear * 12 + lunarDate.lunarMonth + 3) % 10) {
+            case 0:
+                can1 = 'Giáp';
+                can = 'Canh';
+                break;
+            case 1:
+                can1 = 'Ất';
+                can = 'Tân';
+                break;
+            case 2:
+                can1 = 'Bính';
+                can = 'Nhâm';
+                break;
+            case 3:
+                can1 = 'Đinh';
+                can = 'Quý';
+                break;
+            case 4:
+                can1 = 'Mậu';
+                can = 'Giáp';
+                break;  
+            case 5:
+                can1 = 'Kỷ';
+                can = 'Ất';
+                break;  
+            case 6:
+                can1 = 'Canh';
+                can = 'Bính';
+                break;  
+            case 7:
+                can1 = 'Tân';
+                can = 'Đinh';
+                break;  
+            case 8:
+                can1 = 'Nhâm'
+                can = 'Mậu';
+                break;  
+            case 9:
+                can1 = 'Quý';
+                can = 'Kỷ';
+                break;
+        }
+        let tuoiKy = [can1 + ' ' + chi, can + ' ' + chi];
+        return tuoiKy;
+    }
+
+    static getTuoiKyFromYear(lunarYear) {
+        let can, chi, can1;
+        switch ((lunarYear + 6) % 10) {
+            case 0:
+                can1 = 'Giáp';
+                can = 'Canh';
+                break;
+            case 1:
+                can1 = 'Ất';
+                can = 'Tân';
+                break;
+            case 2:
+                can1 = 'Bính';
+                can = 'Nhâm';
+                break;
+            case 3:
+                can1 = 'Đinh';
+                can = 'Quý';
+                break;
+            case 4:
+                can1 = 'Mậu';
+                can = 'Giáp';
+                break;  
+            case 5:
+                can1 = 'Kỷ';
+                can = 'Ất';
+                break;  
+            case 6:
+                can1 = 'Canh';
+                can = 'Bính';
+                break;  
+            case 7:
+                can1 = 'Tân';
+                can = 'Đinh';
+                break;  
+            case 8:
+                can1 = 'Nhâm'
+                can = 'Mậu';
+                break;  
+            case 9:
+                can1 = 'Quý';
+                can = 'Kỷ';
+                break;
+        }
+        switch ((lunarYear + 8) % 12) {
+            case 0:
+                chi = 'Ngọ';
+                break;
+            case 1:
+                chi = 'Mùi';
+                break;
+            case 2:
+                chi = 'Thân';
+                break;
+            case 3:
+                chi = 'Dậu';
+                break;
+            case 4:
+                chi = 'Tuất';
+                break;
+            case 5:
+                chi = 'Hợi';
+                break;
+            case 6:
+                chi = 'Tý';
+                break;
+            case 7:
+                chi = 'Sửu';
+                break;
+            case 8:
+                chi = 'Dần';
+                break;
+            case 9:
+                chi = 'Mão';
+                break;
+            case 10:
+                chi = 'Thìn';
+                break;
+            case 11:
+                chi = 'Tỵ';
+                break;
+        }
+        let tuoiKy = [can1 + ' ' + chi, can + ' ' + chi];
+        return tuoiKy;
     }
 }

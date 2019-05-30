@@ -6,15 +6,212 @@ import {StdioDate} from '../helper/StdioDate';
 import {StdioMonthYear} from '../helper/StdioMonthYear';
 import { StdioDateHelper } from '../helper/StdioDateHelper';
 
+class Courtesy extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    
+    componentDidMount() {
+        
+    }
+
+    render() {
+        const { date } = this.props;
+        let lunarDate, lacThuFromDay, styleLacThuFromDay, lacThuFromMonth, styleLacThuFromMonth, lacThuFromYear, styleLacThuFromYear;
+        // date = new StdioDate;
+        // date.setDate(1, 3, 2019);
+        lunarDate = StdioDateHelper.convertSolarToLunar(date, 7.0);
+        lacThuFromDay = StdioDateHelper.getLacThuHoaGiapFromDay(date).slice(2);
+        styleLacThuFromDay = parseInt(StdioDateHelper.getLacThuHoaGiapFromDay(date)[0]);
+        lacThuFromMonth = StdioDateHelper.getLacThuHoaGiapFromMonth(lunarDate).slice(2);
+        styleLacThuFromMonth = parseInt(StdioDateHelper.getLacThuHoaGiapFromMonth(lunarDate)[0]);
+        lacThuFromYear = StdioDateHelper.getLacThuHoaGiapFromYear(lunarDate.lunarYear).slice(2);
+        styleLacThuFromYear = parseInt(StdioDateHelper.getLacThuHoaGiapFromYear(lunarDate.lunarYear)[0]);
+        switch (styleLacThuFromDay) {
+            case 0:
+                styleLacThuFromDay = 'white'
+                break;
+            case 1:
+                styleLacThuFromDay = '#00aadd';
+                break;
+            case 2:
+                styleLacThuFromDay = '#ff5555';
+                break;
+        }
+        switch (styleLacThuFromMonth) {
+            case 0:
+                styleLacThuFromMonth = 'white'
+                break;
+            case 1:
+                styleLacThuFromMonth = '#00aadd';
+                break;
+            case 2:
+                styleLacThuFromMonth = '#ff5555';
+                break;
+        }
+        switch (styleLacThuFromYear) {
+            case 0:
+                styleLacThuFromYear = 'white'
+                break;
+            case 1:
+                styleLacThuFromYear = '#00aadd';
+                break;
+            case 2:
+                styleLacThuFromYear = '#ff5555';
+                break;
+        }
+        let tuoiKyFromDay = StdioDateHelper.getTuoiKyFromDay(date);
+        let tuoiKyFromMonth = StdioDateHelper.getTuoiKyFromMonth(lunarDate);
+        let tuoiKyFromYear = StdioDateHelper.getTuoiKyFromYear(lunarDate.lunarYear);
+        return (
+            <View style={styles.courtesy}>
+                <Grid>
+                    <Row style={styles.headContainer}>
+                        <Col style={styles.head}>
+                            <Text style={styles.textHead}>Lịch lý học đông phương</Text>
+                        </Col>
+                    </Row>
+                    {/* <Row style={styles.titleContainer}>
+                        <Col style={styles.title}>
+                            <Text style={styles.textTitle}>Ngày Thiên hình Hắc đạo</Text>
+                            <Text style={styles.textTitle}>Trực Trừ, Sao Tất, Tiết Xuân phân</Text>
+                        </Col>
+                    </Row> */}
+                    <Row style={styles.dataContainer}>
+                        <Col style={styles.data}>
+                            <Text style={styles.textDataHead}>Lịch</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={styles.textDataHead}>Ngày</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={styles.textDataHead}>Tháng</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={styles.textDataHead}>Năm</Text>
+                        </Col>
+                    </Row>
+                    <Row style={styles.dataContainer}>
+                        <Col style={styles.data}>
+                            <Text style={styles.textData}>{StdioDateHelper.getDayOfWeekFromDate(date)}</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={styles.textData}>{date.day}</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={styles.textData}>{date.month}</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={styles.textData}>{date.year}</Text>
+                        </Col>
+                    </Row>
+                    <Row style={styles.dataContainer}>
+                        <Col style={styles.data}>
+                            <Text style={styles.textDataHead}>Lịch dịch lý học</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={styles.textData}>{lunarDate.lunarDay}</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={styles.textData}>{StdioDateHelper.convertLunarMonthToString(lunarDate.lunarMonth, lunarDate.lunarLeap)}</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={styles.textData}>{lunarDate.lunarYear}</Text>
+                        </Col>
+                    </Row>
+                    <Row style={styles.dataContainer}>
+                        <Col style={styles.data}>
+                            <Text style={styles.textDataHead}>Can-Chi</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={styles.textData}>{StdioDateHelper.convertLunarDayToCanChi(date)}</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={styles.textData}>{StdioDateHelper.convertLunarMonthToCanChi(lunarDate)}</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={styles.textData}>{StdioDateHelper.convertLunarYearToCanChi(lunarDate.lunarYear)}</Text>
+                        </Col>
+                    </Row>
+                    <Row style={styles.dataContainer}>
+                        <Col style={styles.data}>
+                            <Text style={styles.textDataHead}>Lạc thư hoa giáp</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={{fontSize: 12, color: styleLacThuFromDay}}>{lacThuFromDay}</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={{fontSize: 12, color: styleLacThuFromMonth}}>{lacThuFromMonth}</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={{fontSize: 12, color: styleLacThuFromYear}}>{lacThuFromYear}</Text>
+                        </Col>
+                    </Row>
+                    <Row  style={styles.dataContainer1}>
+                        <Col style={styles.data}>
+                            <Text style={styles.textDataHead}>Tuổi kỵ</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={styles.textData}>{tuoiKyFromDay[0]}</Text>
+                            <Text style={styles.textData}>{tuoiKyFromDay[1]}</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={styles.textData}>{tuoiKyFromMonth[0]}</Text>
+                            <Text style={styles.textData}>{tuoiKyFromMonth[1]}</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={styles.textData}>{tuoiKyFromYear[0]}</Text>
+                            <Text style={styles.textData}>{tuoiKyFromYear[1]}</Text>
+                        </Col>
+                    </Row>
+                    <Row  style={styles.dataContainer}>
+                        <Col style={styles.data}>
+                            <Text style={styles.textDataHead}>Tuổi hợp</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={styles.textData}>{StdioDateHelper.getTuoiHopFromDay(date)}</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={styles.textData}>{StdioDateHelper.getTuoiHopFromMonth(lunarDate)}</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={styles.textData}>{StdioDateHelper.getTuoiHopFromYear(lunarDate.lunarYear)}</Text>
+                        </Col>
+                    </Row>
+                    {/* <Row style={styles.dataContainer}>
+
+                    </Row>
+                    <Row style={styles.dataContainer}>
+                        <Col style={styles.data}>
+                            <Text style={styles.textDataHead}>Cát thần</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={styles.textDataHead}>Hung thần sát</Text>
+                        </Col>
+                    </Row>
+                    <Row style={styles.dataContainer2}>
+                        <Col style={styles.data}>
+                            <Text style={styles.textData}>Thiên phúc, U vi tinh, Thiên ân,</Text>
+                        </Col>
+                        <Col style={styles.data}>
+                            <Text style={styles.textData}>Thụ tử, Nguyệt hỏa, Phủ đầu sát, Tam tang, Không phòng, Thiên hình, Ly sào, Xích khẩu</Text>
+                        </Col>
+                    </Row> */}
+                </Grid>
+            </View>
+        );
+    }
+}
+
 const styles = StyleSheet.create({
     courtesy: {
-        marginTop: 40,
+        marginTop: 60,
         width: '100%',
-        aspectRatio: 10/9,
+        aspectRatio: 15/9,
     },
     headContainer: {
         width: '100%',
-        flex: 3,
+        flex: 2,
     },
     titleContainer: {
         width: '100%',
@@ -64,168 +261,16 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 12,
     },
+    textDataHead: {
+        color: 'rgba(164,172,193,1)',
+        fontWeight: 'bold',
+        fontSize: 12,
+    },
     textData1: {
         fontSize: 12,
         color: 'blue',
         textDecorationLine: 'underline'
     },
 });
-
-class Courtesy extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    
-    componentDidMount() {
-        
-    }
-
-    render() {
-        const { date } = this.props;
-        let lunarDate = StdioDateHelper.convertSolarToLunar(date, 7.0);
-        console.log('date', lunarDate);
-
-
-
-
-        return (
-            <View style={styles.courtesy}>
-                <Grid>
-                    <Row style={styles.headContainer}>
-                        <Col style={styles.head}>
-                            <Text style={styles.textHead}>Lịch lý học đông phương</Text>
-                        </Col>
-                    </Row>
-                    <Row style={styles.titleContainer}>
-                        <Col style={styles.title}>
-                            <Text style={styles.textTitle}>Ngày Thiên hình Hắc đạo</Text>
-                            <Text style={styles.textTitle}>Trực Trừ, Sao Tất, Tiết Xuân phân</Text>
-                        </Col>
-                    </Row>
-                    <Row style={styles.dataContainer}>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Lịch</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Ngày</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Tháng</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Năm</Text>
-                        </Col>
-                    </Row>
-                    <Row style={styles.dataContainer}>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>{StdioDateHelper.getDayOfWeekFromDate(date)}</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>{date.day}</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>{date.month}</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>{date.year}</Text>
-                        </Col>
-                    </Row>
-                    <Row style={styles.dataContainer}>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Lịch dịch lý học</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>{lunarDate.lunarDay}</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>{StdioDateHelper.convertNumberToString(lunarDate.lunarMonth)}</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>xxxxxxxxx</Text>
-                        </Col>
-                    </Row>
-                    <Row style={styles.dataContainer}>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Can chi</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Mậu Thìn</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Đinh Mão</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Kỷ Hợi</Text>
-                        </Col>
-                    </Row>
-                    <Row style={styles.dataContainer}>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Lạc thư hoa giáp</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Đại lâm mộc</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Tuyền trung thuỷ</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Bình địa mộc</Text>
-                        </Col>
-                    </Row>
-                    <Row  style={styles.dataContainer1}>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Tuổi kỵ</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Mậu Tuất</Text>
-                            <Text style={styles.textData}>Giáp Tuất</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Đinh Dậu</Text>
-                            <Text style={styles.textData}>Quý Dậu</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Kỷ Tỵ</Text>
-                            <Text style={styles.textData}>Ất Tỵ</Text>
-                        </Col>
-                    </Row>
-                    <Row  style={styles.dataContainer}>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Tuổi hợp</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Quý Dậu</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Nhâm Tuất</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Giáp Dần</Text>
-                        </Col>
-                    </Row>
-                    <Row style={styles.dataContainer}>
-
-                    </Row>
-                    <Row style={styles.dataContainer}>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Cát thần</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Hung thần sát</Text>
-                        </Col>
-                    </Row>
-                    <Row style={styles.dataContainer2}>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Thiên phúc, U vi tinh, Thiên ân,</Text>
-                        </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>Thụ tử, Nguyệt hỏa, Phủ đầu sát, Tam tang, Không phòng, Thiên hình, Ly sào, Xích khẩu</Text>
-                        </Col>
-                    </Row>
-                </Grid>
-            </View>
-        );
-    }
-}
 
 export default Courtesy;

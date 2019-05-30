@@ -4,7 +4,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 
 const styles = StyleSheet.create({
     time: {
-        marginTop: 15,
+        marginTop: 30,
         width: '100%',
         aspectRatio: 3/2,
     },

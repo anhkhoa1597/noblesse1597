@@ -9,13 +9,13 @@ import  FormModal from '../../../components/FormModal'
 import Courtesy from '../../../components/Courtesy'
 import Time from '../../../components/Time'
 
+import  { arrMoon } from "../../../../assets"
+
 import {StdioDate} from '../../../helper/StdioDate';
 import {StdioMonthYear} from '../../../helper/StdioMonthYear';
 import { StdioDateHelper } from '../../../helper/StdioDateHelper';
 
-
 class ProfileScreen extends React.Component {
-
     constructor() {
         super();
         this.state = {
@@ -114,6 +114,26 @@ class ProfileScreen extends React.Component {
         });
     }
 
+    goToPreviousYear = () => {
+        let previousYear = StdioDateHelper.getPreviousYear(this.state.selectedMonthYear);
+        let selectedDate = StdioDateHelper.getFirstDateOfMonthYear(previousYear);
+        this.setState({
+            selectedMonthYear : previousYear,
+            selectedDate : selectedDate,            
+            calendarSolar: this.createCalendar(previousYear)
+        });
+    }
+
+    goToNextYear = () => {
+        let nextYear = StdioDateHelper.getNextYear(this.state.selectedMonthYear);
+        let selectedDate = StdioDateHelper.getFirstDateOfMonthYear(nextYear);
+        this.setState({
+            selectedMonthYear : nextYear,
+            selectedDate : selectedDate,            
+            calendarSolar: this.createCalendar(nextYear)
+        });
+    }
+
     toogleModal2 = () => {
         const { modalVisible2 } = this.state;
         this.setState({ modalVisible2: !modalVisible2 });
@@ -160,7 +180,7 @@ class ProfileScreen extends React.Component {
                         }
                     </View>
                     <View style={styles.moon}>
-                        <Image source={require("../../../assets/15.png")} style={styles.imageMoon}/>
+                        <Image source={arrMoon[lunarDate.lunarDay-1]} style={styles.imageMoon}/>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -169,33 +189,55 @@ class ProfileScreen extends React.Component {
 
     render() {
         const { selectedDate, modalVisible2 } = this.state;
-        console.log('modalVisible2', modalVisible2)
+        console.log('modalVise2', modalVisible2)
         if (selectedDate == null)
             return null;
         let datePicker = selectedDate.formatDate('DD-MM-YYYY');
         return (
             <View style={styles.contain}>
                 <View style={styles.head}>
-                    <TouchableOpacity style={styles.touchIconLeft} onPress={this.goToPreviousMonthYear}>
-                        <Icon
+                    <View style={styles.left}>
+                        <TouchableOpacity style={styles.touchDoubleIconLeft} onPress={this.goToPreviousYear}>
+                            <Icon
                                 style={styles.leftIcon}
-                                name="angle-left"
+                                name="angle-double-left"
                                 color="rgba(164,172,193,1)"
                                 size={35}
-                                // onPress={}
-                        />
-                    </TouchableOpacity>
-                    <Text style={styles.textMonth}>
-                        {StdioMonthYear.toString(this.state.selectedMonthYear)}
-                    </Text>
-                    <TouchableOpacity style={styles.touchIconRight} onPress={this.goToNextMonthYear}>
-                        <Icon
-                            style={styles.rightIcon}
-                            name="angle-right"
-                            color="rgba(164,172,193,1)"
-                            size={35}
-                        />
-                    </TouchableOpacity>
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.touchIconLeft} onPress={this.goToPreviousMonthYear}>
+                            <Icon
+                                    style={styles.leftIcon}
+                                    name="angle-left"
+                                    color="rgba(164,172,193,1)"
+                                    size={35}
+                                    // onPress={}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.Month}>
+                        <Text style={styles.textMonth}>
+                            {StdioMonthYear.toString(this.state.selectedMonthYear)}
+                        </Text>
+                    </View>
+                    <View style={styles.right}>
+                        <TouchableOpacity style={styles.touchIconRight} onPress={this.goToNextMonthYear}>
+                            <Icon
+                                style={styles.rightIcon}
+                                name="angle-right"
+                                color="rgba(164,172,193,1)"
+                                size={35}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.touchDoubleIconRight} onPress={this.goToNextYear}>
+                            <Icon
+                                style={styles.rightIcon}
+                                name="angle-double-right"
+                                color="rgba(164,172,193,1)"
+                                size={35}
+                            />
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 <View style={styles.week}>
                     <View style={styles.weekDays}>
@@ -224,33 +266,38 @@ class ProfileScreen extends React.Component {
                 {
                     this.state.calendarSolar.map(element => this.renderCalendar(element))
                 } 
-                <DatePicker
-                    style={{width: 200}}
-                    date={datePicker}
-                    mode="date"
-                    placeholder="Select date"
-                    format="DD-MM-YYYY"
-                    minDate="01-01-1900"
-                    maxDate="01-01-2100"
-                    confirmBtnText="Confirm"
-                    cancelBtnText="Cancel"
-                    customStyles={{
-                        dateInput: {
-                        },
-                        dateText: {
-                            color: 'white',
-                        }
-                    }}
-                    onDateChange={(date) => {this.setState({date: date})}}
-                />
-                <FormModal
-                    visible={modalVisible2}
-                    toogleModal={this.toogleModal2}
-                    height={"100%"}
-                >
-                    <Courtesy date={selectedDate}/>
-                    <Time/>
-                </FormModal>
+                    <DatePicker
+                        style={{height: 50, borderRadius: 25, marginTop: 20,width: 150, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white'}}
+                        date={datePicker}
+                        mode="date"
+                        placeholder="Select date"
+                        format="DD-MM-YYYY"
+                        minDate="01-01-1900"
+                        maxDate="01-01-2100"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        customStyles={{
+                            dateIcon: {
+                                position: 'absolute',
+                                left: 0,
+                                top: 4,
+                                marginLeft: 15,
+                            },
+                            dateInput: {
+                                borderColor: 'transparent',
+                                marginLeft: 30,
+                            }
+                        }}
+                        onDateChange={(date) => {this.setState({date: date})}}
+                    />
+                    <FormModal
+                        visible={modalVisible2}
+                        toogleModal={this.toogleModal2}
+                        height={"100%"}
+                    >
+                        <Courtesy date={selectedDate}/>
+                        <Time/>
+                    </FormModal>
                 </View>
             </View>
         );
@@ -263,12 +310,13 @@ const styles = StyleSheet.create({
     },
     gridDay: {
         flexDirection: 'row',
+        justifyContent: 'center',
         flexWrap: 'wrap',
         height: '100%',
     },
     day: {
         width: '14.2857143%', 
-        height: 70,
+        height: 80,
     },
     head: {
         width: '100%',
@@ -276,6 +324,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: 'rgba(11,19,36,1)',
+    },
+    Month: {
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     leftIcon: {
         backgroundColor: 'rgba(11,19,36,1)',
@@ -293,10 +346,9 @@ const styles = StyleSheet.create({
         padding: 0,
     },
     textMonth: {
-        fontSize: 22,
+        fontSize: 18,
         textAlign: 'center',
-        backgroundColor: 'rgba(11,19,36,1)',
-        lineHeight: 70,
+        lineHeight: 50,
         color: 'white',
     },
     contain: {
@@ -373,12 +425,28 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     touchIconLeft: {
-        height: 50,
         marginLeft: 20,
+        height: 50,
     },
     touchIconRight: {
-        height: 50,
         marginRight: 20,
+        height: 50,
+    },
+    touchDoubleIconRight: {
+        height: 50,
+    },
+    touchDoubleIconLeft: {
+        height: 50,
+    },
+    left: {
+        flexDirection: 'row',
+        marginLeft: 20,
+        height: 50,
+    },
+    right: {
+        flexDirection: 'row',
+        marginRight: 20,
+        height: 50,
     }
 })
 

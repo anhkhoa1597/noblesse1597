@@ -140,7 +140,7 @@ class Calendar extends React.Component {
                     <Text style={styles.textD}>1</Text>
                 </TouchableOpacity>
                 <View style={styles.Moon}>
-                    <Image source={require("../assets/moon.jpg")} style={styles.imageMoon}/>
+                    <Image source={require("../../assets/moon.jpg")} style={styles.imageMoon}/>
                 </View>
             </View>
         )
