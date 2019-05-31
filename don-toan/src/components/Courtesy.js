@@ -2,8 +2,8 @@ import React from 'react';
 import { TouchableOpacity, View, StyleSheet, Text } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
-import {StdioDate} from '../helper/StdioDate';
-import {StdioMonthYear} from '../helper/StdioMonthYear';
+import { StdioDate } from '../helper/StdioDate';
+import { StdioMonthYear } from '../helper/StdioMonthYear';
 import { StdioDateHelper } from '../helper/StdioDateHelper';
 
 class Courtesy extends React.Component {
@@ -21,45 +21,6 @@ class Courtesy extends React.Component {
         // date = new StdioDate;
         // date.setDate(1, 3, 2019);
         lunarDate = StdioDateHelper.convertSolarToLunar(date, 7.0);
-        lacThuFromDay = StdioDateHelper.getLacThuHoaGiapFromDay(date).slice(2);
-        styleLacThuFromDay = parseInt(StdioDateHelper.getLacThuHoaGiapFromDay(date)[0]);
-        lacThuFromMonth = StdioDateHelper.getLacThuHoaGiapFromMonth(lunarDate).slice(2);
-        styleLacThuFromMonth = parseInt(StdioDateHelper.getLacThuHoaGiapFromMonth(lunarDate)[0]);
-        lacThuFromYear = StdioDateHelper.getLacThuHoaGiapFromYear(lunarDate.lunarYear).slice(2);
-        styleLacThuFromYear = parseInt(StdioDateHelper.getLacThuHoaGiapFromYear(lunarDate.lunarYear)[0]);
-        switch (styleLacThuFromDay) {
-            case 0:
-                styleLacThuFromDay = 'white'
-                break;
-            case 1:
-                styleLacThuFromDay = '#00aadd';
-                break;
-            case 2:
-                styleLacThuFromDay = '#ff5555';
-                break;
-        }
-        switch (styleLacThuFromMonth) {
-            case 0:
-                styleLacThuFromMonth = 'white'
-                break;
-            case 1:
-                styleLacThuFromMonth = '#00aadd';
-                break;
-            case 2:
-                styleLacThuFromMonth = '#ff5555';
-                break;
-        }
-        switch (styleLacThuFromYear) {
-            case 0:
-                styleLacThuFromYear = 'white'
-                break;
-            case 1:
-                styleLacThuFromYear = '#00aadd';
-                break;
-            case 2:
-                styleLacThuFromYear = '#ff5555';
-                break;
-        }
         let tuoiKyFromDay = StdioDateHelper.getTuoiKyFromDay(date);
         let tuoiKyFromMonth = StdioDateHelper.getTuoiKyFromMonth(lunarDate);
         let tuoiKyFromYear = StdioDateHelper.getTuoiKyFromYear(lunarDate.lunarYear);
@@ -138,13 +99,13 @@ class Courtesy extends React.Component {
                             <Text style={styles.textDataHead}>Lạc thư hoa giáp</Text>
                         </Col>
                         <Col style={styles.data}>
-                            <Text style={{fontSize: 12, color: styleLacThuFromDay}}>{lacThuFromDay}</Text>
+                            <Text style={{fontSize: 12, color: StdioDateHelper.getLacThuHoaGiapFromDay(date).color}}>{StdioDateHelper.getLacThuHoaGiapFromDay(date).text}</Text>
                         </Col>
                         <Col style={styles.data}>
-                            <Text style={{fontSize: 12, color: styleLacThuFromMonth}}>{lacThuFromMonth}</Text>
+                            <Text style={{fontSize: 12, color: StdioDateHelper.getLacThuHoaGiapFromMonth(lunarDate).color}}>{StdioDateHelper.getLacThuHoaGiapFromMonth(lunarDate).text}</Text>
                         </Col>
                         <Col style={styles.data}>
-                            <Text style={{fontSize: 12, color: styleLacThuFromYear}}>{lacThuFromYear}</Text>
+                            <Text style={{fontSize: 12, color: StdioDateHelper.getLacThuHoaGiapFromYear(lunarDate.lunarYear).color}}>{StdioDateHelper.getLacThuHoaGiapFromYear(lunarDate.lunarYear).text}</Text>
                         </Col>
                     </Row>
                     <Row  style={styles.dataContainer1}>

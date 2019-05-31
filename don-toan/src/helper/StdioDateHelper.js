@@ -117,49 +117,6 @@ export class StdioDateHelper {
         return this.getFirstDateOfMonthYear(monthYear).format('e');
     }
 
-    static convertLunarMonthToString(lunarMonth, lunarLeap){
-        let name;
-        switch (lunarMonth) {
-            case 1:
-                name = 'Giêng';
-                break;
-            case 2:
-                name = 'Hai';
-                break;
-            case 3:
-                name = 'Ba';
-                break;
-            case 4:
-                name = 'Bốn';
-                break;
-            case 5:
-                name = 'Năm';
-                break;
-            case 6:
-                name = 'Sáu';
-                break;
-            case 7:
-                name = 'Bảy';
-                break;
-            case 8:
-                name = 'Tám';
-                break;
-            case 9:
-                name = 'Chín';
-                break;
-            case 10:
-                name = 'Mưới';
-                break;
-            case 11:
-                name = 'Một';
-                break;
-            case 12:
-                name = 'Chạp';
-                break;
-        }
-        return lunarLeap ? name + ' (nhuận)' : name;
-    }
-
     static jdFromDate(date) {
         let a, y, m, jd;
         a = Math.floor((14 - date.month) / 12);
@@ -337,6 +294,49 @@ export class StdioDateHelper {
         k = Math.floor(0.5 + (a11 - 2415021.076998695) / 29.530588853);
         monthStart = this.getNewMoonDay(k + off, timeZone);
         return this.jdToDate(monthStart + lunarDate.lunarDay - 1);
+    }
+
+    static convertLunarMonthToString(lunarMonth, lunarLeap){
+        let name;
+        switch (lunarMonth) {
+            case 1:
+                name = 'Giêng';
+                break;
+            case 2:
+                name = 'Hai';
+                break;
+            case 3:
+                name = 'Ba';
+                break;
+            case 4:
+                name = 'Bốn';
+                break;
+            case 5:
+                name = 'Năm';
+                break;
+            case 6:
+                name = 'Sáu';
+                break;
+            case 7:
+                name = 'Bảy';
+                break;
+            case 8:
+                name = 'Tám';
+                break;
+            case 9:
+                name = 'Chín';
+                break;
+            case 10:
+                name = 'Mưới';
+                break;
+            case 11:
+                name = 'Một';
+                break;
+            case 12:
+                name = 'Chạp';
+                break;
+        }
+        return lunarLeap ? name + ' (nhuận)' : name;
     }
 
     static convertLunarYearToCanChi(lunarYear){
@@ -575,65 +575,65 @@ export class StdioDateHelper {
         chi = (jd + 1) % 12;
         switch (can+'|'+chi) {
             case '0|0': case '1|1':
-                return '0 Hải Trung Kim';
+                return {color: 'white', text: 'Hải Trung Kim'};
             case '2|2': case '3|3':
-                return '1 Giáng Hạ Thuỷ';
+                return {color: '#00aadd', text: 'Giáng Hạ Thuỷ'};
             case '4|4': case '5|5':
-                return '0 Đại Lâm Mộc';
+                return {color: 'white', text: 'Đại Lâm Mộc'};
             case '6|6': case '7|7':
-                return '0 Lộ Bàng Thổ';
+                return {color: 'white', text: 'Lộ Bàng Thổ'};
             case '8|8': case '9|9':
-                return '0 Kiếm Phong Kim';
+                return {color: 'white', text: 'Kiếm Phong Kim'};
             case '0|10': case '1|11':
-                return '1 Tuyền trung Thuỷ';
+                return {color: '#00aadd', text: 'Tuyền trung Thuỷ'};
             case '2|0': case '3|1':
-                return '2 Lư Trung Hoả';
+                return {color: '#ff5555', text: 'Lư Trung Hoả'};
             case '4|2': case '5|3':
-                return '0 Thành Đầu Thổ';
+                return {color: 'white', text: 'Thành Đầu Thổ'};
             case '6|4': case '7|5':
-                return '0 Bạch Lạp Kim';
+                return {color: 'white', text: 'Bạch Lạp Kim'};
             case '8|6': case '9|7':
-                return '0 Dương Liễu Mộc';
+                return {color: 'white', text: 'Dương Liễu Mộc'};
             case '0|8': case '1|9':
-                return '2 Sơn Đầu Hoả';
+                return {color: '#ff5555', text: 'Sơn Đầu Hoả'};
             case '2|10': case '3|11':
-                return '0 Ốc Thượng Thổ';
+                return {color: 'white', text: 'Ốc Thượng Thổ'};
             case '4|0': case '5|1':
-                return '1 Trường Lưu thuỷ';
+                return {color: '#00aadd', text: 'Trường Lưu thuỷ'};
             case '6|2': case '7|3':
-                return '0 Tùng Bách Mộc';
+                return {color: 'white', text: 'Tùng Bách Mộc'};
             case '8|4': case '9|5':
-                return '2 Tích Lịch Hoả';
+                return {color: '#ff5555', text: 'Tích Lịch Hoả'};
             case '0|6': case '1|7':
-                return '0 Sa Trung Kim';
+                return {color: 'white', text: 'Sa Trung Kim'};
             case '2|8': case '3|9':
-                return '1 Thiên Hà Thuỷ';
+                return {color: '#00aadd', text: 'Thiên Hà Thuỷ'};
             case '4|10': case '5|11':
-                return '0 Bình Địa Mộc';
+                return {color: 'white', text: 'Bình Địa Mộc'};
             case '6|0': case '7|1':
-                return '0 Bích Thượng Thổ';
+                return {color: 'white', text: 'Bích Thượng Thổ'};
             case '8|2': case '9|3':
-                return '0 Kim Bạch Kim';
+                return {color: 'white', text: 'Kim Bạch Kim'};
             case '0|4': case '1|5':
-                return '1 Đại Khê Thuỷ';
+                return {color: '#00aadd', text: 'Đại Khê Thuỷ'};
             case '2|6': case '3|7':
-                return '2 Sơn Hạ Hoả';
+                return {color: '#ff5555', text: 'Sơn Hạ Hoả'};
             case '4|8': case '5|9':
-                return '0 Đại Dịch Thổ';
+                return {color: 'white', text: 'Đại Dịch Thổ'};
             case '6|10': case '7|11':
-                return '0 Thoa Xuyến Kim';
+                return {color: 'white', text: 'Thoa Xuyến Kim'};
             case '8|0': case '9|1':
-                return '0 Tang Đố Mộc';
+                return {color: 'white', text: 'Tang Đố Mộc'};
             case '0|2': case '1|3':
-                return '2 Phúc Đăng Hoả';
+                return {color: '#ff5555', text: 'Phúc Đăng Hoả'};
             case '2|4': case '3|5':
-                return '0 Sa Trung Thổ';
+                return {color: 'white', text: 'Sa Trung Thổ'};
             case '4|6': case '5|7':
-                return '1 Đại Hải Thuỷ';
+                return {color: '#00aadd', text: 'Đại Hải Thuỷ'};
             case '6|8': case '7|9':
-                return '0 Thạch Lựu Mộc';
+                return {color: 'white', text: 'Thạch Lựu Mộc'};
             case '8|10': case '9|11':
-                return '2 Thiên Thượng Hoả';
+                return {color: '#ff5555', text: 'Thiên Thượng Hoả'};
         }
     }
 
@@ -646,65 +646,65 @@ export class StdioDateHelper {
         }
         switch (can+'|'+chi) {
             case '0|0': case '1|1':
-                return '0 Hải Trung Kim';
+                return {color: 'white', text: 'Hải Trung Kim'};
             case '2|2': case '3|3':
-                return '1 Giáng Hạ Thuỷ';
+                return {color: '#00aadd', text: 'Giáng Hạ Thuỷ'};
             case '4|4': case '5|5':
-                return '0 Đại Lâm Mộc';
+                return {color: 'white', text: 'Đại Lâm Mộc'};
             case '6|6': case '7|7':
-                return '0 Lộ Bàng Thổ';
+                return {color: 'white', text: 'Lộ Bàng Thổ'};
             case '8|8': case '9|9':
-                return '0 Kiếm Phong Kim';
+                return {color: 'white', text: 'Kiếm Phong Kim'};
             case '0|10': case '1|11':
-                return '1 Tuyền trung Thuỷ';
+                return {color: '#00aadd', text: 'Tuyền trung Thuỷ'};
             case '2|0': case '3|1':
-                return '2 Lư Trung Hoả';
+                return {color: '#ff5555', text: 'Lư Trung Hoả'};
             case '4|2': case '5|3':
-                return '0 Thành Đầu Thổ';
+                return {color: 'white', text: 'Thành Đầu Thổ'};
             case '6|4': case '7|5':
-                return '0 Bạch Lạp Kim';
+                return {color: 'white', text: 'Bạch Lạp Kim'};
             case '8|6': case '9|7':
-                return '0 Dương Liễu Mộc';
+                return {color: 'white', text: 'Dương Liễu Mộc'};
             case '0|8': case '1|9':
-                return '2 Sơn Đầu Hoả';
+                return {color: '#ff5555', text: 'Sơn Đầu Hoả'};
             case '2|10': case '3|11':
-                return '0 Ốc Thượng Thổ';
+                return {color: 'white', text: 'Ốc Thượng Thổ'};
             case '4|0': case '5|1':
-                return '1 Trường Lưu thuỷ';
+                return {color: '#00aadd', text: 'Trường Lưu thuỷ'};
             case '6|2': case '7|3':
-                return '0 Tùng Bách Mộc';
+                return {color: 'white', text: 'Tùng Bách Mộc'};
             case '8|4': case '9|5':
-                return '2 Tích Lịch Hoả';
+                return {color: '#ff5555', text: 'Tích Lịch Hoả'};
             case '0|6': case '1|7':
-                return '0 Sa Trung Kim';
+                return {color: 'white', text: 'Sa Trung Kim'};
             case '2|8': case '3|9':
-                return '1 Thiên Hà Thuỷ';
+                return {color: '#00aadd', text: 'Thiên Hà Thuỷ'};
             case '4|10': case '5|11':
-                return '0 Bình Địa Mộc';
+                return {color: 'white', text: 'Bình Địa Mộc'};
             case '6|0': case '7|1':
-                return '0 Bích Thượng Thổ';
+                return {color: 'white', text: 'Bích Thượng Thổ'};
             case '8|2': case '9|3':
-                return '0 Kim Bạch Kim';
+                return {color: 'white', text: 'Kim Bạch Kim'};
             case '0|4': case '1|5':
-                return '1 Đại Khê Thuỷ';
+                return {color: '#00aadd', text: 'Đại Khê Thuỷ'};
             case '2|6': case '3|7':
-                return '2 Sơn Hạ Hoả';
+                return {color: '#ff5555', text: 'Sơn Hạ Hoả'};
             case '4|8': case '5|9':
-                return '0 Đại Dịch Thổ';
+                return {color: 'white', text: 'Đại Dịch Thổ'};
             case '6|10': case '7|11':
-                return '0 Thoa Xuyến Kim';
+                return {color: 'white', text: 'Thoa Xuyến Kim'};
             case '8|0': case '9|1':
-                return '0 Tang Đố Mộc';
+                return {color: 'white', text: 'Tang Đố Mộc'};
             case '0|2': case '1|3':
-                return '2 Phúc Đăng Hoả';
+                return {color: '#ff5555', text: 'Phúc Đăng Hoả'};
             case '2|4': case '3|5':
-                return '0 Sa Trung Thổ';
+                return {color: 'white', text: 'Sa Trung Thổ'};
             case '4|6': case '5|7':
-                return '1 Đại Hải Thuỷ';
+                return {color: '#00aadd', text: 'Đại Hải Thuỷ'};
             case '6|8': case '7|9':
-                return '0 Thạch Lựu Mộc';
+                return {color: 'white', text: 'Thạch Lựu Mộc'};
             case '8|10': case '9|11':
-                return '2 Thiên Thượng Hoả';
+                return {color: '#ff5555', text: 'Thiên Thượng Hoả'};
         }
     }
 
@@ -714,65 +714,65 @@ export class StdioDateHelper {
         chi = (lunarYear + 8) % 12;
         switch (can+'|'+chi) {
             case '0|0': case '1|1':
-                return '0 Hải Trung Kim';
+                return {color: 'white', text: 'Hải Trung Kim'};
             case '2|2': case '3|3':
-                return '1 Giáng Hạ Thuỷ';
+                return {color: '#00aadd', text: 'Giáng Hạ Thuỷ'};
             case '4|4': case '5|5':
-                return '0 Đại Lâm Mộc';
+                return {color: 'white', text: 'Đại Lâm Mộc'};
             case '6|6': case '7|7':
-                return '0 Lộ Bàng Thổ';
+                return {color: 'white', text: 'Lộ Bàng Thổ'};
             case '8|8': case '9|9':
-                return '0 Kiếm Phong Kim';
+                return {color: 'white', text: 'Kiếm Phong Kim'};
             case '0|10': case '1|11':
-                return '1 Tuyền trung Thuỷ';
+                return {color: '#00aadd', text: 'Tuyền trung Thuỷ'};
             case '2|0': case '3|1':
-                return '2 Lư Trung Hoả';
+                return {color: '#ff5555', text: 'Lư Trung Hoả'};
             case '4|2': case '5|3':
-                return '0 Thành Đầu Thổ';
+                return {color: 'white', text: 'Thành Đầu Thổ'};
             case '6|4': case '7|5':
-                return '0 Bạch Lạp Kim';
+                return {color: 'white', text: 'Bạch Lạp Kim'};
             case '8|6': case '9|7':
-                return '0 Dương Liễu Mộc';
+                return {color: 'white', text: 'Dương Liễu Mộc'};
             case '0|8': case '1|9':
-                return '2 Sơn Đầu Hoả';
+                return {color: '#ff5555', text: 'Sơn Đầu Hoả'};
             case '2|10': case '3|11':
-                return '0 Ốc Thượng Thổ';
+                return {color: 'white', text: 'Ốc Thượng Thổ'};
             case '4|0': case '5|1':
-                return '1 Trường Lưu thuỷ';
+                return {color: '#00aadd', text: 'Trường Lưu thuỷ'};
             case '6|2': case '7|3':
-                return '0 Tùng Bách Mộc';
+                return {color: 'white', text: 'Tùng Bách Mộc'};
             case '8|4': case '9|5':
-                return '2 Tích Lịch Hoả';
+                return {color: '#ff5555', text: 'Tích Lịch Hoả'};
             case '0|6': case '1|7':
-                return '0 Sa Trung Kim';
+                return {color: 'white', text: 'Sa Trung Kim'};
             case '2|8': case '3|9':
-                return '1 Thiên Hà Thuỷ';
+                return {color: '#00aadd', text: 'Thiên Hà Thuỷ'};
             case '4|10': case '5|11':
-                return '0 Bình Địa Mộc';
+                return {color: 'white', text: 'Bình Địa Mộc'};
             case '6|0': case '7|1':
-                return '0 Bích Thượng Thổ';
+                return {color: 'white', text: 'Bích Thượng Thổ'};
             case '8|2': case '9|3':
-                return '0 Kim Bạch Kim';
+                return {color: 'white', text: 'Kim Bạch Kim'};
             case '0|4': case '1|5':
-                return '1 Đại Khê Thuỷ';
+                return {color: '#00aadd', text: 'Đại Khê Thuỷ'};
             case '2|6': case '3|7':
-                return '2 Sơn Hạ Hoả';
+                return {color: '#ff5555', text: 'Sơn Hạ Hoả'};
             case '4|8': case '5|9':
-                return '0 Đại Dịch Thổ';
+                return {color: 'white', text: 'Đại Dịch Thổ'};
             case '6|10': case '7|11':
-                return '0 Thoa Xuyến Kim';
+                return {color: 'white', text: 'Thoa Xuyến Kim'};
             case '8|0': case '9|1':
-                return '0 Tang Đố Mộc';
+                return {color: 'white', text: 'Tang Đố Mộc'};
             case '0|2': case '1|3':
-                return '2 Phúc Đăng Hoả';
+                return {color: '#ff5555', text: 'Phúc Đăng Hoả'};
             case '2|4': case '3|5':
-                return '0 Sa Trung Thổ';
+                return {color: 'white', text: 'Sa Trung Thổ'};
             case '4|6': case '5|7':
-                return '1 Đại Hải Thuỷ';
+                return {color: '#00aadd', text: 'Đại Hải Thuỷ'};
             case '6|8': case '7|9':
-                return '0 Thạch Lựu Mộc';
+                return {color: 'white', text: 'Thạch Lựu Mộc'};
             case '8|10': case '9|11':
-                return '2 Thiên Thượng Hoả';
+                return {color: '#ff5555', text: 'Thiên Thượng Hoả'};
         }
     }
 
@@ -1262,5 +1262,327 @@ export class StdioDateHelper {
         }
         let tuoiKy = [can1 + ' ' + chi, can + ' ' + chi];
         return tuoiKy;
+    }
+
+    static getQueFromDonLucNham(lunarDate, time) {
+        chi = (lunarDate.lunarYear + 8) % 12 + 1 + lunarDate.lunarMonth + lunarDate.lunarLeap + lunarDate.lunarDay + time - 3;
+        switch (chi % 6) {
+            case 0:
+                return {color: '#FFD702', text: "Vô Vong"};
+            case 1:
+                return {color: '#FFD702', text: "Đại An"};
+            case 2:
+                return {color: 'black', text: "Lưu Niên"};
+            case 3:
+                return {color: '#ff5555', text: "Tốc Hỷ"};
+            case 4:
+                return {color: 'white', text: "Xích Khẩu"};
+            case 5:
+                return {color: '#05EE00', text: "Tiểu Cát"};
+        }
+    }
+
+    static getQueFromDonBatMon(lunarDate, time) {
+        chi = lunarDate.lunarMonth + lunarDate.lunarDay + lunarDate.lunarLeap + time
+        switch (chi % 8) {
+            case 0:
+                return {color: 'black', text: "Hưu"};
+            case 1:
+                return {color: '#05EE00', text: "Sinh"};
+            case 2:
+                return {color: '#05EE00', text: "Thương"};
+            case 3:
+                return {color: '#ff5555', text: "Đỗ"};
+            case 4:
+                return {color: '#ff5555', text: "Cảnh"};
+            case 5:
+                return {color: 'white', text: "Tử"};
+            case 6:
+                return {color: 'white', text: "Kinh"};
+            case 7:
+                return {color: 'black', text: "Khai"};
+        }
+    }
+
+    static isBadDay(lunarDate) {
+        let date = this.convertLunarToSolar(lunarDate, 7.0);
+        let jd = this.jdFromDate(date);
+        let canDay = (jd + 9) % 10;
+        let chiDay = (jd + 1) % 12;
+        
+        switch (lunarDate.lunarMonth) {
+            case 1:
+                switch (lunarDate.lunarDay) {
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                        return true;
+                }
+                switch (chiDay) {
+                    case 0: case 2: case 4: case 5: case 6: case 8: case 9:
+                        return true;
+                }
+                break;
+            case 2:
+                switch (lunarDate.lunarDay) {
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                        return true;
+                }
+                switch (chiDay) {
+                    case 0: case 1: case 3: case 4: case 5: case 6: case 8:
+                        return true;
+                }
+                break;
+            case 3:
+                switch (lunarDate.lunarDay) {
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                        return true;
+                }
+                switch (chiDay) {
+                    case 0: case 1: case 4: case 5: case 6: case 7: case 8:
+                        return true;
+                }
+                break;
+            case 4:
+                switch (lunarDate.lunarDay) {
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                        return true;
+                }
+                switch (chiDay) {
+                    case 0: case 2: case 3: case 9: case 7: case 9: case 10: case 11:
+                        return true;
+                }
+                break;
+            case 5:
+                switch (lunarDate.lunarDay) {
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                        return true;
+                }
+                switch (chiDay) {
+                    case 0: case 2: case 3: case 4: case 7: case 8: case 10: case 11:
+                        return true;
+                }
+                break;
+            case 6:
+                switch (lunarDate.lunarDay) {
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                        return true;
+                }
+                switch (chiDay) {
+                    case 0: case 2: case 3: case 4: case 6: case 7: case 9: case 10: case 11:
+                        return true;
+                }
+                break;
+            case 7:
+                switch (lunarDate.lunarDay) {
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                        return true;
+                }
+                switch (chiDay) {
+                    case 0: case 1: case 2: case 3: case 4: case 6: case 9: case 11:
+                        return true;
+                }
+                break;
+            case 8:
+                switch (lunarDate.lunarDay) {
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                        return true;
+                }
+                switch (chiDay) {
+                    case 0: case 1: case 2: case 3: case 4: case 6: case 9:
+                        return true;
+                }
+                break;
+            case 9:
+                switch (lunarDate.lunarDay) {
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                        return true;
+                }
+                switch (chiDay) {
+                    case 0: case 1: case 2: case 3: case 4: case 6: case 9:
+                        return true;
+                }
+                break;
+            case 10:
+                switch (lunarDate.lunarDay) {
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                        return true;
+                }
+                switch (chiDay) {
+                    case 1: case 3: case 4: case 5: case 7: case 8: case 9:
+                        return true;
+                }
+                break;
+            case 11:
+                switch (lunarDate.lunarDay) {
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                        return true;
+                }
+                switch (chiDay) {
+                    case 1: case 2: case 3: case 5: case 6: case 7: case 8: case 9: case 10:
+                        return true;
+                }
+                break;
+            case 12:
+                switch (lunarDate.lunarDay) {
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                        return true;
+                }
+                switch (chiDay) {
+                    case 1: case 3: case 4: case 5: case 8: case 9:
+                        return true;
+                }
+                break;
+        }
+
+        switch ((lunarDate.lunarYear + 8) % 12) {
+            case 0:
+                switch (chiDay) {
+                    case 5: case 6: case 7:
+                        return true; 
+                }
+                break;
+            case 1:
+                switch (chiDay) {
+                    case 2: case 3: case 4:
+                        return true; 
+                }
+                break;
+            case 2:
+                switch (chiDay) {
+                    case 11: case 0: case 1:
+                        return true; 
+                }
+                break;
+            case 3:
+                switch (chiDay) {
+                    case 8: case 9: case 10:
+                        return true; 
+                }
+                break;
+            case 4:
+                switch (chiDay) {
+                    case 5: case 6: case 7:
+                        return true; 
+                }
+                break;
+            case 5:
+                switch (chiDay) {
+                    case 2: case 3: case 4: case 11:
+                        return true; 
+                }
+                break;
+            case 6:
+                switch (chiDay) {
+                    case 11: case 0: case 1:
+                        return true; 
+                }
+                break;
+            case 7:
+                switch (chiDay) {
+                    case 8: case 9: case 10:
+                        return true; 
+                }
+                break;
+            case 8:
+                switch (chiDay) {
+                    case 5: case 6: case 7:
+                        return true; 
+                }
+                break;
+            case 9:
+                switch (chiDay) {
+                    case 2: case 3: case 4:
+                        return true; 
+                }
+                break;
+            case 10:
+                switch (chiDay) {
+                    case 11: case 0: case 1:
+                        return true; 
+                }
+                break;
+            case 11:
+                switch (chiDay) {
+                    case 8: case 9: case 10:
+                        return true; 
+                }
+                break;
+        }
+
+        switch (date.month) {
+            case 2:
+                if (date.day == 3) return true;
+                break;
+            case 3:
+                if (date.day == 20) return true;
+                break;
+            case 5:
+                if (date.day == 5) return true;
+                break;
+            case 6:
+                if (date.day == 5) return true;
+                break;
+            case 8: 
+                if (date.day == 8) return true;
+                break;
+            case 9:
+                if (date.day == 22) return true;
+                break;
+            case 11:
+                if (date.day == 7) return true;
+                break;
+            case 12:
+                if (date.day == 21) return true;
+                break;
+        }
+
+        switch ((lunarDate.lunarYear + 6) % 10) {
+            case 0: case 5:
+                switch (lunarDate.lunarMonth) {
+                    case 3:
+                        if (canDay == 4 && chiDay == 10) return true;
+                        break;
+                    case 7:
+                        if (canDay == 9 && chiDay == 11) return true;
+                        break;
+                    case 10:
+                        if (canDay == 2 && chiDay == 8) return true;
+                        break;
+                    case 11:
+                        if (canDay == 3 && chiDay == 11) return true;
+                        break;
+                }
+                break;
+            case 1: case 6:
+                switch (lunarDate.lunarMonth) {
+                    case 4:
+                        if (canDay == 8 && chiDay == 8) return true;
+                        break;
+                    case 9:
+                        if (canDay == 1 && chiDay == 5) return true;
+                        break;
+                }
+                break;
+            case 2: case 7:
+                switch (lunarDate.lunarMonth) {
+                    case 3:
+                        if (canDay == 7 && chiDay == 5) return true;
+                        break;
+                    case 9:
+                        if (canDay == 6 && chiDay == 4) return true;
+                        break;
+                    case 10:
+                        if (canDay == 0 && chiDay == 4) return true;
+                        break;
+                }
+                break;
+            case 4: case 9:
+                switch (lunarDate.lunarMonth) {
+                    case 6:
+                        if (canDay == 5 && chiDay == 1) return true;
+                        break;
+                }
+                break;
+        }
+        return false;
     }
 }

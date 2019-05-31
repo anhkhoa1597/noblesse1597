@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { bindHeaderBarActions } from '../../../redux/actions/headerbar';
-import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DatePicker from 'react-native-datepicker';
 import  FormModal from '../../../components/FormModal'
@@ -149,31 +149,33 @@ class ProfileScreen extends React.Component {
     renderCalendar(element){
         let isSelectedDate = element.isThisDate(this.state.selectedDate);
         let lunarDate = StdioDateHelper.convertSolarToLunar(element, 7.0);
+        let isBadDay = StdioDateHelper.isBadDay(lunarDate);
+
         return (
             <View style={styles.day} key={[element.day, element.month, element.year]}>
                 <TouchableOpacity
-                    style={isSelectedDate ? styles.selectedDate : styles.date}
+                    style={isSelectedDate ? styles.selectedDate : (isBadDay ? styles.date : styles.goodDate)}
                     onPress={() => this.selectDate(element)}
                 >
                     <View style={styles.dayNumber}>
                         {
                             StdioDateHelper.isLastDateOfMonth(element) || element.day == 1 ? (
-                                <Text style={isSelectedDate? styles.textDayNumberSelected : styles.textDayNumber}>
+                                <Text style={isSelectedDate ? styles.textDayNumberSelected : (isBadDay ? styles.textDayNumber : styles.textGoodDayNumber)}>
                                     {element.day}/{element.month}
                                 </Text>
                             ) : (
-                                <Text style={isSelectedDate? styles.textDayNumberSelected : styles.textDayNumber}>
+                                <Text style={isSelectedDate? styles.textDayNumberSelected : (isBadDay ? styles.textDayNumber : styles.textGoodDayNumber)}>
                                     {element.day}
                                 </Text>
                             )
                         }
                         {
                             StdioDateHelper.isLastLunarDateOfMonth(lunarDate) || lunarDate.lunarDay == 1 ? (
-                            <Text style={isSelectedDate ? styles.textMoonNumberSelected : styles.textMoonNumber}>
+                            <Text style={isSelectedDate ? styles.textMoonNumberSelected : (isBadDay ? styles.textMoonNumber : styles.textGoodMoonNumber)}>
                                 {lunarDate.lunarDay}/{lunarDate.lunarMonth}
                             </Text>
                             ) : (
-                            <Text style={isSelectedDate ? styles.textMoonNumberSelected : styles.textMoonNumber}>
+                            <Text style={isSelectedDate ? styles.textMoonNumberSelected : (isBadDay ? styles.textMoonNumber : styles.textGoodMoonNumber)}>
                                 {lunarDate.lunarDay}
                             </Text>
                             )
@@ -296,7 +298,7 @@ class ProfileScreen extends React.Component {
                         height={"100%"}
                     >
                         <Courtesy date={selectedDate}/>
-                        <Time/>
+                        <Time date={selectedDate}/>
                     </FormModal>
                 </View>
             </View>
@@ -368,6 +370,13 @@ const styles = StyleSheet.create({
         borderBottomColor: 'rgba(255,0,0,0.3)',
         borderColor: 'rgba(11,19,36,1)',
     },
+    goodDate: {
+        width: '100%',
+        height: '100%',
+        borderWidth: 1,
+        borderBottomColor: 'rgba(255,215,2,0.7)',
+        borderColor: 'rgba(11,19,36,1)',
+    },
     dayNumber: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -378,6 +387,10 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 11,
     },
+    textGoodDayNumber: {
+        color: 'rgba(255,215,2,0.7)',
+        fontSize: 11,
+    },
     textDayNumberSelected: {
         color: 'red',
         opacity: 0.8,
@@ -385,6 +398,11 @@ const styles = StyleSheet.create({
     },
     textMoonNumber: {
         color: 'rgba(255,255,255,0.5)',
+        fontSize: 9,
+        marginTop: 4,
+    },
+    textGoodMoonNumber: {
+        color: 'rgba(255,215,2,0.7)',
         fontSize: 9,
         marginTop: 4,
     },
