@@ -17,6 +17,6 @@ export class StdioMonthYear {
     static toString(monthYear) {
         if (monthYear == null)
             return "";
-        return 'Tháng ' + monthYear.month + ' / ' + monthYear.year
+        return 'THÁNG ' + monthYear.month + ' / ' + monthYear.year
     }
 }

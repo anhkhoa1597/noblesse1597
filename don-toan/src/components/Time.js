@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     },
     col: {
         borderWidth: 1,
-        borderColor: 'black',
+        borderColor: 'rgba(255,255,255,0.3)',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(255,255,255,0.1)',
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     },
     col1: {
         borderWidth: 1,
-        borderColor: 'black',
+        borderColor: 'rgba(255,255,255,0.3)',
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'rgba(255,255,255,0.1)',
@@ -211,21 +211,24 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     text: {
+        color: 'white',
         fontWeight: 'bold',
         fontSize: 12,
     },
     col2: {
         borderWidth: 1,
-        borderColor: 'black',
+        borderColor: 'rgba(255,255,255,0.3)',
         alignItems: 'flex-start',
         justifyContent: 'center',
         backgroundColor: 'rgba(255,255,255,0.1)',
         flex: 1,
     },
     text1: {
+        color: 'white',
         fontSize: 12,
     },
     textTitle: {
+        color: 'white',
         fontSize: 12,
     }
 })
