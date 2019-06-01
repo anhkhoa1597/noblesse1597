@@ -1,15 +1,13 @@
 import * as React from 'react';
-import { View, StyleSheet, Text, Image, ImageBackground } from 'react-native';
+import { View, StyleSheet, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-native';
 import { bindHeaderBarActions } from '../../redux/actions/headerbar';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DatePicker from 'react-native-datepicker';
-import  FormModal from '../../components/FormModal'
-import Courtesy from '../../components/Courtesy'
-import Time from '../../components/Time'
 
-import  { arrMoon, BACKGROUND } from "../../../assets"
+import  { arrMoon } from "../../../assets"
 
 import {StdioDate} from '../../helper/StdioDate';
 import {StdioMonthYear} from '../../helper/StdioMonthYear';
@@ -149,9 +147,11 @@ class MainScreen extends React.Component {
 
     selectDate = (date) => {
         this.setState({
-            selectedDate: date,
-            modalVisible2: true
+            selectedDate: date
         })
+        this.props.history.push({
+            pathname: "/detail",
+            state: date});
     }
 
     renderCalendar(element){
@@ -208,7 +208,7 @@ class MainScreen extends React.Component {
             
         let datePicker = selectedDate.formatDate('DD-MM-YYYY');
         return (
-            <ImageBackground source={BACKGROUND} style={{width: '100%', height: '100%'}}>
+            <View>
                 <View style={styles.head}>
                     <View style={styles.left}>
                         <TouchableOpacity style={styles.touchDoubleIconLeft} onPress={this.goToPreviousYear}>
@@ -280,52 +280,41 @@ class MainScreen extends React.Component {
                 {
                     this.state.calendarSolar.map(element => this.renderCalendar(element))
                 } 
-                    <DatePicker
-                        style={{height: 50, borderRadius: 25, marginTop: 20,width: 150, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white'}}
-                        date={datePicker}
-                        mode="date"
-                        placeholder="Select date"
-                        format="DD-MM-YYYY"
-                        minDate="01-01-1900"
-                        maxDate="01-01-2100"
-                        confirmBtnText="Confirm"
-                        cancelBtnText="Cancel"
-                        customStyles={{
-                            dateIcon: {
-                                position: 'absolute',
-                                left: 0,
-                                top: 4,
-                                marginLeft: 15,
-                            },
-                            dateInput: {
-                                borderColor: 'transparent',
-                                marginLeft: 30,
-                            }
-                        }}
-                        onDateChange={(date) => {
-                            let stdioDate = StdioDateHelper.getStdioDateFromDateString(date,"DD-MM-YYYY");
-                            this.goToSelectedMonthYearFromDatePicker(stdioDate);
-                        }}
-                    />
-
-                    
+                <DatePicker
+                    style={{height: 50, borderRadius: 25, marginTop: 20,width: 150, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white'}}
+                    date={datePicker}
+                    mode="date"
+                    placeholder="Select date"
+                    format="DD-MM-YYYY"
+                    minDate="01-01-1900"
+                    maxDate="01-01-2100"
+                    confirmBtnText="Confirm"
+                    cancelBtnText="Cancel"
+                    customStyles={{
+                        dateIcon: {
+                            position: 'absolute',
+                            left: 0,
+                            top: 4,
+                            marginLeft: 15,
+                        },
+                        dateInput: {
+                            borderColor: 'transparent',
+                            marginLeft: 30,
+                        }
+                    }}
+                    onDateChange={(date) => {
+                        let stdioDate = StdioDateHelper.getStdioDateFromDateString(date,"DD-MM-YYYY");
+                        this.goToSelectedMonthYearFromDatePicker(stdioDate);
+                    }}
+                />
                 </View>
-                <FormModal
-                    visible={modalVisible2}
-                    toogleModal={this.toogleModal2}
-                    height={"100%"}
-                >
-                    <Courtesy date={selectedDate}/>
-                    <Time date={selectedDate}/>
-                </FormModal>
-            </ImageBackground>
+            </View>
         );
     }
 };
 
 const styles = StyleSheet.create({
     contain: {
-        backgroundColor: 'rgba(11,19,36,1)',
     },
     gridDay: {
         flexDirection: 'row',
@@ -493,8 +482,6 @@ const styles = StyleSheet.create({
     }
 })
 
-export default connect(null, 
+export default withRouter(connect(null, 
     dispatch => bindHeaderBarActions({}, dispatch)
-)(MainScreen);
-
-// export default withRouter(MainScreen);
+)(MainScreen));

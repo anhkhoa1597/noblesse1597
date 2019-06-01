@@ -27,11 +27,11 @@ class Courtesy extends React.Component {
         return (
             <View style={styles.courtesy}>
                 <Grid>
-                    <Row style={styles.headContainer}>
+                    {/* <Row style={styles.headContainer}>
                         <Col style={styles.head}>
                             <Text style={styles.textHead}>CHI TIẾT</Text>
                         </Col>
-                    </Row>
+                    </Row> */}
                     {/* <Row style={styles.titleContainer}>
                         <Col style={styles.title}>
                             <Text style={styles.textTitle}>Ngày Thiên hình Hắc đạo</Text>
@@ -166,7 +166,6 @@ class Courtesy extends React.Component {
 
 const styles = StyleSheet.create({
     courtesy: {
-        marginTop: 60,
         width: '100%',
         aspectRatio: 15/9,
     },
