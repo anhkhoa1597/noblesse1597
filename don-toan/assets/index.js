@@ -28,6 +28,7 @@ export const MOON27 = require("./27.png");
 export const MOON28 = require("./28.png");
 export const MOON29 = require("./29.png");
 export const MOON30 = require("./30.png");
+export const BACKGROUND = require("./background.png");
 
 export const arrMoon = [MOON1,
     MOON2,
