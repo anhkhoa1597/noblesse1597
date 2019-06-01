@@ -25,7 +25,7 @@ class Time extends React.Component {
                             <Text style={styles.textTitle}>Vòng Hoàng Đạo</Text>
                         </Col> */}
                         <Col style={styles.col1}>
-                            <Text style={styles.textTitle}>Quẻ Lạc Việt Độn Toán</Text>
+                            <Text style={styles.textTitle}>Quẻ</Text>
                         </Col>
                     </Row>
                     <Row style={styles.row}>
@@ -197,7 +197,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'black',
         justifyContent: 'center',
-        backgroundColor: 'grey',
+        alignItems: 'center',
+        backgroundColor: 'rgba(255,255,255,0.1)',
         flex: 3,
     },
     col1: {
@@ -205,7 +206,7 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'grey',
+        backgroundColor: 'rgba(255,255,255,0.1)',
         flex: 4,
         flexDirection: 'row',
     },
@@ -218,7 +219,7 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         alignItems: 'flex-start',
         justifyContent: 'center',
-        backgroundColor: 'grey',
+        backgroundColor: 'rgba(255,255,255,0.1)',
         flex: 1,
     },
     text1: {

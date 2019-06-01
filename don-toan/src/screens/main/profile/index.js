@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { View, StyleSheet, Text, Image, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
 import { bindHeaderBarActions } from '../../../redux/actions/headerbar';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -134,48 +134,56 @@ class ProfileScreen extends React.Component {
         });
     }
 
-    toogleModal2 = () => {
-        const { modalVisible2 } = this.state;
-        this.setState({ modalVisible2: !modalVisible2 });
-    };
-
-    selectDate(date){
-        this.toogleModal2();
+    goToSelectedMonthYearFromDatePicker = (date) => {
+        let monthYear = StdioDateHelper.getMonthYearFromDate(date);
         this.setState({
             selectedDate: date,
+            selectedMonthYear: monthYear,
+            calendarSolar: this.createCalendar(monthYear)
+        });
+    }
+
+    toogleModal2 = () => {
+        this.setState({ modalVisible2: false });
+    };
+
+    selectDate = (date) => {
+        this.setState({
+            selectedDate: date,
+            modalVisible2: true
         })
     }
 
     renderCalendar(element){
-        let isSelectedDate = element.isThisDate(this.state.selectedDate);
+        let isToday = element.isThisDate(this.state.selectedDate);
         let lunarDate = StdioDateHelper.convertSolarToLunar(element, 7.0);
         let isBadDay = StdioDateHelper.isBadDay(lunarDate);
 
         return (
-            <View style={styles.day} key={[element.day, element.month, element.year]}>
+            <View style={isToday ? styles.toDay : styles.day} key={[element.day, element.month, element.year]}>
                 <TouchableOpacity
-                    style={isSelectedDate ? styles.selectedDate : (isBadDay ? styles.date : styles.goodDate)}
+                    style={isBadDay ? styles.date : styles.goodDate}
                     onPress={() => this.selectDate(element)}
                 >
                     <View style={styles.dayNumber}>
                         {
                             StdioDateHelper.isLastDateOfMonth(element) || element.day == 1 ? (
-                                <Text style={isSelectedDate ? styles.textDayNumberSelected : (isBadDay ? styles.textDayNumber : styles.textGoodDayNumber)}>
+                                <Text style={isBadDay ? styles.textDayNumber : styles.textGoodDayNumber}>
                                     {element.day}/{element.month}
                                 </Text>
                             ) : (
-                                <Text style={isSelectedDate? styles.textDayNumberSelected : (isBadDay ? styles.textDayNumber : styles.textGoodDayNumber)}>
+                                <Text style={isBadDay ? styles.textDayNumber : styles.textGoodDayNumber}>
                                     {element.day}
                                 </Text>
                             )
                         }
                         {
                             StdioDateHelper.isLastLunarDateOfMonth(lunarDate) || lunarDate.lunarDay == 1 ? (
-                            <Text style={isSelectedDate ? styles.textMoonNumberSelected : (isBadDay ? styles.textMoonNumber : styles.textGoodMoonNumber)}>
+                            <Text style={isBadDay ? styles.textMoonNumber : styles.textGoodMoonNumber}>
                                 {lunarDate.lunarDay}/{lunarDate.lunarMonth}
                             </Text>
                             ) : (
-                            <Text style={isSelectedDate ? styles.textMoonNumberSelected : (isBadDay ? styles.textMoonNumber : styles.textGoodMoonNumber)}>
+                            <Text style={isBadDay ? styles.textMoonNumber : styles.textGoodMoonNumber}>
                                 {lunarDate.lunarDay}
                             </Text>
                             )
@@ -192,11 +200,14 @@ class ProfileScreen extends React.Component {
     render() {
         const { selectedDate, modalVisible2 } = this.state;
         console.log('modalVise2', modalVisible2)
+        console.log('selectedDate', selectedDate)
+
         if (selectedDate == null)
             return null;
+            
         let datePicker = selectedDate.formatDate('DD-MM-YYYY');
         return (
-            <View style={styles.contain}>
+            <ImageBackground source={require("../../../../assets/background.png")} style={{width: '100%', height: '100%'}}>
                 <View style={styles.head}>
                     <View style={styles.left}>
                         <TouchableOpacity style={styles.touchDoubleIconLeft} onPress={this.goToPreviousYear}>
@@ -290,18 +301,23 @@ class ProfileScreen extends React.Component {
                                 marginLeft: 30,
                             }
                         }}
-                        onDateChange={(date) => {this.setState({date: date})}}
+                        onDateChange={(date) => {
+                            let stdioDate = StdioDateHelper.getStdioDateFromDateString(date,"DD-MM-YYYY");
+                            this.goToSelectedMonthYearFromDatePicker(stdioDate);
+                        }}
                     />
-                    <FormModal
-                        visible={modalVisible2}
-                        toogleModal={this.toogleModal2}
-                        height={"100%"}
-                    >
-                        <Courtesy date={selectedDate}/>
-                        <Time date={selectedDate}/>
-                    </FormModal>
+
+                    
                 </View>
-            </View>
+                <FormModal
+                    visible={modalVisible2}
+                    toogleModal={this.toogleModal2}
+                    height={"100%"}
+                >
+                    <Courtesy date={selectedDate}/>
+                    <Time date={selectedDate}/>
+                </FormModal>
+            </ImageBackground>
         );
     }
 };
@@ -325,7 +341,7 @@ const styles = StyleSheet.create({
         height: 50,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: 'rgba(11,19,36,1)',
+        // backgroundColor: 'rgba(11,19,36,1)',
     },
     Month: {
         height: 50,
@@ -333,7 +349,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     leftIcon: {
-        backgroundColor: 'rgba(11,19,36,1)',
+        // backgroundColor: 'rgba(11,19,36,1)',
         textAlign: 'center',
         color: 'rgba(164,172,193,1)',
         height: 50,
@@ -341,7 +357,7 @@ const styles = StyleSheet.create({
         lineHeight: 50,
     },
     rightIcon: {
-        backgroundColor: 'rgba(11,19,36,1)',
+        // backgroundColor: 'rgba(11,19,36,1)',
         textAlign: 'center',
         height: 50,
         lineHeight: 50,
@@ -354,28 +370,36 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     contain: {
-        backgroundColor: 'rgba(11,19,36,1)',
+        // backgroundColor: 'rgba(11,19,36,1)',
     },
     date: {
         width: '100%',
         height: '100%',
-        borderWidth: 1,
+        // borderWidth: 1,
+        borderBottomWidth: 1,
         borderBottomColor: 'rgba(255,255,255,0.3)',
-        borderColor: 'rgba(11,19,36,1)',
+        // borderColor: 'rgba(11,19,36,1)',
     },
     selectedDate: {
         width: '100%',
         height: '100%',
-        borderWidth: 1,
+        // borderWidth: 1,
+        borderBottomWidth: 1,
         borderBottomColor: 'rgba(255,0,0,0.3)',
-        borderColor: 'rgba(11,19,36,1)',
+        // borderColor: 'rgba(11,19,36,1)',
     },
     goodDate: {
         width: '100%',
         height: '100%',
-        borderWidth: 1,
+        // borderWidth: 1,
+        borderBottomWidth: 1,
         borderBottomColor: 'rgba(255,215,2,0.7)',
-        borderColor: 'rgba(11,19,36,1)',
+        // borderColor: 'rgba(255,255,255,0.1)',
+    },
+    toDay: {
+        width: '14.2857143%', 
+        height: 80,
+        backgroundColor: 'rgba(255,255,255,0.3)',
     },
     dayNumber: {
         flexDirection: 'row',

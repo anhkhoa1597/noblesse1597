@@ -5,6 +5,7 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
+  ImageBackground,
   SafeAreaView
 } from "react-native";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
@@ -52,6 +53,7 @@ class FormModal extends Component {
     } = this.props;
     const heightOutside = this.caculateHeightOutside();
     // console.log("heightOutside>>", heightOutside);
+    console.log("visible " + visible)
     return (
       <View>
         <Modal
@@ -80,32 +82,33 @@ class FormModal extends Component {
                 }}
               />
             )}
-            <SafeAreaView
-              style={{
-                height,
-                backgroundColor: 'rgba(11,19,36,1)',
-                width
-              }}
-            >
-              <View
+            <ImageBackground source={require("../../assets/background.png")} style={{width: '100%', height: '100%'}}>
+              <SafeAreaView
                 style={{
-                  position: "relative"
+                  height,
+                  width
                 }}
               >
-                {closeIcon && (
-                  <TouchableOpacity onPress={this.handleModal}>
-                    <Icon
-                      name="angle-left"
-                      size={35}
-                      color={"rgba(164,172,193,1)"}
-                      style={styles.closeIcon}
-                      
-                    />
-                  </TouchableOpacity>
-                )}
-                {children}
-              </View>
-            </SafeAreaView>
+                <View
+                  style={{
+                    position: "relative"
+                  }}
+                >
+                  {closeIcon && (
+                    <TouchableOpacity onPress={this.handleModal}>
+                      <Icon
+                        name="angle-left"
+                        size={35}
+                        color={"rgba(164,172,193,1)"}
+                        style={styles.closeIcon}
+                        
+                      />
+                    </TouchableOpacity>
+                  )}
+                  {children}
+                </View>
+              </SafeAreaView>
+            </ImageBackground>
             {!!(heightOutside && justifyContent === "center") && (
               <TouchableOpacity
                 onPress={this.handleModal}

@@ -35,6 +35,12 @@ export class StdioDateHelper {
         return dayOfWeek
     }
 
+    static getStdioDateFromDateString(date, format) {
+        let stdioDate = new StdioDate;
+        stdioDate.setDate(moment(date,format).clone().format('Do'), moment(date,format).clone().format('MM'), moment(date,format).clone().format('YYYY'));
+        return stdioDate;
+    }
+
     static getCurrentMonthYear() {
         let today = this.getCurrentDate();
         let monthYear = new StdioMonthYear;
@@ -99,6 +105,14 @@ export class StdioDateHelper {
         monthYear.setMonthYear(date.month, date.year);
         lastDateOfMonthYear = this.getLastDateOfMonthYear(monthYear);
         return date.day == lastDateOfMonthYear.day;
+    }
+    
+    static getMonthYearFromDate(date) {
+        let monthYear = new StdioMonthYear;
+        monthYear.setMonthYear( moment(date.day+'/'+date.month+'/'+date.year,'Do/M/YYYY').clone().format('M'),
+                                moment(date.day+'/'+date.month+'/'+date.year,'Do/M/YYYY').clone().format('YYYY')
+        );
+        return monthYear;
     }
 
     static isLastLunarDateOfMonth (lunarDate) {

@@ -65,10 +65,8 @@ class HeaderBar extends React.Component {
                 <View style={[styles.center, {flex: 1}]}>
                     <Text style={[styles.text, {fontSize: 15}]}>{title}</Text>
                 </View>
-                <TouchableOpacity style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
-                    <Text style={[styles.text]}>Circle 1</Text>
-                    <Text style={[styles.text]}>Circle 2</Text>
-                </TouchableOpacity>
+                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}> 
+                </View>
             </View>
         );
     }

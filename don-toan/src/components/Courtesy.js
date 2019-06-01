@@ -29,7 +29,7 @@ class Courtesy extends React.Component {
                 <Grid>
                     <Row style={styles.headContainer}>
                         <Col style={styles.head}>
-                            <Text style={styles.textHead}>Lịch lý học đông phương</Text>
+                            <Text style={styles.textHead}>CHI TIẾT</Text>
                         </Col>
                     </Row>
                     {/* <Row style={styles.titleContainer}>
@@ -99,13 +99,13 @@ class Courtesy extends React.Component {
                             <Text style={styles.textDataHead}>Lạc thư hoa giáp</Text>
                         </Col>
                         <Col style={styles.data}>
-                            <Text style={{fontSize: 12, color: StdioDateHelper.getLacThuHoaGiapFromDay(date).color}}>{StdioDateHelper.getLacThuHoaGiapFromDay(date).text}</Text>
+                            <Text style={{fontSize: 11, color: StdioDateHelper.getLacThuHoaGiapFromDay(date).color}}>{StdioDateHelper.getLacThuHoaGiapFromDay(date).text}</Text>
                         </Col>
                         <Col style={styles.data}>
-                            <Text style={{fontSize: 12, color: StdioDateHelper.getLacThuHoaGiapFromMonth(lunarDate).color}}>{StdioDateHelper.getLacThuHoaGiapFromMonth(lunarDate).text}</Text>
+                            <Text style={{fontSize: 11, color: StdioDateHelper.getLacThuHoaGiapFromMonth(lunarDate).color}}>{StdioDateHelper.getLacThuHoaGiapFromMonth(lunarDate).text}</Text>
                         </Col>
                         <Col style={styles.data}>
-                            <Text style={{fontSize: 12, color: StdioDateHelper.getLacThuHoaGiapFromYear(lunarDate.lunarYear).color}}>{StdioDateHelper.getLacThuHoaGiapFromYear(lunarDate.lunarYear).text}</Text>
+                            <Text style={{fontSize: 11, color: StdioDateHelper.getLacThuHoaGiapFromYear(lunarDate.lunarYear).color}}>{StdioDateHelper.getLacThuHoaGiapFromYear(lunarDate.lunarYear).text}</Text>
                         </Col>
                     </Row>
                     <Row  style={styles.dataContainer1}>
@@ -195,10 +195,11 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(255,255,255,0.3)',
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'rgba(255,255,255,0.1)',
     },
     textHead: {
-        color: 'red',
-        fontSize: 25,
+        color: 'white',
+        fontSize: 22,
         fontWeight: 'bold',
     },
     title: {
@@ -217,6 +218,7 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(255,255,255,0.3)',
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'rgba(255,255,255,0.1)',
     },
     textData: {
         color: 'white',
