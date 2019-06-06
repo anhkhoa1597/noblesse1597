@@ -39,17 +39,17 @@ class Courtesy extends React.Component {
                         </Col>
                     </Row> */}
                     <Row style={styles.dataContainer}>
-                        <Col style={styles.data}>
-                            <Text style={styles.textDataHead}>Lịch</Text>
+                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
+                            <Text style={styles.textDataHead}>LỊCH</Text>
                         </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textDataHead}>Ngày</Text>
+                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
+                            <Text style={styles.textDataHead}>NGÀY</Text>
                         </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textDataHead}>Tháng</Text>
+                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
+                            <Text style={styles.textDataHead}>THÁNG</Text>
                         </Col>
-                        <Col style={styles.data}>
-                            <Text style={styles.textDataHead}>Năm</Text>
+                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
+                            <Text style={styles.textDataHead}>NĂM</Text>
                         </Col>
                     </Row>
                     <Row style={styles.dataContainer}>
@@ -67,7 +67,7 @@ class Courtesy extends React.Component {
                         </Col>
                     </Row>
                     <Row style={styles.dataContainer}>
-                        <Col style={styles.data}>
+                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
                             <Text style={styles.textDataHead}>Lịch dịch lý học</Text>
                         </Col>
                         <Col style={styles.data}>
@@ -81,7 +81,7 @@ class Courtesy extends React.Component {
                         </Col>
                     </Row>
                     <Row style={styles.dataContainer}>
-                        <Col style={styles.data}>
+                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
                             <Text style={styles.textDataHead}>Can-Chi</Text>
                         </Col>
                         <Col style={styles.data}>
@@ -95,7 +95,7 @@ class Courtesy extends React.Component {
                         </Col>
                     </Row>
                     <Row style={styles.dataContainer}>
-                        <Col style={styles.data}>
+                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
                             <Text style={styles.textDataHead}>Lạc thư hoa giáp</Text>
                         </Col>
                         <Col style={styles.data}>
@@ -109,7 +109,7 @@ class Courtesy extends React.Component {
                         </Col>
                     </Row>
                     <Row  style={styles.dataContainer1}>
-                        <Col style={styles.data}>
+                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
                             <Text style={styles.textDataHead}>Tuổi kỵ</Text>
                         </Col>
                         <Col style={styles.data}>
@@ -126,7 +126,7 @@ class Courtesy extends React.Component {
                         </Col>
                     </Row>
                     <Row  style={styles.dataContainer}>
-                        <Col style={styles.data}>
+                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
                             <Text style={styles.textDataHead}>Tuổi hợp</Text>
                         </Col>
                         <Col style={styles.data}>
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(255,255,255,0.3)',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'rgba(255,255,255,0.1)',
+        backgroundColor: 'rgba(255,255,255,0.3)',
     },
     textHead: {
         color: 'white',
@@ -220,11 +220,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255,255,255,0.1)',
     },
     textData: {
-        color: 'white',
+        color: 'rgba(255,255,255,0.9)',
         fontSize: 12,
     },
     textDataHead: {
-        color: 'rgba(164,172,193,1)',
+        color: 'white',
         fontWeight: 'bold',
         fontSize: 12,
     },

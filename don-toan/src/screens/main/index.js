@@ -19,6 +19,7 @@ class MainScreen extends React.Component {
         this.state = {
             selectedMonthYear: null,
             selectedDate : null,
+            toDay: null,
             calendarSolar : [],
             calendarLunar: [],
             modalVisible2: false,
@@ -29,12 +30,13 @@ class MainScreen extends React.Component {
         StdioDateHelper.initMoment();
 
         this.props.headerBarActions.setTitle("Lịch");
-
+        const toDay = StdioDateHelper.getCurrentDate();
         const currentDate = StdioDateHelper.getCurrentDate();
         const selectedMonthYear = StdioDateHelper.getCurrentMonthYear();
         this.setState({
             selectedMonthYear: selectedMonthYear,
             selectedDate : currentDate,
+            toDay: toDay,
             calendarSolar : this.createCalendar(selectedMonthYear)
         });
     }
@@ -155,7 +157,8 @@ class MainScreen extends React.Component {
     }
 
     renderCalendar(element){
-        let isToday = element.isThisDate(this.state.selectedDate);
+        let isToday = element.isThisDate(this.state.toDay);
+        let isSelectedDay = element.isThisDate(this.state.selectedDate);
         let lunarDate = StdioDateHelper.convertSolarToLunar(element, 7.0);
         let isBadDay = StdioDateHelper.isBadDay(lunarDate);
 
@@ -198,7 +201,6 @@ class MainScreen extends React.Component {
     }
 
     render() {
-
         const { selectedDate, modalVisible2 } = this.state;
         console.log('modalVise2', modalVisible2)
         console.log('selectedDate', selectedDate)
@@ -331,7 +333,6 @@ const styles = StyleSheet.create({
         height: 50,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        // backgroundColor: 'rgba(11,19,36,1)',
     },
     Month: {
         height: 50,
@@ -339,7 +340,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     leftIcon: {
-        // backgroundColor: 'rgba(11,19,36,1)',
         textAlign: 'center',
         color: 'rgba(164,172,193,1)',
         height: 50,
@@ -347,44 +347,37 @@ const styles = StyleSheet.create({
         lineHeight: 50,
     },
     rightIcon: {
-        // backgroundColor: 'rgba(11,19,36,1)',
         textAlign: 'center',
         height: 50,
         lineHeight: 50,
         padding: 0,
     },
     textMonth: {
+        fontWeight: 'bold',
         fontSize: 18,
         textAlign: 'center',
         lineHeight: 50,
         color: 'white',
     },
     contain: {
-        // backgroundColor: 'rgba(11,19,36,1)',
     },
     date: {
         width: '100%',
         height: '100%',
-        // borderWidth: 1,
         borderBottomWidth: 1,
         borderBottomColor: 'rgba(255,255,255,0.3)',
-        // borderColor: 'rgba(11,19,36,1)',
     },
     selectedDate: {
         width: '100%',
         height: '100%',
-        // borderWidth: 1,
         borderBottomWidth: 1,
         borderBottomColor: 'rgba(255,0,0,0.3)',
-        // borderColor: 'rgba(11,19,36,1)',
     },
     goodDate: {
         width: '100%',
         height: '100%',
-        // borderWidth: 1,
         borderBottomWidth: 1,
         borderBottomColor: 'rgba(255,215,2,0.7)',
-        // borderColor: 'rgba(255,255,255,0.1)',
     },
     toDay: {
         width: '14.2857143%', 
@@ -432,9 +425,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     imageMoon: {
-        borderRadius: 20,
-        width: 40,
-        height: 40,
+        borderRadius: 25,
+        width: 50,
+        height: 50,
     },
     week: {
         flexDirection: 'row',
@@ -450,11 +443,6 @@ const styles = StyleSheet.create({
     textWeekDays: {
         color: 'white',
         fontSize: 12,
-    },
-    dayRow: {
-        width: '100%',
-        height: 80,
-        flexDirection: 'row',
     },
     touchIconLeft: {
         marginLeft: 20,

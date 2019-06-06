@@ -26,7 +26,7 @@ class DetailScreen extends React.Component {
                     />
                 </TouchableOpacity>
                 <View style={[styles.center, {flex: 1}]}>
-                    <Text style={[styles.text, {fontSize: 22}]}>CHI TIẾT</Text>
+                    <Text style={[styles.text, {fontSize: 18}]}>CHI TIẾT</Text>
                 </View>
                 <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}> 
                 </View>

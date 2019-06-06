@@ -18,14 +18,14 @@ class Time extends React.Component {
             <View style={styles.time}>
                 <Grid>
                     <Row style={styles.row}>
-                        <Col style={styles.col}>
-                            <Text style={styles.textTitle}>Giờ</Text>
+                        <Col style={[styles.col, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
+                            <Text style={styles.textTitle}>GIỜ</Text>
                         </Col>
                         {/* <Col style={styles.col1}>
                             <Text style={styles.textTitle}>Vòng Hoàng Đạo</Text>
                         </Col> */}
-                        <Col style={styles.col1}>
-                            <Text style={styles.textTitle}>Quẻ</Text>
+                        <Col style={[styles.col1, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
+                            <Text style={styles.textTitle}>QUẺ</Text>
                         </Col>
                     </Row>
                     <Row style={styles.row}>
@@ -230,6 +230,7 @@ const styles = StyleSheet.create({
     textTitle: {
         color: 'white',
         fontSize: 12,
+        fontWeight:'bold',
     }
 })
 
