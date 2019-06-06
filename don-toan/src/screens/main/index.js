@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-native';
 import { bindHeaderBarActions } from '../../redux/actions/headerbar';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DatePicker from 'react-native-datepicker';
 
@@ -115,6 +114,7 @@ class MainScreen extends React.Component {
     }
 
     goToPreviousYear = () => {
+        console.log('sddasdsa')
         let previousYear = StdioDateHelper.getPreviousYear(this.state.selectedMonthYear);
         let selectedDate = StdioDateHelper.getFirstDateOfMonthYear(previousYear);
         this.setState({
@@ -148,6 +148,7 @@ class MainScreen extends React.Component {
     };
 
     selectDate = (date) => {
+        console.log('adsfdsafda');
         this.setState({
             selectedDate: date
         })
@@ -201,8 +202,7 @@ class MainScreen extends React.Component {
     }
 
     render() {
-        const { selectedDate, modalVisible2 } = this.state;
-        console.log('modalVise2', modalVisible2)
+        const { selectedDate } = this.state;
         console.log('selectedDate', selectedDate)
 
         if (selectedDate == null)

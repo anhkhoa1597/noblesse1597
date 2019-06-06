@@ -32,8 +32,7 @@ class DetailScreen extends React.Component {
     }
 
     render() {
-        const data = this.props.location.state
-        console.log('data', data)
+        const data = this.props.location.state;
         return (
         <View style={styles.contain}>
             <View style={styles.header}>
@@ -218,6 +217,21 @@ const pickerSelectStyles = StyleSheet.create({
         backgroundColor: 'white',
         color: 'black',
     },
+    inputAndroid: {
+        marginTop: 15,
+        marginRight: 5,
+        height: 30,
+        fontSize: 12,
+        width: 150,
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        borderWidth: 1,
+        borderColor: 'rgba(255,255,255,0.3)',
+        // borderRadius: 15,
+        backgroundColor: 'white',
+        color: 'black',
+    }
 });
 
 export default withRouter(connect(null, 

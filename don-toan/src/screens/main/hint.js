@@ -14,8 +14,6 @@ class HintScreen extends React.Component {
     render() {
         const queDonLucNham = this.props.location.queDonLucNham;
         const queDonBatMon = this.props.location.queDonBatMon;
-        console.log('queDonLucNham', queDonLucNham);
-        console.log('queDonBatMon', queDonBatMon);
         return (
         <View style={styles.contain}>
             <View style={styles.header}>
@@ -40,7 +38,7 @@ class HintScreen extends React.Component {
                             <Text style={styles.textTitle}>QUẺ</Text>
                         </Col>
                         <Col style={[styles.col1, {backgroundColor: 'rgba(255,255,255,0.3)', alignItems: 'center', justifyContent: 'center'}]}>
-                            <Text style={styles.textTitle}>NỘI DỤNG</Text>
+                            <Text style={styles.textTitle}>NỘI DUNG</Text>
                         </Col>
                     </Row>
                     <Row style={styles.row}>
