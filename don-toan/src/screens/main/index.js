@@ -282,33 +282,33 @@ class MainScreen extends React.Component {
                 {
                     this.state.calendarSolar.map(element => this.renderCalendar(element))
                 } 
-                <DatePicker
-                    style={{height: 50, borderRadius: 25, marginTop: 20,width: 150, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white'}}
-                    date={datePicker}
-                    mode="date"
-                    placeholder="Select date"
-                    format="DD-MM-YYYY"
-                    minDate="01-01-1900"
-                    maxDate="01-01-2100"
-                    confirmBtnText="Confirm"
-                    cancelBtnText="Cancel"
-                    customStyles={{
-                        dateIcon: {
-                            position: 'absolute',
-                            left: 0,
-                            top: 4,
-                            marginLeft: 15,
-                        },
-                        dateInput: {
-                            borderColor: 'transparent',
-                            marginLeft: 30,
-                        }
-                    }}
-                    onDateChange={(date) => {
-                        let stdioDate = StdioDateHelper.getStdioDateFromDateString(date,"DD-MM-YYYY");
-                        this.goToSelectedMonthYearFromDatePicker(stdioDate);
-                    }}
-                />
+                    <DatePicker
+                        style={{height: 50, borderRadius: 25, marginTop: 20,width: 150, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white'}}
+                        date={datePicker}
+                        mode="date"
+                        placeholder="Select date"
+                        format="DD-MM-YYYY"
+                        minDate="01-01-1900"
+                        maxDate="01-01-2100"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        customStyles={{
+                            dateIcon: {
+                                position: 'absolute',
+                                left: 0,
+                                top: 4,
+                                marginLeft: 15,
+                            },
+                            dateInput: {
+                                borderColor: 'transparent',
+                                marginLeft: 30,
+                            }
+                        }}
+                        onDateChange={(date) => {
+                            let stdioDate = StdioDateHelper.getStdioDateFromDateString(date,"DD-MM-YYYY");
+                            this.goToSelectedMonthYearFromDatePicker(stdioDate);
+                        }}
+                    />
                 </View>
             </View>
         );

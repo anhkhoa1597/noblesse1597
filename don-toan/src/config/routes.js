@@ -1,5 +1,6 @@
 //@flow
 export const routes = {
     HOME:      `/`,
-    DETAIL:   `/detail`
+    DETAIL:   `/detail`,
+    HINT:      `/hint`
 }
