@@ -445,10 +445,12 @@ const styles = StyleSheet.create({
         fontSize: 12,
     },
     touchIconLeft: {
+        width: 20,
         marginLeft: 20,
         height: 50,
     },
     touchIconRight: {
+        width: 20,
         marginRight: 20,
         height: 50,
     },
