@@ -58,6 +58,7 @@ class DetailScreen extends React.Component {
                         label: 'Bát Môn...',
                         value: null,
                     }}
+                    useNativeAndroidPickerStyle={false}
                     items={[
                         {
                             label: 'Sinh',
@@ -105,6 +106,7 @@ class DetailScreen extends React.Component {
                         label: 'Lục Nhâm...',
                         value: null,
                     }}
+                    useNativeAndroidPickerStyle={false}
                     items={[
                         {
                             label: 'Đại an',
@@ -140,7 +142,7 @@ class DetailScreen extends React.Component {
                     value={this.state.queDonLucNham}
                 />
                 <TouchableOpacity style={styles.hintTouch} onPress={() => this.goToHintScreen()}>
-                    <Text style={{fontSize:14, fontWeight:'bold', color:'white'}}>Tra Cứu</Text>
+                    <Text style={{fontSize:14, fontWeight:'bold', color:'white'}}>Tra Cứu</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -221,14 +223,14 @@ const pickerSelectStyles = StyleSheet.create({
         marginTop: 15,
         marginRight: 5,
         height: 30,
-        fontSize: 12,
-        width: 150,
+        width: 100,
+        fontSize: 14,
+        padding: 0,
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
         borderWidth: 1,
         borderColor: 'rgba(255,255,255,0.3)',
-        // borderRadius: 15,
         backgroundColor: 'white',
         color: 'black',
     }
