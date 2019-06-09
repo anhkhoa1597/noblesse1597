@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-native';
 import { bindHeaderBarActions } from '../../redux/actions/headerbar';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon2 from 'react-native-vector-icons/FontAwesome5'
 import DatePicker from 'react-native-datepicker';
-
 import  { arrMoon } from "../../../assets"
-
 import {StdioDate} from '../../helper/StdioDate';
 import {StdioMonthYear} from '../../helper/StdioMonthYear';
 import { StdioDateHelper } from '../../helper/StdioDateHelper';
+import FormModal from '../../components/FormModal'
 
 class MainScreen extends React.Component {
     constructor() {
@@ -144,7 +144,8 @@ class MainScreen extends React.Component {
     }
 
     toogleModal2 = () => {
-        this.setState({ modalVisible2: false });
+        const {modalVisible2} = this.state;
+        this.setState({ modalVisible2: !modalVisible2 });
     };
 
     selectDate = (date) => {
@@ -164,23 +165,21 @@ class MainScreen extends React.Component {
         let isBadDay = StdioDateHelper.isBadDay(lunarDate);
 
         return (
-            <View style={isToday ? styles.toDay : styles.day} key={[element.day, element.month, element.year]}>
+            <View 
+                style={isToday ? styles.toDay : (isSelectedDay ? styles.selectDate : styles.day)}
+                key={[element.day, element.month, element.year]}
+            >
                 <TouchableOpacity
                     style={isBadDay ? styles.date : styles.goodDate}
                     onPress={() => this.selectDate(element)}
                 >
-                    <View style={styles.dayNumber}>
-                        {
-                            StdioDateHelper.isLastDateOfMonth(element) || element.day == 1 ? (
-                                <Text style={isBadDay ? styles.textDayNumber : styles.textGoodDayNumber}>
-                                    {element.day}/{element.month}
-                                </Text>
-                            ) : (
-                                <Text style={isBadDay ? styles.textDayNumber : styles.textGoodDayNumber}>
-                                    {element.day}
-                                </Text>
-                            )
-                        }
+                    <View style={styles.dayLunarNumber}>
+                        {/* <Icon2
+                             style={styles.moonIcon}
+                             name="moon"
+                             color="white"
+                             size={10}
+                        /> */}
                         {
                             StdioDateHelper.isLastLunarDateOfMonth(lunarDate) || lunarDate.lunarDay == 1 ? (
                             <Text style={isBadDay ? styles.textMoonNumber : styles.textGoodMoonNumber}>
@@ -194,7 +193,20 @@ class MainScreen extends React.Component {
                         }
                     </View>
                     <View style={styles.moon}>
-                        <Image source={arrMoon[lunarDate.lunarDay-1]} style={styles.imageMoon}/>
+                        <Image source={arrMoon[lunarDate.lunarDay-1]} resizeMode='contain' style={styles.imageMoon}/>
+                    </View>
+                    <View style={styles.dayNumber}>
+                        {
+                            StdioDateHelper.isLastDateOfMonth(element) || element.day == 1 ? (
+                                <Text style={isBadDay ? styles.textDayNumber : styles.textGoodDayNumber}>
+                                    {element.day}/{element.month}
+                                </Text>
+                            ) : (
+                                <Text style={isBadDay ? styles.textDayNumber : styles.textGoodDayNumber}>
+                                    {element.day}
+                                </Text>
+                            )
+                        }
                     </View>
                 </TouchableOpacity>
             </View>
@@ -202,7 +214,7 @@ class MainScreen extends React.Component {
     }
 
     render() {
-        const { selectedDate } = this.state;
+        const { selectedDate, modalVisible2 } = this.state;
         console.log('selectedDate', selectedDate)
 
         if (selectedDate == null)
@@ -232,6 +244,9 @@ class MainScreen extends React.Component {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.Month}>
+                        <Text style={{margin: 0, fontWeight: 'bold', fontSize: 11, textAlign: 'center', color: 'white',}}>
+                            THÁNG
+                        </Text>
                         <Text style={styles.textMonth}>
                             {StdioMonthYear.toString(this.state.selectedMonthYear)}
                         </Text>
@@ -282,38 +297,63 @@ class MainScreen extends React.Component {
                 {
                     this.state.calendarSolar.map(element => this.renderCalendar(element))
                 } 
-                    <DatePicker
-                        style={{height: 50, borderRadius: 25, marginTop: 20,width: 150, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white'}}
-                        date={datePicker}
-                        mode="date"
-                        placeholder="Select date"
-                        format="DD-MM-YYYY"
-                        minDate="01-01-1900"
-                        maxDate="01-01-2100"
-                        confirmBtnText="Confirm"
-                        cancelBtnText="Cancel"
-                        customStyles={{
-                            dateIcon: {
-                                position: 'absolute',
-                                left: 0,
-                                top: 4,
-                                marginLeft: 15,
-                            },
-                            dateInput: {
-                                borderColor: 'transparent',
-                                marginLeft: 30,
-                            }
-                        }}
-                        onDateChange={(date) => {
-                            let stdioDate = StdioDateHelper.getStdioDateFromDateString(date,"DD-MM-YYYY");
-                            this.goToSelectedMonthYearFromDatePicker(stdioDate);
-                        }}
-                    />
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
+                        <TouchableOpacity onPress={this.toogleModal2} style={{flexDirection: 'row', marginLeft: 20, marginTop: 30}}>
+                            <Icon
+                                style={{marginRight: 5}}
+                                name="info-circle"
+                                color="white"
+                                size={22}
+                            />
+                            <Text style={{color: 'white', fontSize: 16}}>Thông Tin</Text>
+                        </TouchableOpacity>
+                        <View/>
+                        <DatePicker
+                            style={{height: 50, borderRadius: 25, marginRight: 20, marginTop: 20,width: 150, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white'}}
+                            date={datePicker}
+                            mode="date"
+                            placeholder="Select date"
+                            format="DD-MM-YYYY"
+                            minDate="01-01-1900"
+                            maxDate="01-01-2100"
+                            confirmBtnText="Confirm"
+                            cancelBtnText="Cancel"
+                            customStyles={{
+                                dateIcon: {
+                                    position: 'absolute',
+                                    left: 0,
+                                    top: 4,
+                                    marginLeft: 15,
+                                },
+                                dateInput: {
+                                    borderColor: 'transparent',
+                                    marginLeft: 30,
+                                }
+                            }}
+                            onDateChange={(date) => {
+                                let stdioDate = StdioDateHelper.getStdioDateFromDateString(date,"DD-MM-YYYY");
+                                this.goToSelectedMonthYearFromDatePicker(stdioDate);
+                            }}
+                        />
+                    </View>
+                    <FormModal
+                        visible = {modalVisible2}
+                        toogleModal={this.toogleModal2}
+                    >
+                        <View style={{padding: 10, alignItems:'center', justifyContent:'center'}}>
+                            <Text style={styles.infoText}>Trung Tâm Nghiên Cứu Lý Học Đông Phương</Text>
+                            <Text style={styles.infoText}>www.lyhocdongphuong.org.vn</Text>
+                            <Text style={styles.infoText}>Địa chỉ: số 9 ngõ 195 Ngọc Thủy Long Biên - Hà Nội</Text>
+                            <Text style={styles.infoText}>Tel: 0965059666</Text>
+                        </View>
+                    </FormModal>
                 </View>
             </View>
         );
     }
 };
+
+const dayAspectRatio = 5/7;
 
 const styles = StyleSheet.create({
     contain: {
@@ -325,14 +365,18 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     day: {
-        width: '14.2857143%', 
-        height: 80,
+        width: `${100/7}%`, 
+        aspectRatio: dayAspectRatio,
     },
     head: {
         width: '100%',
         height: 50,
         flexDirection: 'row',
         justifyContent: 'space-between',
+    },
+    infoText: {
+        color: 'white',
+        fontSize: 12,
     },
     Month: {
         height: 50,
@@ -353,10 +397,10 @@ const styles = StyleSheet.create({
         padding: 0,
     },
     textMonth: {
+        margin: 0,
         fontWeight: 'bold',
-        fontSize: 18,
+        fontSize: 16,
         textAlign: 'center',
-        lineHeight: 50,
         color: 'white',
     },
     contain: {
@@ -380,23 +424,31 @@ const styles = StyleSheet.create({
         borderBottomColor: 'rgba(255,215,2,0.7)',
     },
     toDay: {
-        width: '14.2857143%', 
-        height: 80,
+        width: `${100/7}%`, 
+        aspectRatio: dayAspectRatio,
         backgroundColor: 'rgba(255,255,255,0.3)',
     },
+    selectDate: {
+        width: `${100/7}%`, 
+        aspectRatio: dayAspectRatio,
+        backgroundColor: 'rgba(255,255,255,0.2)',
+    },
+    dayLunarNumber: {
+        // flexDirection: 'row',
+        alignItems: 'flex-start',
+        padding: 1,
+    },
     dayNumber: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        flex: 1.5,
-        padding: 2,
+        padding: 1,
+        alignItems: 'flex-end',
     },
     textDayNumber : {
-        color: 'white',
-        fontSize: 11,
+        color: 'rgba(255,215,255,0.5)',
+        fontSize: 10,
     },
     textGoodDayNumber: {
-        color: 'rgba(255,215,2,0.7)',
-        fontSize: 11,
+        color: 'rgba(255,215,255,0.5)',
+        fontSize: 10,
     },
     textDayNumberSelected: {
         color: 'red',
@@ -404,14 +456,12 @@ const styles = StyleSheet.create({
         fontSize: 11,
     },
     textMoonNumber: {
-        color: 'rgba(255,255,255,0.5)',
-        fontSize: 9,
-        marginTop: 4,
+        color: 'white',
+        fontSize: 13,
     },
     textGoodMoonNumber: {
-        color: 'rgba(255,215,2,0.7)',
-        fontSize: 9,
-        marginTop: 4,
+        color: 'white',
+        fontSize: 13,
     },
     textMoonNumberSelected: {
         color: 'rgba(255,0,0,0.8)',
@@ -420,14 +470,14 @@ const styles = StyleSheet.create({
         marginTop: 4,
     },
     moon: {
-        flex: 5,
+        flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        padding: 2,
     },
     imageMoon: {
-        borderRadius: 25,
-        width: 50,
-        height: 50,
+        width: '100%',
+        height: '100%',
     },
     week: {
         flexDirection: 'row',

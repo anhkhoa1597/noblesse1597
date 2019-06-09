@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
     },
     hint: {
-        flexDirection: 'row',
+        flexDirection: 'row',       
     },
     hintTouch: {
         marginTop: 15,
@@ -208,7 +208,7 @@ const pickerSelectStyles = StyleSheet.create({
         marginTop: 15,
         marginRight: 5,
         height: 30,
-        fontSize: 14,
+        fontSize: 12,
         width: 100,
         alignItems: 'center',
         justifyContent: 'center',
@@ -224,7 +224,7 @@ const pickerSelectStyles = StyleSheet.create({
         marginRight: 5,
         height: 30,
         width: 100,
-        fontSize: 14,
+        fontSize: 12,
         padding: 0,
         alignItems: 'center',
         justifyContent: 'center',

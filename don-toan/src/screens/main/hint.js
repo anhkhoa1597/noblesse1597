@@ -32,32 +32,30 @@ class HintScreen extends React.Component {
                 </View>
             </View>
             <View style={styles.Hint}>
-                <Grid>
-                    <Row style={styles.rowHeader}>
-                        <Col style={[styles.col, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
-                            <Text style={styles.textTitle}>QUẺ</Text>
-                        </Col>
-                        <Col style={[styles.col1, {backgroundColor: 'rgba(255,255,255,0.3)', alignItems: 'center', justifyContent: 'center'}]}>
-                            <Text style={styles.textTitle}>NỘI DUNG</Text>
-                        </Col>
-                    </Row>
-                    <Row style={styles.row}>
-                        <Col style={styles.col}>
-                            <Text style={styles.text}>{queDonBatMon}</Text>
-                        </Col>
-                        <Col style={styles.col1}>
-                            <Text style={[styles.text1]}>{StdioDateHelper.getChiTietQue(queDonBatMon)}</Text>
-                        </Col>
-                    </Row>
-                    <Row style={styles.row}>
-                        <Col style={styles.col}>
-                            <Text style={styles.text}>{queDonLucNham}</Text>
-                        </Col>
-                        <Col style={styles.col1}>
-                            <Text style={[styles.text1]}>{StdioDateHelper.getChiTietQue(queDonLucNham)}</Text>
-                        </Col>
-                    </Row>
-                </Grid>
+                <View style={styles.rowHeader}>
+                    <View style={[styles.col, {backgroundColor: 'rgba(255,255,255,0.4)'}]}>
+                        <Text style={styles.textTitle}>QUẺ</Text>
+                    </View>
+                    <View style={[styles.col1, {justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.4)'}]}>
+                        <Text style={styles.textTitle}>NỘI DUNG</Text>
+                    </View>
+                </View>
+                <View style={styles.row}>
+                    <View style={styles.col}>
+                        <Text style={styles.textTitle}>{queDonBatMon}</Text>
+                    </View>
+                    <View style={styles.col1}>
+                        <Text style={styles.text}>{StdioDateHelper.getChiTietQue(queDonBatMon)}</Text>
+                    </View>
+                </View>
+                <View style={styles.row}>
+                    <View style={styles.col}>
+                        <Text style={styles.textTitle}>{queDonLucNham}</Text>
+                    </View>
+                    <View style={styles.col1}>
+                        <Text style={styles.text}>{StdioDateHelper.getChiTietQue(queDonLucNham)}</Text>
+                    </View>
+                </View>
             </View>
         </View>
         );
@@ -82,12 +80,11 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     text: {
-        fontSize: 14,
-        fontWeight: 'bold',
+        fontSize: 12,
         color: '#fff',
     },
     text1: {
-        fontSize: 14,
+        fontSize: 12,
         color: '#fff',
     },
     leftIcon: {
@@ -97,24 +94,29 @@ const styles = StyleSheet.create({
         marginLeft: 15,
     },
     rowHeader: {
+        flexDirection: 'row',
         width: '100%',
-        height: 50,
     },
     row: {
         width: '100%',
+        flexDirection: 'row',
     },
     col: {
-        borderWidth: 1,
-        borderColor: 'rgba(255,255,255,0.3)',
+        borderRightWidth: 1,
+        borderBottomWidth: 1,
+        borderRightColor: 'rgba(255,255,255,0.3)',
+        borderBottomColor: 'rgba(255,255,255,0.3)',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(255,255,255,0.1)',
         flex: 1,
     },
     col1: {
-        padding: 10,
-        borderWidth: 1,
-        borderColor: 'rgba(255,255,255,0.3)',
+        padding: 5,
+        borderRightWidth: 1,
+        borderBottomWidth: 1,
+        borderRightColor: 'rgba(255,255,255,0.3)',
+        borderBottomColor: 'rgba(255,255,255,0.3)',
         backgroundColor: 'rgba(255,255,255,0.1)',
         flex: 4,
         flexDirection: 'row',
@@ -125,9 +127,7 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
     },
     Hint: {
-        marginTop: 15,
         width: '100%',
-        height: '70%',
     },
 })
 

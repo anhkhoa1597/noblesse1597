@@ -39,25 +39,25 @@ class Courtesy extends React.Component {
                         </Col>
                     </Row> */}
                     <Row style={styles.dataContainer}>
-                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
+                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.4)'}]}>
                             <Text style={styles.textDataHead}>LỊCH</Text>
                         </Col>
-                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
+                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.4)'}]}>
                             <Text style={styles.textDataHead}>NGÀY</Text>
                         </Col>
-                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
+                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.4)'}]}>
                             <Text style={styles.textDataHead}>THÁNG</Text>
                         </Col>
-                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
+                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.4)'}]}>
                             <Text style={styles.textDataHead}>NĂM</Text>
                         </Col>
                     </Row>
                     <Row style={styles.dataContainer}>
-                        <Col style={styles.data}>
-                            <Text style={styles.textData}>{StdioDateHelper.getDayOfWeekFromDate(date)}</Text>
+                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.4)'}]}>
+                            <Text style={styles.textDataHead}>DƯƠNG LỊCH</Text>
                         </Col>
                         <Col style={styles.data}>
-                            <Text style={styles.textData}>{date.day}</Text>
+                            <Text style={styles.textData}>{date.day} ({StdioDateHelper.getDayOfWeekFromDate(date)})</Text>
                         </Col>
                         <Col style={styles.data}>
                             <Text style={styles.textData}>{date.month}</Text>
@@ -67,8 +67,8 @@ class Courtesy extends React.Component {
                         </Col>
                     </Row>
                     <Row style={styles.dataContainer}>
-                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
-                            <Text style={styles.textDataHead}>Lịch dịch lý học</Text>
+                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.4)'}]}>
+                            <Text style={styles.textDataHead}>LỊCH DỊCH LÝ HỌC</Text>
                         </Col>
                         <Col style={styles.data}>
                             <Text style={styles.textData}>{lunarDate.lunarDay}</Text>
@@ -81,8 +81,8 @@ class Courtesy extends React.Component {
                         </Col>
                     </Row>
                     <Row style={styles.dataContainer}>
-                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
-                            <Text style={styles.textDataHead}>Can-Chi</Text>
+                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.4)'}]}>
+                            <Text style={styles.textDataHead}>CAN-CHI</Text>
                         </Col>
                         <Col style={styles.data}>
                             <Text style={styles.textData}>{StdioDateHelper.convertLunarDayToCanChi(date)}</Text>
@@ -95,8 +95,8 @@ class Courtesy extends React.Component {
                         </Col>
                     </Row>
                     <Row style={styles.dataContainer}>
-                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
-                            <Text style={styles.textDataHead}>Lạc thư hoa giáp</Text>
+                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.4)'}]}>
+                            <Text style={styles.textDataHead}>LẠC THƯ HOA GIÁP</Text>
                         </Col>
                         <Col style={styles.data}>
                             <Text style={{fontSize: 11, color: StdioDateHelper.getLacThuHoaGiapFromDay(date).color}}>{StdioDateHelper.getLacThuHoaGiapFromDay(date).text}</Text>
@@ -109,8 +109,8 @@ class Courtesy extends React.Component {
                         </Col>
                     </Row>
                     <Row  style={styles.dataContainer1}>
-                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
-                            <Text style={styles.textDataHead}>Tuổi kỵ</Text>
+                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.4)'}]}>
+                            <Text style={styles.textDataHead}>TUỔI KỴ</Text>
                         </Col>
                         <Col style={styles.data}>
                             <Text style={styles.textData}>{tuoiKyFromDay[0]}</Text>
@@ -126,8 +126,8 @@ class Courtesy extends React.Component {
                         </Col>
                     </Row>
                     <Row  style={styles.dataContainer}>
-                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
-                            <Text style={styles.textDataHead}>Tuổi hợp</Text>
+                        <Col style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.4)'}]}>
+                            <Text style={styles.textDataHead}>TUỖI HỢP</Text>
                         </Col>
                         <Col style={styles.data}>
                             <Text style={styles.textData}>{StdioDateHelper.getTuoiHopFromDay(date)}</Text>
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     },
     dataContainer1: {
         width: '100%',
-        flex: 2,
+        flex: 1,
     },
     dataContainer2: {
         width: '100%',
@@ -213,8 +213,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     data: {
-        borderWidth: 1,
-        borderColor: 'rgba(255,255,255,0.3)',
+        paddingTop: 1,
+        paddingBottom: 1,
+        borderRightWidth: 1,
+        borderBottomWidth: 1,
+        borderRightColor: 'rgba(255,255,255,0.3)',
+        borderBottomColor: 'rgba(255,255,255,0.3)',
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'rgba(255,255,255,0.1)',
@@ -222,16 +226,22 @@ const styles = StyleSheet.create({
     textData: {
         color: 'rgba(255,255,255,0.9)',
         fontSize: 12,
+        flexWrap: "wrap",
+        textAlign: 'center',
     },
     textDataHead: {
+        textAlign: 'center',
         color: 'white',
         fontWeight: 'bold',
-        fontSize: 12,
+        flexWrap: "wrap",
+        fontSize: 11,
     },
     textData1: {
         fontSize: 12,
         color: 'blue',
-        textDecorationLine: 'underline'
+        textDecorationLine: 'underline',
+        flexWrap: "wrap",
+        textAlign: 'center',
     },
 });
 

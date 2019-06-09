@@ -18,13 +18,13 @@ class Time extends React.Component {
             <View style={styles.time}>
                 <Grid>
                     <Row style={styles.row}>
-                        <Col style={[styles.col, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
+                        <Col style={[styles.col, {backgroundColor: 'rgba(255,255,255,0.4)'}]}>
                             <Text style={styles.textTitle}>GIỜ</Text>
                         </Col>
                         {/* <Col style={styles.col1}>
                             <Text style={styles.textTitle}>Vòng Hoàng Đạo</Text>
                         </Col> */}
-                        <Col style={[styles.col1, {backgroundColor: 'rgba(255,255,255,0.3)'}]}>
+                        <Col style={[styles.col1, {backgroundColor: 'rgba(255,255,255,0.4)'}]}>
                             <Text style={styles.textTitle}>QUẺ</Text>
                         </Col>
                     </Row>
@@ -185,7 +185,7 @@ class Time extends React.Component {
 
 const styles = StyleSheet.create({
     time: {
-        marginTop: 30,
+        marginTop: 15,
         width: '100%',
         aspectRatio: 3/2,
     },
@@ -194,16 +194,20 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     col: {
-        borderWidth: 1,
-        borderColor: 'rgba(255,255,255,0.3)',
+        borderRightWidth: 1,
+        borderBottomWidth: 1,
+        borderRightColor: 'rgba(255,255,255,0.3)',
+        borderBottomColor: 'rgba(255,255,255,0.3)',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(255,255,255,0.1)',
         flex: 3,
     },
     col1: {
-        borderWidth: 1,
-        borderColor: 'rgba(255,255,255,0.3)',
+        borderRightWidth: 1,
+        borderBottomWidth: 1,
+        borderRightColor: 'rgba(255,255,255,0.3)',
+        borderBottomColor: 'rgba(255,255,255,0.3)',
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'rgba(255,255,255,0.1)',
@@ -216,8 +220,10 @@ const styles = StyleSheet.create({
         fontSize: 12,
     },
     col2: {
-        borderWidth: 1,
-        borderColor: 'rgba(255,255,255,0.3)',
+        borderRightWidth: 1,
+        borderBottomWidth: 1,
+        borderRightColor: 'rgba(255,255,255,0.3)',
+        borderBottomColor: 'rgba(255,255,255,0.3)',
         alignItems: 'flex-start',
         justifyContent: 'center',
         backgroundColor: 'rgba(255,255,255,0.1)',

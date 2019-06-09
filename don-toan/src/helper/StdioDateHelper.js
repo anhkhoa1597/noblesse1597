@@ -1286,7 +1286,7 @@ export class StdioDateHelper {
             case 1:
                 return {color: '#FFD702', text: "Đại An"};
             case 2:
-                return {color: 'black', text: "Lưu Niên"};
+                return {color: '#777', text: "Lưu Niên"};
             case 3:
                 return {color: '#ff5555', text: "Tốc Hỷ"};
             case 4:
@@ -1300,7 +1300,7 @@ export class StdioDateHelper {
         chi = lunarDate.lunarMonth + lunarDate.lunarDay + lunarDate.lunarLeap + time
         switch (chi % 8) {
             case 0:
-                return {color: 'black', text: "Hưu"};
+                return {color: '#777', text: "Hưu"};
             case 1:
                 return {color: '#05EE00', text: "Sinh"};
             case 2:
@@ -1314,7 +1314,7 @@ export class StdioDateHelper {
             case 6:
                 return {color: 'white', text: "Kinh"};
             case 7:
-                return {color: 'black', text: "Khai"};
+                return {color: '#777', text: "Khai"};
         }
     }
 
