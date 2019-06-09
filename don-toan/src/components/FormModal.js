@@ -105,7 +105,7 @@ class FormModal extends Component {
                       />
                     </TouchableOpacity>
                   )}
-                  {children}
+                  {children} 
                 </View>
               </SafeAreaView>
             </ImageBackground>

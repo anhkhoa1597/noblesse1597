@@ -3,6 +3,9 @@ import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-native';
 import { bindHeaderBarActions } from '../../redux/actions/headerbar';
+import { bindDialogActions } from '../../redux/actions/dialog';
+import { channingActions } from "../../helpers";
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/FontAwesome5'
 import DatePicker from 'react-native-datepicker';
@@ -212,7 +215,11 @@ class MainScreen extends React.Component {
             </View>
         );
     }
-
+    showDialog() {
+        const { dialogActions } = this.props;
+        dialogActions.showConfirm("Are you sure to want to log out?","s")
+        console.log("show")
+    }
     render() {
         const { selectedDate, modalVisible2 } = this.state;
         console.log('selectedDate', selectedDate)
@@ -298,7 +305,7 @@ class MainScreen extends React.Component {
                     this.state.calendarSolar.map(element => this.renderCalendar(element))
                 } 
                     <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
-                        <TouchableOpacity onPress={this.toogleModal2} style={{flexDirection: 'row', marginLeft: 20, marginTop: 30}}>
+                        <TouchableOpacity onPress={() => this.showDialog()} style={{flexDirection: 'row', marginLeft: 20, marginTop: 30}}>
                             <Icon
                                 style={{marginRight: 5}}
                                 name="info-circle"
@@ -522,6 +529,9 @@ const styles = StyleSheet.create({
     }
 })
 
+function mapDispatchToProps(dispatch) {
+    return channingActions({}, dispatch, bindHeaderBarActions, bindDialogActions);
+  } 
 export default withRouter(connect(null, 
-    dispatch => bindHeaderBarActions({}, dispatch)
+    mapDispatchToProps
 )(MainScreen));

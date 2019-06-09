@@ -2,12 +2,13 @@ import * as React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Picker } from 'react-native';
 import { connect } from 'react-redux';
 import { bindHeaderBarActions } from '../../redux/actions/headerbar';
+import { bindDialogActions } from '../../redux/actions/dialog';
 import RNPickerSelect from 'react-native-picker-select';
+import { channingActions } from "../../helpers";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Courtesy from '../../components/Courtesy'
 import Time from '../../components/Time'
 import { withRouter } from 'react-router-native';
-
 
 class DetailScreen extends React.Component {
     constructor() {
@@ -30,7 +31,11 @@ class DetailScreen extends React.Component {
             });
         }
     }
-
+    showDialog() {
+        const { dialogActions } = this.props;
+        dialogActions.showConfirm("Are you sure to want to log out?","s")
+        console.log("show")
+    }
     render() {
         const data = this.props.location.state;
         return (
@@ -236,6 +241,10 @@ const pickerSelectStyles = StyleSheet.create({
     }
 });
 
+function mapDispatchToProps(dispatch) {
+    return channingActions({}, dispatch, bindHeaderBarActions, bindDialogActions);
+  } 
+
 export default withRouter(connect(null, 
-    dispatch => bindHeaderBarActions({}, dispatch)
+    mapDispatchToProps
 )(DetailScreen));
