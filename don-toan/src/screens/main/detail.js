@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
     },
     hint: {
-        flexDirection: 'row',       
+        flexDirection: 'row',      
     },
     hintTouch: {
         marginTop: 15,

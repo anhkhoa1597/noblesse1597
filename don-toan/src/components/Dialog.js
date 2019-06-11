@@ -20,6 +20,8 @@ const styles = StyleSheet.create({
     },
     infoText: {
         color:'white',
+        textAlign: 'center',
+        fontSize: 12,
     },
     closeIcon: {
         padding: 5,
@@ -81,17 +83,18 @@ class Dialog extends React.Component {
                             </TouchableOpacity>
                         </View>
                         <View style={{padding: 10, alignItems:'center', justifyContent:'center', flex:1}}>
+                            <Text style={[styles.infoText, {fontWeight: 'bold', fontSize: 14,}]}>LẠC VIỆT ĐỘN TOÁN</Text>
+                            <Text></Text>
                             <Text style={styles.infoText}>Trung Tâm Nghiên Cứu Lý Học Đông Phương</Text>
                             <Text style={styles.infoText}>www.lyhocdongphuong.org.vn</Text>
                             <Text style={styles.infoText}>Địa chỉ: số 9 ngõ 195 Ngọc Thủy Long Biên - Hà Nội</Text>
-                            <Text style={styles.infoText}>Tel: 0965059666</Text>
+                            <Text style={styles.infoText}>Điện thoại: 0965059666</Text>
                         </View>
                     </ImageBackground>
                 </View>
             </Modal>
         )
     }
-
     render() {
         return (
             <>

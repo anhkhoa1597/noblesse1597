@@ -177,12 +177,6 @@ class MainScreen extends React.Component {
                     onPress={() => this.selectDate(element)}
                 >
                     <View style={styles.dayLunarNumber}>
-                        {/* <Icon2
-                             style={styles.moonIcon}
-                             name="moon"
-                             color="white"
-                             size={10}
-                        /> */}
                         {
                             StdioDateHelper.isLastLunarDateOfMonth(lunarDate) || lunarDate.lunarDay == 1 ? (
                             <Text style={isBadDay ? styles.textMoonNumber : styles.textGoodMoonNumber}>
@@ -343,17 +337,6 @@ class MainScreen extends React.Component {
                             }}
                         />
                     </View>
-                    <FormModal
-                        visible = {modalVisible2}
-                        toogleModal={this.toogleModal2}
-                    >
-                        <View style={{padding: 10, alignItems:'center', justifyContent:'center'}}>
-                            <Text style={styles.infoText}>Trung Tâm Nghiên Cứu Lý Học Đông Phương</Text>
-                            <Text style={styles.infoText}>www.lyhocdongphuong.org.vn</Text>
-                            <Text style={styles.infoText}>Địa chỉ: số 9 ngõ 195 Ngọc Thủy Long Biên - Hà Nội</Text>
-                            <Text style={styles.infoText}>Tel: 0965059666</Text>
-                        </View>
-                    </FormModal>
                 </View>
             </View>
         );
@@ -383,7 +366,8 @@ const styles = StyleSheet.create({
     },
     infoText: {
         color: 'white',
-        fontSize: 12,
+        fontSize: 11,
+        textAlign: 'center',
     },
     Month: {
         height: 50,
