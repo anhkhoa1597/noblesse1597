@@ -117,7 +117,6 @@ class MainScreen extends React.Component {
     }
 
     goToPreviousYear = () => {
-        console.log('sddasdsa')
         let previousYear = StdioDateHelper.getPreviousYear(this.state.selectedMonthYear);
         let selectedDate = StdioDateHelper.getFirstDateOfMonthYear(previousYear);
         this.setState({
@@ -152,7 +151,6 @@ class MainScreen extends React.Component {
     };
 
     selectDate = (date) => {
-        console.log('adsfdsafda');
         this.setState({
             selectedDate: date
         })
@@ -216,7 +214,6 @@ class MainScreen extends React.Component {
     }
     render() {
         const { selectedDate, modalVisible2 } = this.state;
-        console.log('selectedDate', selectedDate)
 
         if (selectedDate == null)
             return null;

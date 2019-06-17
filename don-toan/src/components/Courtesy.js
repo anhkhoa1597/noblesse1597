@@ -17,15 +17,19 @@ class Courtesy extends React.Component {
 
     render() {
         const { date } = this.props;
-        let lunarDate, lacThuFromDay, styleLacThuFromDay, lacThuFromMonth, styleLacThuFromMonth, lacThuFromYear, styleLacThuFromYear;
-        // date = new StdioDate;
-        // date.setDate(1, 3, 2019);
-        lunarDate = StdioDateHelper.convertSolarToLunar(date, 7.0);
+        let lunarDate = StdioDateHelper.convertSolarToLunar(date, 7.0);
+        
         let tuoiKyFromDay = StdioDateHelper.getTuoiKyFromDay(date);
         let tuoiKyFromMonth = StdioDateHelper.getTuoiKyFromMonth(lunarDate);
         let tuoiKyFromYear = StdioDateHelper.getTuoiKyFromYear(lunarDate.lunarYear);
         return (
                 <View style={styles.courtesy}>
+                        <View style={styles.dataContainer}>
+                            <View style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.4)'}]}>
+                                <Text style={[styles.textDataHead, {fontSize: 12}]}>Ngày {StdioDateHelper.getHoangDaoForLunarDay(lunarDate)}</Text>
+                                <Text style={[styles.textDataHead, {fontSize: 12}]}>Trực {StdioDateHelper.getThapNhiTruc(date)}, Sao {StdioDateHelper.getThapNhiBatTu(date)}, Tiết {StdioDateHelper.getTietKhi(date)}</Text>
+                            </View>
+                        </View>
                         <View style={styles.dataContainer}>
                             <View style={[styles.data, {backgroundColor: 'rgba(255,255,255,0.4)'}]}>
                                 <Text style={styles.textDataHead}>LỊCH</Text>
@@ -184,6 +188,7 @@ const styles = StyleSheet.create({
     },
     data: {
         flex: 1,
+        flexWrap: "wrap",
         paddingTop: 1,
         paddingBottom: 1,
         borderRightWidth: 1,

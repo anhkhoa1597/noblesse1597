@@ -1327,122 +1327,158 @@ export class StdioDateHelper {
         switch (lunarDate.lunarMonth) {
             case 1:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                    case 3: case 7: case 13: case 18: case 22: case 27: case 5: case 14: case 23:
                         return true;
                 }
                 switch (chiDay) {
-                    case 0: case 2: case 4: case 5: case 6: case 8: case 9:
+                    case 0: case 1: case 2: case 4: case 5: case 6: case 8: case 10: case 11:
                         return true;
+                }
+                if (canDay == 2 && chiDay == 10) {
+                    return true;
                 }
                 break;
             case 2:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                    case 3: case 7: case 11: case 13: case 18: case 22: case 27: case 5: case 14: case 23:
                         return true;
                 }
                 switch (chiDay) {
-                    case 0: case 1: case 3: case 4: case 5: case 6: case 8:
+                    case 0: case 1: case 3: case 4: case 5: case 6: case 8: case 9: case 10:
                         return true;
+                }
+                if (canDay == 8 && chiDay == 4) {
+                    return true;
                 }
                 break;
             case 3:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                    case 3: case 7: case 9: case 13: case 18: case 22: case 27: case 5: case 14: case 23:
                         return true;
                 }
                 switch (chiDay) {
-                    case 0: case 1: case 4: case 5: case 6: case 7: case 8:
+                    case 1: case 6: case 7: case 8: case 0: case 4: case 5:
                         return true;
+                }
+                if (canDay == 7 && chiDay == 11) {
+                    return true;
                 }
                 break;
             case 4:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                    case 3: case 7: case 13: case 18: case 22: case 27: case 5: case 14: case 23:
                         return true;
                 }
                 switch (chiDay) {
-                    case 0: case 2: case 3: case 9: case 7: case 9: case 10: case 11:
+                    case 0: case 2: case 3: case 4: case 9: case 10: case 11: case 7: case 9:
                         return true;
+                }
+                if (canDay == 3 && chiDay == 5) {
+                    return true;
                 }
                 break;
             case 5:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                    case 3: case 5: case 7: case 13: case 18: case 22: case 27: case 14: case 23:
                         return true;
                 }
                 switch (chiDay) {
-                    case 0: case 2: case 3: case 4: case 7: case 8: case 10: case 11:
+                    case 0: case 1: case 2: case 3: case 4: case 8: case 7: case 10: case 11:
                         return true;
+                }
+                if (canDay == 4 && chiDay == 0) {
+                    return true;
                 }
                 break;
             case 6:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                    case 3: case 7: case 13: case 18: case 22: case 27: case 5: case 14: case 23:
                         return true;
                 }
                 switch (chiDay) {
-                    case 0: case 2: case 3: case 4: case 6: case 7: case 9: case 10: case 11:
+                    case 0: case 2: case 3: case 4: case 6: case 7: case 8: case 9: case 10: case 11:
                         return true;
+                }
+                if (canDay == 2 && chiDay == 6) {
+                    return true;
                 }
                 break;
             case 7:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                    case 3: case 7: case 8: case 13: case 18: case 22: case 27: case 29: case 5: case 14: case 23:
                         return true;
                 }
                 switch (chiDay) {
-                    case 0: case 1: case 2: case 3: case 4: case 6: case 9: case 11:
+                    case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7: case 9: case 11:
                         return true;
+                }
+                if (canDay == 1 && chiDay == 1) {
+                    return true;
                 }
                 break;
             case 8:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                    case 3:  case 7: case 13: case 18: case 22: case 27: case 5: case 14: case 23:
                         return true;
                 }
                 switch (chiDay) {
-                    case 0: case 1: case 2: case 3: case 4: case 6: case 9:
+                    case 0: case 1: case 2: case 3: case 4: case 9: case 2: case 6:
                         return true;
+                }
+                if (canDay == 9 && chiDay == 7) {
+                    return true;
                 }
                 break;
             case 9:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                    case 3: case 7: case 13: case 18: case 22: case 25: case 27: case 5: case 14: case 23:
                         return true;
                 }
                 switch (chiDay) {
-                    case 0: case 1: case 2: case 3: case 4: case 6: case 9:
+                    case 0: case 1: case 4: case 6: case 9: case 2: case 3: case 11:
                         return true;
+                }
+                if (canDay == 0 && chiDay == 2) {
+                    return true;
                 }
                 break;
             case 10:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                    case 3: case 7: case 13: case 18: case 22: case 23: case 27: case 5: case 14:
                         return true;
                 }
                 switch (chiDay) {
-                    case 1: case 3: case 4: case 5: case 7: case 8: case 9:
+                    case 1:  case 3: case 4: case 5: case 7: case 8: case 9: case 10:
                         return true;
+                }
+                if (canDay == 4 && chiDay == 8) {
+                    return true;
                 }
                 break;
             case 11:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                    case 3: case 7: case 13: case 18: case 22: case 27: case 21: case 5: case 14: case 23:
                         return true;
                 }
                 switch (chiDay) {
                     case 1: case 2: case 3: case 5: case 6: case 7: case 8: case 9: case 10:
                         return true;
                 }
+                if (canDay == 7 && chiDay == 3) {
+                    return true;
+                }
                 break;
             case 12:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
+                    case 3: case 7: case 13: case 18: case 19: case 22: case 27: case 5: case 14: case 23:
                         return true;
                 }
                 switch (chiDay) {
-                    case 1: case 3: case 4: case 5: case 8: case 9:
+                    case 1: case 2: case 3: case 4: case 5: case 8: case 9:
                         return true;
+                }
+                if (canDay == 7 && chiDay == 9) {
+                    return true;
                 }
                 break;
         }
@@ -1480,7 +1516,8 @@ export class StdioDateHelper {
                 break;
             case 5:
                 switch (chiDay) {
-                    case 2: case 3: case 4: case 11:
+                case 11:
+                    case 2: case 3: case 4:
                         return true; 
                 }
                 break;
@@ -1519,33 +1556,6 @@ export class StdioDateHelper {
                     case 8: case 9: case 10:
                         return true; 
                 }
-                break;
-        }
-
-        switch (date.month) {
-            case 2:
-                if (date.day == 3) return true;
-                break;
-            case 3:
-                if (date.day == 20) return true;
-                break;
-            case 5:
-                if (date.day == 5) return true;
-                break;
-            case 6:
-                if (date.day == 5) return true;
-                break;
-            case 8: 
-                if (date.day == 8) return true;
-                break;
-            case 9:
-                if (date.day == 22) return true;
-                break;
-            case 11:
-                if (date.day == 7) return true;
-                break;
-            case 12:
-                if (date.day == 21) return true;
                 break;
         }
 
@@ -1597,7 +1607,405 @@ export class StdioDateHelper {
                 }
                 break;
         }
+
+        switch (date.month) {
+            case 3:
+                if (date.day == 20) {
+                    return true;
+                }
+            case 6:
+                if (date.day == 20) {
+                    return true;
+                }
+            case 9:
+                if (date.day == 22) {
+                    return true;
+                }
+            case 12:
+                if (date.day == 21) {
+                    return true;
+                }
+            case 2:
+                if (date.day == 3) {
+                    return true;
+                }
+            case 5:
+                if (date.day == 5) {
+                    return true;
+                }
+            case 8:
+                if (date.day == 8) {
+                    return true;
+                }
+            case 1:
+                if (date.day == 7) {
+                    return true;
+                }
+
+        }
+        switch(this.getThapNhiBatTu(date)) {
+            case 'Giác': case 'Cang': case 'Lâu': case 'Khuê': case 'Đẩu': case 'Ngưu':
+                return true;
+        }
         return false;
+
+    }
+
+    static getHoangDaoForLunarDay(lunarDate){
+        const solarDate = this.convertLunarToSolar(lunarDate, 7.0);
+        let jd = this.jdFromDate(solarDate);
+        let hoangDao;
+        switch (lunarDate.lunarMonth) {
+            case 11:
+                hoangDao = 8;
+                break;
+            case 12:
+                hoangDao = 10;
+                break;
+            case 1:
+                hoangDao = 0;
+                break;
+            case 2:
+                hoangDao = 2;
+                break;
+            case 3:
+                hoangDao = 4;
+                break;
+            case 4:
+                hoangDao = 6;
+                break;
+            case 5:
+                hoangDao = 8;
+                break;
+            case 6:
+                hoangDao = 10;
+                break;
+            case 7:
+                hoangDao = 0;
+                break;
+            case 8:
+                hoangDao = 2;
+                break;
+            case 9:
+                hoangDao = 4;
+                break;
+            case 10:
+                hoangDao = 6;
+                break;
+        }
+
+        switch((jd + 1 - hoangDao) % 12) {
+            case 0: 
+                return 'Thanh Long Hoàng Đạo'
+            case 1:
+                return 'Minh Đường Hoàng Đạo'
+            case 2:
+                return 'Thiên Hình Hắc Đạo'
+            case 3:
+                return 'Chu Tước Hắc Đạo'
+            case 4:
+                return 'Kim Quỹ Hoàng Đạo'
+            case 5:
+                return 'Bảo Quang Hoàng Đạo'
+            case 6: 
+                return 'Bạch Hổ Hắc Đạo'
+            case 7:
+                return 'Ngọc Đường Hoàng Đạo'
+            case 8:
+                return 'Thiên La Hắc Đạo'
+            case 9:
+                return 'Nguyên Vũ Hắc Đạo'
+            case 10:
+                return 'Tư Mệnh Hoàng Đạo'
+            case 11:
+                return 'Câu Trận Hắc Đạo'
+        }
+    }
+
+    static getHoangDaoForHour(solarDate, time) {
+        let jd = this.jdFromDate(solarDate);
+        let chi;
+        switch ((jd + 1) % 12) {
+            case 0:
+                chi = 9;
+                break;
+            case 1:
+                chi = 11;
+                break;
+            case 2:
+                chi = 1;
+                break;
+            case 3:
+                chi = 3;
+                break;
+            case 4:
+                chi = 5;
+                break;
+            case 5:
+                chi = 7;
+                break;
+            case 6:
+                chi = 9;
+                break;
+            case 7:
+                chi = 11;
+                break;
+            case 8:
+                chi = 1;
+                break;
+            case 9:
+                chi = 3;
+                break;
+            case 10:
+                chi = 5;
+                break;
+            case 11:
+                chi = 7;
+                break;
+        }
+        let hoangdao;
+        if (time < chi) {
+            hoangdao = time - chi + 12;
+        }
+        else {
+            hoangdao = time - chi
+        }
+        switch (hoangdao) {
+            case 0:
+                return {color: '#FFD702', text: 'Thanh Long'}
+            case 1:
+                return {color: '#FFD702', text: 'Minh Đường'}
+            case 2:
+                return {color: '#777', text: 'Thiên hình'}
+            case 3:
+                return {color: '#777', text: 'Chu Tước'}
+            case 4:
+                return {color: '#FFD702', text: 'Kim Quỹ'}
+            case 5:
+                return {color: '#FFD702', text: 'Bảo Quang'}
+            case 6:
+                return {color: '#777', text: 'Bạch Hổ'}
+            case 7:
+                return {color: '#FFD702', text: 'Ngọc Đường'}
+            case 8:
+                return {color: '#777', text: 'Thiên La'}
+            case 9:
+                return {color: '#777', text: ' Nguyên Vũ'}
+            case 10:
+                return {color: '#FFD702', text: 'Tư Mệnh'}
+            case 11:
+                return {color: '#777', text: 'Câu Trận'}
+        }
+    }
+
+    static getTietKhi(solarDate) {
+        let T, T2, T3, M, L0, lambda1, jd1, jd2, a, y, m, JDN;
+
+        a = Math.floor((14 - solarDate.month)/12)
+        y = solarDate.year + 4800 - a
+        m= solarDate.month + 12 * a - 3
+        JDN = solarDate.day + Math.floor((153 * m + 2)/5) + 365 * y + Math.floor(y/4) - Math.floor(y/100) + Math.floor(y/400) - 32045
+        jd = JDN + (23 - 12)/24 + 59/1440  + 0 / 86400;
+
+        T = (jd - 2451545.0 - 7 / 24) / 36525; // Time in Julian centuries from 2000-01-01 12:00:00 GMT
+        T2 = T * T;
+        T3 = T2 * T,
+        L0 = 280.46645 + 36000.76983 * T + 0.0003032 * T2; // mean longitude, degree
+        M = 357.52910 + 35999.05030 * T - 0.0001559 * T2 - 0.00000048 * T3; // mean anomaly, degree
+
+        C = (1.914600 - 0.004817 * T - 0.000014 * T2) * Math.sin(M) + (0.01993 - 0.000101 * T) * Math.sin(M + M) + 0.000290 * Math.sin(3 * M)
+        theta = L0 + C
+        lambda = theta - 0.00569 - 0.00478 * Math.sin(125.04 - 1934.136*T)
+        lambda = lambda - 360 * Math.floor(lambda/360)
+        
+        let tietkhi = Math.floor(lambda / 15);
+        console.log('tietkhi', tietkhi);
+        switch (tietkhi) {
+            case 0:
+                return 'Xuân phân';
+            case 1:
+                return 'Thanh minh';
+            case 2:
+                return 'Cốc vũ';
+            case 3:
+                return 'Lập hạ';
+            case 4:
+                return 'Tiểu mãn';
+            case 5:
+                return 'Mang chủng';
+            case 6:
+                return 'Hạ chí';
+            case 7:
+                return 'Tiểu thử';
+            case 8:
+                return 'Đại thử';
+            case 9:
+                return 'Lập thu';
+            case 10:
+                return 'Xử thử';
+            case 11:
+                return 'Bạch lộ';
+            case 12:
+                return 'Thu phân';
+            case 13:
+                return 'Hàn lộ';
+            case 14:
+                return 'Sương giáng';
+            case 15:
+                return 'Lập đông';
+            case 16:
+                return 'Tiểu tuyết';
+            case 17:
+                return 'Đại tuyết';
+            case 18:
+                return 'Đông chí';
+            case 19:
+                return 'Tiểu hàn';
+            case 20:
+                return 'Đại hàn';
+            case 21:
+                return 'Lập xuân';
+            case 22:
+                return 'Vũ thủy';
+            case 23:
+                return 'Kinh trập';
+        }
+    }
+
+    static getThapNhiTruc(solarDate) {
+        let lunarDate = this.convertSolarToLunar(solarDate, 7.0);
+        let jd = this.jdFromDate(solarDate);
+        let truc;
+        switch (lunarDate.lunarMonth) {
+            case 11:
+                truc = 0;
+                break;
+            case 12:
+                truc = 1;
+                break;
+            case 1:
+                truc = 2;
+                break;
+            case 2:
+                truc = 3;
+                break;
+            case 3:
+                truc = 4;
+                break;
+            case 4:
+                truc = 5;
+                break;
+            case 5:
+                truc = 6;
+                break;
+            case 6:
+                truc = 7;
+                break;
+            case 7:
+                truc = 8;
+                break;
+            case 8:
+                truc = 9;
+                break;
+            case 9:
+                truc = 10;
+                break;
+            case 10:
+                truc = 11;
+                break;
+        }
+
+        switch ((jd + 1 - truc) % 12) {
+            case 0:
+                return 'Kiến';
+            case 1:
+                return 'Trừ'
+            case 2:
+                return 'Mãn'
+            case 3:
+                return 'Bình'
+            case 4:
+                return 'Định'
+            case 5:
+                return 'Chấp'
+            case 6:
+                return 'Phá'
+            case 7:
+                return 'Nguy'
+            case 8:
+                return 'Thành'
+            case 9:
+                return 'Thu'
+            case 10:
+                return 'Khai'
+            case 11:
+                return 'Bế'
+        }
+    }
+
+    static getThapNhiBatTu(solarDate) {
+        let a, b, c;
+        a = moment('1/1/1995', 'Do/M/YYYY')
+        b = moment(solarDate.day+'/'+solarDate.month+'/'+solarDate.year, 'Do/M/YYYY')
+        c = b.diff(a, 'days');
+        switch(c % 28) {
+            case 0:
+                return 'Hư';
+            case 1: case -27:
+                return 'Nguy';
+            case 2: case -26:
+                return 'Thất';
+            case 3: case -25:
+                return 'Bích';
+            case 4: case -24:
+                return 'Khuê';
+            case 5: case -23:
+                return 'Lâu';
+            case 6: case -22:
+                return 'Vị';
+            case 7: case -21:
+                return 'Mão';
+            case 8: case -20:
+                return 'Tất';
+            case 9: case -19:
+                return 'Chuỷ';
+            case 10: case -18:
+                return 'Sâm';
+            case 11: case -17:
+                return 'Tỉnh';
+            case 12: case -16:
+                return 'Quỷ';
+            case 13: case -15:
+                return 'Liễu';
+            case 14: case -14:
+                return 'Tinh';
+            case 15: case -13:
+                return 'Trương';
+            case 16: case -12:
+                return 'Dực';
+            case 17: case -11:
+                return 'Chẩn';
+            case 18: case -10:
+                return 'Giác';
+            case 19: case -9:
+                return 'Cang';
+            case 20: case -8:
+                return 'Đê';
+            case 21: case -7:
+                return 'Phòng';
+            case 22: case -6:
+                return 'Tâm';
+            case 23: case -5:
+                return 'Vĩ';
+            case 24: case -4:
+                return 'Cơ';
+            case 25: case -3:
+                return 'Đẩu';
+            case 26: case -2:
+                return 'Ngưu';
+            case 27: case -1:
+                return 'Nữ';
+        }
     }
 
     static getChiTietQue(que) {
