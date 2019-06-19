@@ -3,13 +3,13 @@ import { View, StyleSheet, Text } from 'react-native';
 import { StdioDateHelper } from '../helper/StdioDateHelper';
 import { StdioLunarDate } from '../helper/StdioLunarDate';
 
+
 class Time extends React.Component {
     constructor(props) {
         super(props);
+        Text.defaultProps = Text.defaultProps || {};
+        Text.defaultProps.allowFontScaling = false;
     }
-
-
-
     render() {
         const { date } = this.props;
         let lunarDate = StdioDateHelper.convertSolarToLunar(date, 7.0);

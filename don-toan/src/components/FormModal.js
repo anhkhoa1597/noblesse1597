@@ -13,6 +13,11 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 class FormModal extends Component {
+  constructor(props) {
+    super(props);
+    Text.defaultProps = Text.defaultProps || {};
+    Text.defaultProps.allowFontScaling = false;
+  }
   static defaultProps = {
     height: 300, // 100% is a full
     backgroundColor: 'rgba(11,19,36,1)',

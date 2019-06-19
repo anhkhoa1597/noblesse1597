@@ -5,10 +5,11 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import { withRouter } from 'react-router-native';
 import { StdioDateHelper } from '../../helper/StdioDateHelper';
 
-
 class HintScreen extends React.Component {
     constructor() {
         super();
+        Text.defaultProps = Text.defaultProps || {};
+        Text.defaultProps.allowFontScaling = false;
     }
 
     render() {

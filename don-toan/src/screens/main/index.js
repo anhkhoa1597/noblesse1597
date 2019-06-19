@@ -26,11 +26,12 @@ class MainScreen extends React.Component {
             calendarLunar: [],
             modalVisible2: false,
         }
+        Text.defaultProps = Text.defaultProps || {};
+        Text.defaultProps.allowFontScaling = false;
     }
 
     componentDidMount() {
         StdioDateHelper.initMoment();
-
         this.props.headerBarActions.setTitle("Lịch");
         const toDay = StdioDateHelper.getCurrentDate();
         const currentDate = StdioDateHelper.getCurrentDate();
@@ -164,6 +165,7 @@ class MainScreen extends React.Component {
         let isSelectedDay = element.isThisDate(this.state.selectedDate);
         let lunarDate = StdioDateHelper.convertSolarToLunar(element, 7.0);
         let isBadDay = StdioDateHelper.isBadDay(lunarDate);
+        let isNgayHoangDao = StdioDateHelper.isNgayHoangDao(lunarDate);
 
         return (
             <View 
@@ -176,14 +178,26 @@ class MainScreen extends React.Component {
                 >
                     <View style={styles.dayLunarNumber}>
                         {
-                            StdioDateHelper.isLastLunarDateOfMonth(lunarDate) || lunarDate.lunarDay == 1 ? (
-                            <Text style={isBadDay ? styles.textMoonNumber : styles.textGoodMoonNumber}>
-                                {lunarDate.lunarDay}/{lunarDate.lunarMonth}
-                            </Text>
+                            isNgayHoangDao ? (
+                                StdioDateHelper.isLastLunarDateOfMonth(lunarDate) || lunarDate.lunarDay == 1 ? (
+                                <Text style={isBadDay ? styles.textMoonNumber : styles.textGoodMoonNumber}>
+                                    *{lunarDate.lunarDay}/{lunarDate.lunarMonth}
+                                </Text>
+                                ) : (
+                                <Text style={isBadDay ? styles.textMoonNumber : styles.textGoodMoonNumber}>
+                                    *{lunarDate.lunarDay}
+                                </Text>
+                                )
                             ) : (
-                            <Text style={isBadDay ? styles.textMoonNumber : styles.textGoodMoonNumber}>
-                                {lunarDate.lunarDay}
-                            </Text>
+                                StdioDateHelper.isLastLunarDateOfMonth(lunarDate) || lunarDate.lunarDay == 1 ? (
+                                <Text style={isBadDay ? styles.textMoonNumber : styles.textGoodMoonNumber}>
+                                    {lunarDate.lunarDay}/{lunarDate.lunarMonth}
+                                </Text>
+                                ) : (
+                                <Text style={isBadDay ? styles.textMoonNumber : styles.textGoodMoonNumber}>
+                                    {lunarDate.lunarDay}
+                                </Text>
+                                )
                             )
                         }
                     </View>

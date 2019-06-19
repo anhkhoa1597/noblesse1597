@@ -9,10 +9,11 @@ import { StdioDateHelper } from '../helper/StdioDateHelper';
 class Courtesy extends React.Component {
     constructor(props) {
         super(props);
+        Text.defaultProps = Text.defaultProps || {};
+        Text.defaultProps.allowFontScaling = false;
     }
-    
+
     componentDidMount() {
-        
     }
 
     render() {

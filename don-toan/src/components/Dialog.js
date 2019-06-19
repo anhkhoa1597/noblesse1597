@@ -30,6 +30,12 @@ const styles = StyleSheet.create({
 });
 
 class Dialog extends React.Component {
+    constructor(props) {
+        super(props);
+        Text.defaultProps = Text.defaultProps || {};
+        Text.defaultProps.allowFontScaling = false;
+    }
+    
     renderConfirm() {
         const { dialogActions } = this.props;
         const { confirmVisible } = this.props.dialog;

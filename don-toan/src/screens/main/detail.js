@@ -10,6 +10,7 @@ import Courtesy from '../../components/Courtesy'
 import Time from '../../components/Time'
 import { withRouter } from 'react-router-native';
 
+
 class DetailScreen extends React.Component {
     constructor() {
         super();
@@ -17,6 +18,8 @@ class DetailScreen extends React.Component {
             queDonLucNham : '',
             queDonBatMon : ''
         }
+        Text.defaultProps = Text.defaultProps || {};
+        Text.defaultProps.allowFontScaling = false;
     }
 
     goToHintScreen = () => {

@@ -4,7 +4,6 @@ import {StdioLunarDate} from './StdioLunarDate'
 import { StdioDate } from './StdioDate';
 
 export class StdioDateHelper {
-
     static initMoment() {
         require('moment/locale/vi');
         moment.locale();
@@ -1323,15 +1322,25 @@ export class StdioDateHelper {
         let jd = this.jdFromDate(date);
         let canDay = (jd + 9) % 10;
         let chiDay = (jd + 1) % 12;
-        
+        let truc = this.getThapNhiTruc(date);
+
+        switch(truc) {
+            case "Kiến": case "Bình": case "Chấp": case "Phá": case "Thu": case "Bế":
+                return true;
+        }
+        switch(this.getThapNhiBatTu(date)) {
+            case 'Giác': case 'Cang': case 'Lâu': case 'Khuê': case 'Đẩu': case 'Ngưu':
+                return true;
+        }
+
         switch (lunarDate.lunarMonth) {
             case 1:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 7: case 13: case 18: case 22: case 27: case 5: case 14: case 23:
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
                         return true;
                 }
                 switch (chiDay) {
-                    case 0: case 1: case 2: case 4: case 5: case 6: case 8: case 10: case 11:
+                    case 0: case 4: case 5: case 6: case 2: case 8:
                         return true;
                 }
                 if (canDay == 2 && chiDay == 10) {
@@ -1340,11 +1349,11 @@ export class StdioDateHelper {
                 break;
             case 2:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 7: case 11: case 13: case 18: case 22: case 27: case 5: case 14: case 23:
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27: case 11:
                         return true;
                 }
                 switch (chiDay) {
-                    case 0: case 1: case 3: case 4: case 5: case 6: case 8: case 9: case 10:
+                    case 1: case 0: case 4: case 5: case 6: case 3: case 5: case 8:
                         return true;
                 }
                 if (canDay == 8 && chiDay == 4) {
@@ -1353,11 +1362,11 @@ export class StdioDateHelper {
                 break;
             case 3:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 7: case 9: case 13: case 18: case 22: case 27: case 5: case 14: case 23:
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27: case 9:
                         return true;
                 }
                 switch (chiDay) {
-                    case 1: case 6: case 7: case 8: case 0: case 4: case 5:
+                    case 1: case 0: case 4: case 5: case 7: case 6: case 8:
                         return true;
                 }
                 if (canDay == 7 && chiDay == 11) {
@@ -1366,11 +1375,11 @@ export class StdioDateHelper {
                 break;
             case 4:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 7: case 13: case 18: case 22: case 27: case 5: case 14: case 23:
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
                         return true;
                 }
                 switch (chiDay) {
-                    case 0: case 2: case 3: case 4: case 9: case 10: case 11: case 7: case 9:
+                    case 3: case 1: case 9: case 11: case 10: case 7: case 2:
                         return true;
                 }
                 if (canDay == 3 && chiDay == 5) {
@@ -1379,11 +1388,11 @@ export class StdioDateHelper {
                 break;
             case 5:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 5: case 7: case 13: case 18: case 22: case 27: case 14: case 23:
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
                         return true;
                 }
                 switch (chiDay) {
-                    case 0: case 1: case 2: case 3: case 4: case 8: case 7: case 10: case 11:
+                    case 4: case 8: case 1: case 0: case 3: case 11: case 10: case 7:  case 2:
                         return true;
                 }
                 if (canDay == 4 && chiDay == 0) {
@@ -1392,11 +1401,11 @@ export class StdioDateHelper {
                 break;
             case 6:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 7: case 13: case 18: case 22: case 27: case 5: case 14: case 23:
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
                         return true;
                 }
                 switch (chiDay) {
-                    case 0: case 2: case 3: case 4: case 6: case 7: case 8: case 9: case 10: case 11:
+                    case 4: case 11: case 10: case 7: case 1: case 9: case 6:  case 2: case 3:
                         return true;
                 }
                 if (canDay == 2 && chiDay == 6) {
@@ -1405,11 +1414,11 @@ export class StdioDateHelper {
                 break;
             case 7:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 7: case 8: case 13: case 18: case 22: case 27: case 29: case 5: case 14: case 23:
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27: case 8: case 29:
                         return true;
                 }
                 switch (chiDay) {
-                    case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7: case 9: case 11:
+                    case 1: case 11: case 9: case 6: case 2: case 3: case 4: case 0:
                         return true;
                 }
                 if (canDay == 1 && chiDay == 1) {
@@ -1418,11 +1427,11 @@ export class StdioDateHelper {
                 break;
             case 8:
                 switch (lunarDate.lunarDay) {
-                    case 3:  case 7: case 13: case 18: case 22: case 27: case 5: case 14: case 23:
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
                         return true;
                 }
                 switch (chiDay) {
-                    case 0: case 1: case 2: case 3: case 4: case 9: case 2: case 6:
+                    case 4: case 1: case 9: case 6: case 2: case 3: case 0:
                         return true;
                 }
                 if (canDay == 9 && chiDay == 7) {
@@ -1431,11 +1440,11 @@ export class StdioDateHelper {
                 break;
             case 9:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 7: case 13: case 18: case 22: case 25: case 27: case 5: case 14: case 23:
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27: case 25:
                         return true;
                 }
                 switch (chiDay) {
-                    case 0: case 1: case 4: case 6: case 9: case 2: case 3: case 11:
+                    case 1: case 6: case 2: case 3: case 9: case 0: case 4:
                         return true;
                 }
                 if (canDay == 0 && chiDay == 2) {
@@ -1444,11 +1453,11 @@ export class StdioDateHelper {
                 break;
             case 10:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 7: case 13: case 18: case 22: case 23: case 27: case 5: case 14:
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27:
                         return true;
                 }
                 switch (chiDay) {
-                    case 1:  case 3: case 4: case 5: case 7: case 8: case 9: case 10:
+                    case 4: case 1: case 8: case 9: case 3: case 7: case 5:
                         return true;
                 }
                 if (canDay == 4 && chiDay == 8) {
@@ -1457,11 +1466,11 @@ export class StdioDateHelper {
                 break;
             case 11:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 7: case 13: case 18: case 22: case 27: case 21: case 5: case 14: case 23:
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27: case 21:
                         return true;
                 }
                 switch (chiDay) {
-                    case 1: case 2: case 3: case 5: case 6: case 7: case 8: case 9: case 10:
+                    case 7: case 2: case 3: case 5: case 6: case 1: case 8: case 9: case 10:
                         return true;
                 }
                 if (canDay == 7 && chiDay == 3) {
@@ -1470,11 +1479,11 @@ export class StdioDateHelper {
                 break;
             case 12:
                 switch (lunarDate.lunarDay) {
-                    case 3: case 7: case 13: case 18: case 19: case 22: case 27: case 5: case 14: case 23:
+                    case 3: case 5: case 7: case 13: case 14: case 18: case 22: case 23: case 27: case 19:
                         return true;
                 }
                 switch (chiDay) {
-                    case 1: case 2: case 3: case 4: case 5: case 8: case 9:
+                    case 4: case 3: case 5: case 1: case 8: case 9:
                         return true;
                 }
                 if (canDay == 7 && chiDay == 9) {
@@ -1643,12 +1652,8 @@ export class StdioDateHelper {
                 }
 
         }
-        switch(this.getThapNhiBatTu(date)) {
-            case 'Giác': case 'Cang': case 'Lâu': case 'Khuê': case 'Đẩu': case 'Ngưu':
-                return true;
-        }
+        
         return false;
-
     }
 
     static getHoangDaoForLunarDay(lunarDate){
@@ -1720,6 +1725,52 @@ export class StdioDateHelper {
             case 11:
                 return 'Câu Trận Hắc Đạo'
         }
+    }
+
+    static isNgayHoangDao(lunarDate) {
+        const solarDate = this.convertLunarToSolar(lunarDate, 7.0);
+        let jd = this.jdFromDate(solarDate);
+        let hoangDao;
+        switch (lunarDate.lunarMonth) {
+            case 11:
+                hoangDao = 8;
+                break;
+            case 12:
+                hoangDao = 10;
+                break;
+            case 1:
+                hoangDao = 0;
+                break;
+            case 2:
+                hoangDao = 2;
+                break;
+            case 3:
+                hoangDao = 4;
+                break;
+            case 4:
+                hoangDao = 6;
+                break;
+            case 5:
+                hoangDao = 8;
+                break;
+            case 6:
+                hoangDao = 10;
+                break;
+            case 7:
+                hoangDao = 0;
+                break;
+            case 8:
+                hoangDao = 2;
+                break;
+            case 9:
+                hoangDao = 4;
+                break;
+            case 10:
+                hoangDao = 6;
+                break;
+        }
+        let isNgayHoangDao = [true, true, false, false, true, true, false, true, false, false, true, false]
+        return isNgayHoangDao[(jd + 1 - hoangDao) % 12];
     }
 
     static getHoangDaoForHour(solarDate, time) {

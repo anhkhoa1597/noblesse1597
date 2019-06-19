@@ -26,7 +26,12 @@ const styles = StyleSheet.create({
 });
 
 class FooterBar extends React.Component {
-
+    constructor(props) {
+        super(props);
+        Text.defaultProps = Text.defaultProps || {};
+        Text.defaultProps.allowFontScaling = false;
+    }
+    
     render() {
         return (
             <View style={styles.footer}>

@@ -3,9 +3,8 @@ import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { withRouter } from 'react-router-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-
 import _ from 'lodash';
+
 
 const styles = StyleSheet.create({
     header: {
@@ -45,6 +44,11 @@ const styles = StyleSheet.create({
 });
 
 class HeaderBar extends React.Component {
+    constructor(props) {
+        super(props);
+        Text.defaultProps = Text.defaultProps || {};
+        Text.defaultProps.allowFontScaling = false;
+    }
     render() {
         const { title, actionCallback, visible, history } = this.props;
         const { pathname } = this.props.location;
