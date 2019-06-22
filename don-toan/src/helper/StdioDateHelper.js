@@ -1328,10 +1328,6 @@ export class StdioDateHelper {
             case "Kiến": case "Bình": case "Chấp": case "Phá": case "Thu": case "Bế":
                 return true;
         }
-        switch(this.getThapNhiBatTu(date)) {
-            case 'Giác': case 'Cang': case 'Lâu': case 'Khuê': case 'Đẩu': case 'Ngưu':
-                return true;
-        }
 
         switch (lunarDate.lunarMonth) {
             case 1:
