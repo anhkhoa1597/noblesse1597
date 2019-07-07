@@ -7,13 +7,12 @@ import { bindDialogActions } from '../../redux/actions/dialog';
 import { channingActions } from "../../helpers";
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Icon2 from 'react-native-vector-icons/FontAwesome5'
 import DatePicker from 'react-native-datepicker';
 import  { arrMoon } from "../../../assets"
 import {StdioDate} from '../../helper/StdioDate';
 import {StdioMonthYear} from '../../helper/StdioMonthYear';
 import { StdioDateHelper } from '../../helper/StdioDateHelper';
-import FormModal from '../../components/FormModal'
+
 
 class MainScreen extends React.Component {
     constructor() {
@@ -323,6 +322,7 @@ class MainScreen extends React.Component {
                         <DatePicker
                             style={{height: 50, borderRadius: 25, marginRight: 20, marginTop: 20,width: 150, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white'}}
                             date={datePicker}
+                            allowFontScaling={false}
                             mode="date"
                             placeholder="Select date"
                             format="DD-MM-YYYY"

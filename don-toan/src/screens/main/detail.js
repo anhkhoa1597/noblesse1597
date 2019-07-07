@@ -66,6 +66,7 @@ class DetailScreen extends React.Component {
                         label: 'Bát Môn...',
                         value: null,
                     }}
+                    allowFontScaling={false}
                     useNativeAndroidPickerStyle={false}
                     items={[
                         {

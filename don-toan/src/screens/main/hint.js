@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Col, Row, Grid } from "react-native-easy-grid";
 import { withRouter } from 'react-router-native';
 import { StdioDateHelper } from '../../helper/StdioDateHelper';
 

@@ -1,4 +1,4 @@
-package com.rnboilerplate;
+package vn.org.lyhocdongphuong.lvdt;
 
 import com.facebook.react.ReactActivity;
 
