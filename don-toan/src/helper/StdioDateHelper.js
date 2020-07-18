@@ -1823,7 +1823,7 @@ export class StdioDateHelper {
             case 1:
                 return {color: '#FFD702', text: 'Minh Đường'}
             case 2:
-                return {color: '#777', text: 'Thiên hình'}
+                return {color: '#777', text: 'Thiên Hình'}
             case 3:
                 return {color: '#777', text: 'Chu Tước'}
             case 4:
