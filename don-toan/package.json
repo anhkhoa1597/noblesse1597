@@ -9,7 +9,7 @@
     "android": "react-native run-android"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "i18next": "^15.0.9",
     "immutable": "^4.0.0-rc.12",
     "lodash": "^4.17.11",
